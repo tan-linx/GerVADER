@@ -257,7 +257,6 @@ class SentimentIntensityAnalyzer {
     }
 
     val butIndex: Int = if (containsBUT) wordsAndEmoticons.indexOf("BUT") else wordsAndEmoticons.indexOf("but")
-    print(sentiments)
 
     val result = for ((sentiment: Double, i: Int) <- sentiments.view.zipWithIndex) yield {
       if (i < butIndex) {

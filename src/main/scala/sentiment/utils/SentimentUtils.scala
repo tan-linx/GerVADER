@@ -155,7 +155,6 @@ private[sentiment] object SentimentUtils {
     } else if (normScore > 1.0) {
       1.0
     } else {
-
       normScore
     }
   }
