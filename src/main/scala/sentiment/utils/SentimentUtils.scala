@@ -110,34 +110,44 @@ private[sentiment] object SentimentUtils {
    * @return
    */
   def negated(inputWords: List[String], includenT: Boolean = true): Boolean = {
-    for (word <- negate) {
-      if (inputWords.contains(word)) {
-        return true
-      }
-    }
+    val inputWordsLC = inputWords.map(_.toLowerCase())
 
-    for (word <- negate) {
-      if (inputWords.contains(word)) {
-        return true
-      }
-    }
+    if (containsNegation(inputWordsLC, negate)) return true
 
-    if (includenT) {
-      for (word <- inputWords) {
-        if (word.contains("n't")) {
-          return true
-        }
-      }
-    }
+    if (includenT && containsnT(inputWordsLC)) return true
 
-    if (inputWords.contains("least")) {
+    /* if (inputWords.contains("least")) {
       val i = inputWords.indexOf("least")
       if (i > 0 && inputWords(i - 1) != "at") {
         return true
       }
-    }
-
+    } */
     false
+  }
+
+  /**
+   * Helper to determine if input contains negation words
+   *
+   * @param inputWords
+   * @param negations
+   * @return
+   */
+  private def containsNegation(inputWords: List[String], negations: List[String]): Boolean = {
+    if (inputWords.contains(negations.head)) true
+    else if (negations.tail == List.empty) false
+    else containsNegation(inputWords, negations.tail)
+  }
+
+  /**
+   * Helper to determine if input contains nt
+   *
+   * @param inputWords
+   * @return
+   */
+  private def containsnT(inputWords: List[String]): Boolean = {
+    if (inputWords.head.contains("n't")) true
+    else if (inputWords.tail == List.empty) false
+    else containsnT(inputWords.tail)
   }
 
   /**
