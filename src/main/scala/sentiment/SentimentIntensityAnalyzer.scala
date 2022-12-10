@@ -79,7 +79,7 @@ class SentimentIntensityAnalyzer {
     if (!lexicon.contains(itemLowerCase)) {
       sentiments += valence
       return (valence, sentiments)
-    }
+    } //check
 
     val isCapDiff: Boolean = sentiText.isCapDifferential
     val wordsAndEmoticons = sentiText.wordsAndEmoticons
@@ -154,13 +154,12 @@ class SentimentIntensityAnalyzer {
   }
 
   def idiomsCheck(valenc: Double, wordsAndEmoticons: Seq[String], i: Int): Double = {
+    // todo: check negative indices
 
     var valence = valenc
-
     val oneZero = wordsAndEmoticons(i - 1).concat(" ").concat(wordsAndEmoticons(i))
     val twoOneZero = wordsAndEmoticons(i - 2)
       .concat(" ").concat(wordsAndEmoticons(i - 1)).concat(" ").concat(wordsAndEmoticons(i))
-
     val twoOne = wordsAndEmoticons(i - 2)
       .concat(" ").concat(wordsAndEmoticons(i - 1))
     val threeTwoOne = wordsAndEmoticons(i - 3)
@@ -191,11 +190,17 @@ class SentimentIntensityAnalyzer {
         valence = SentimentUtils.specialCaseIdioms(zeroOneTwo)
       }
     }
-    if (SentimentUtils.boosterDict.contains(threeTwo) || SentimentUtils.boosterDict.contains(twoOne)) {
-      valence += SentimentUtils.BDecr
-    }
 
-    valence
+    // check for booster/dampener bi-grams such as 'sort of' or 'kind of'
+    val potentialBooster = Array(threeTwoOne, threeTwo, twoOne)
+    checkBooster(potentialBooster, valence)
+  }
+
+  private def checkBooster(potentialBooster: Array[String], valence: Double): Double = {
+    val word = potentialBooster.head
+    if (SentimentUtils.boosterDict.contains(word)) valence+SentimentUtils.boosterDict.getOrElse(word, 0.0)
+    else if (potentialBooster.tail.size == 0) valence
+    else checkBooster(potentialBooster.tail, valence)
   }
 
   def leastCheck(valenc: Double, wordsAndEmoticons: Seq[String], i: Int): Double = {
@@ -216,55 +221,51 @@ class SentimentIntensityAnalyzer {
   }
 
   def neverCheck(valenc: Double, wordsAndEmoticons: Seq[String], startI: Int, i: Int): Double = {
+    val wordsAndEmoticonsLower = wordsAndEmoticons.map(_.toLowerCase())
 
     var valence = valenc
     startI match {
       case 0 => {
-        val list = List(wordsAndEmoticons(i - 1))
+        val list = List(wordsAndEmoticonsLower(i - 1)) // 1 word preceding lexicon word (w/o stopwords)
         if (SentimentUtils.negated(list)) {
           valence = valence * SentimentUtils.NScalar
         }
       }
       case 1 => {
-        if (wordsAndEmoticons(i - 2) == "never" &&
-          (wordsAndEmoticons(i - 1) == "so" || wordsAndEmoticons(i - 1) == "this")) {
-          valence = valence * 1.5
-        } else if (SentimentUtils.negated(List(wordsAndEmoticons(i - (startI + 1))))) {
+        if (wordsAndEmoticonsLower(i - 2) == "never" &&
+          (wordsAndEmoticonsLower(i - 1) == "so" || wordsAndEmoticonsLower(i - 1) == "this")) {
+          valence = valence * 1.25
+        } else if (SentimentUtils.negated(List(wordsAndEmoticonsLower(i - (startI + 1))))) { // 2 words preceding the lexicon word position
           valence = valence * SentimentUtils.NScalar
         }
       }
       case 2 => {
-        if (wordsAndEmoticons(i - 3) == "never"
-          && (wordsAndEmoticons(i - 2) == "so" || wordsAndEmoticons(i - 2) == "this")
-          || (wordsAndEmoticons(i - 1) == "so" || wordsAndEmoticons(i - 1) == "this")) {
+        if (wordsAndEmoticonsLower(i - 3) == "never"
+          && (wordsAndEmoticonsLower(i - 2) == "so" || wordsAndEmoticonsLower(i - 2) == "this")
+          || (wordsAndEmoticonsLower(i - 1) == "so" || wordsAndEmoticonsLower(i - 1) == "this")) {
           valence = valence * 1.25
-        } else if (SentimentUtils.negated(List(wordsAndEmoticons(i - (startI + 1))))) {
+        } else if (SentimentUtils.negated(List(wordsAndEmoticonsLower(i - (startI + 1))))) { //  3 words preceding the lexicon word position
           valence = valence * SentimentUtils.NScalar
         }
       }
     }
-
     valence
   }
 
   def butCheck(wordsAndEmoticons: Seq[String], sentiments: ListBuffer[Double]): ListBuffer[Double] = {
+    val wordsAndEmoticonsLower = wordsAndEmoticons.map(_.toLowerCase())
 
-    val containsBUT: Boolean = wordsAndEmoticons.contains("BUT")
-    val containsbut: Boolean = wordsAndEmoticons.contains("but")
-
-    if (!containsBUT && !containsbut) {
+    if (!wordsAndEmoticonsLower.contains("but")) {
       return sentiments
     }
 
-    val butIndex: Int = if (containsBUT) wordsAndEmoticons.indexOf("BUT") else wordsAndEmoticons.indexOf("but")
+    val butIndex: Int = wordsAndEmoticonsLower.indexOf("but")
 
-    val result = for ((sentiment: Double, i: Int) <- sentiments.view.zipWithIndex) yield {
-      if (i < butIndex) {
-        sentiment * 0.5
-      } else if (i > butIndex) {
-        sentiment * 1.5
-      } else sentiment
-    }
+    val result = sentiments.view.zipWithIndex.map((sentiment: Double, i: Int) => {
+      if (i < butIndex) sentiment * 0.5
+      else if (i > butIndex) sentiment * 1.5
+      else sentiment
+    })
     result.toList.to(ListBuffer)
   }
 

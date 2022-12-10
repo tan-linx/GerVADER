@@ -36,9 +36,32 @@ class SentimentUtilsTest extends AnyFlatSpec with should.Matchers {
     SentimentUtils.isUpper("Vader") shouldEqual false
   }
 
-  "SentimentText" should "negated" in {
+  "SentimentUtils" should "negated" in {
+    SentimentUtils.negated(List("It", "isn't", "a", "horrible", "book"), true) shouldEqual true
+    SentimentUtils.negated(List("I", "am", "not", "mad")) shouldEqual true
+    SentimentUtils.negated(List("You", "are", "mad")) shouldEqual false
   }
 
-  "SentimentText" should "scalarIncDec" in {
+  "SentimentUtils" should "scalarIncDec" in {
+    // dampener
+    SentimentUtils.scalarIncDec("kinda", 1, false) shouldEqual -0.293
+    SentimentUtils.scalarIncDec("little", -1, false) shouldEqual 0.293
+
+    // booster
+    SentimentUtils.scalarIncDec("absolutely", 1, true) shouldEqual 0.293
+    SentimentUtils.scalarIncDec("completely", -1, true) shouldEqual -0.293
+
+    // booster is ALLCAPS & no cap differential
+    SentimentUtils.scalarIncDec("FABULOUSLY", 1, false) shouldEqual 0.293
+    SentimentUtils.scalarIncDec("FABULOUSLY", -1, false) shouldEqual -0.293
+
+    // dampener word is ALLCAPS & cap differential
+    // 0.733 = (empirically derived mean sentiment intensity
+    // rating increase for using ALLCAPs to emphasize a word)
+    SentimentUtils.scalarIncDec("BARELY", 1, true) shouldEqual -0.293+0.733
+    SentimentUtils.scalarIncDec("BARELY", -1, true) shouldEqual 0.293-0.733
+
+    // word is not in booster dic
+    SentimentUtils.scalarIncDec("lol", -1, true) shouldEqual 0.0
   }
 }
