@@ -43,18 +43,21 @@ class SentimentIntensityAnalyzer {
    * @return
    */
   def polarityScores(input: String): SentimentAnalysisResults = {
+    // todo: convert emojis to their textual descriptions
+
     val sentiText: SentiText = new SentiText(input)
     var sentiments: ListBuffer[Double] = ListBuffer[Double]()
 
-    val wordsAndEmoticons = sentiText.wordsAndEmoticons
+    val wordsAndEmoticons: Seq[String] = sentiText.wordsAndEmoticons
 
     breakable {
       for ((item, i) <- wordsAndEmoticons.view.zipWithIndex) {
-
+        // append valence 0 if word is not in lexikon
         var valence: Double = 0
-
-        if (i < wordsAndEmoticons.size - 1
-          && item.toLowerCase() == "kind" && wordsAndEmoticons(i + 1) == "of"
+        // check for vader_lexicon words that may be used as modifiers or negations and turn their valence to 0
+        if ((i < wordsAndEmoticons.size - 1 &&
+             item.toLowerCase() == "kind" &&
+             wordsAndEmoticons(i + 1) == "of")
           || SentimentUtils.boosterDict.contains(item.toLowerCase())) {
           sentiments += valence
           break()
@@ -66,11 +69,23 @@ class SentimentIntensityAnalyzer {
       }
     }
 
+    /* val (_valence, _sentiments) = valenceAndSentiments(wordsAndEmoticons.view.zipWithIndex.toList, sentiText, sentiments)
+    sentiments = _sentiments */
     sentiments = butCheck(wordsAndEmoticons, sentiments)
 
     scoreValence(sentiments, input)
   }
 
+  /**
+   * Return metrics for positive, negative and neutral sentiment based on the input text.
+   *
+   * @param valenc valence of word
+   * @param sentiText text that contains item
+   * @param item item that sentiment valence is being calculated for
+   * @param i index of item in sentiText
+   * @param sentiments already calculated sentiments of text
+   * @return item's valence and sentiments list appended with items valence
+   */
   def sentimentValence(valenc: Double, sentiText: SentiText,
     item: String, i: Int, sentiments: ListBuffer[Double]): (Double, ListBuffer[Double]) = {
 
@@ -131,7 +146,8 @@ class SentimentIntensityAnalyzer {
     var sum: Double = sentiments.sum
     var puncAmplifier: Double = punctuationEmphasis(text)
 
-    sum += scala.math.signum(sum) * puncAmplifier //Sign
+    // add emphasis for puncutation
+    sum += scala.math.signum(sum) * puncAmplifier
 
     val compound: Double = SentimentUtils.normalize(sum)
     val sifted: SiftSentiments = siftSentimentScores(sentiments)
@@ -150,7 +166,6 @@ class SentimentIntensityAnalyzer {
       negative = roundWithDecimalPlaces(scala.math.abs(sifted.negSum / total), 3),
       neutral = roundWithDecimalPlaces(scala.math.abs(sifted.neuCount / total), 3)
     )
-
   }
 
   def idiomsCheck(valenc: Double, wordsAndEmoticons: Seq[String], i: Int): Double = {
@@ -194,13 +209,6 @@ class SentimentIntensityAnalyzer {
     // check for booster/dampener bi-grams such as 'sort of' or 'kind of'
     val potentialBooster = Array(threeTwoOne, threeTwo, twoOne)
     checkBooster(potentialBooster, valence)
-  }
-
-  private def checkBooster(potentialBooster: Array[String], valence: Double): Double = {
-    val word = potentialBooster.head
-    if (SentimentUtils.boosterDict.contains(word)) valence+SentimentUtils.boosterDict.getOrElse(word, 0.0)
-    else if (potentialBooster.tail.size == 0) valence
-    else checkBooster(potentialBooster.tail, valence)
   }
 
   def leastCheck(valenc: Double, wordsAndEmoticons: Seq[String], i: Int): Double = {
@@ -269,40 +277,64 @@ class SentimentIntensityAnalyzer {
     result.toList.to(ListBuffer)
   }
 
+  private def checkBooster(potentialBooster: Array[String], valence: Double): Double = {
+    val word = potentialBooster.head
+    if (SentimentUtils.boosterDict.contains(word)) valence+SentimentUtils.boosterDict.getOrElse(word, 0.0)
+    else if (potentialBooster.tail.size == 0) valence
+    else checkBooster(potentialBooster.tail, valence)
+  }
+
+  /**
+    * Add emphasis from exclamation points and question marks
+    *
+    * @param text
+    * @return
+    */
   private def punctuationEmphasis(text: String): Double = {
     amplifyExclamation(text) + amplifyQuestion(text)
   }
 
   private def amplifyExclamation(text: String): Double = {
+    // check for added emphasis resulting from exclamation points (up to 4 of them)
     var epCount: Int = text.count(x => x == '!')
 
     if (epCount > 4) {
       epCount = 4
     }
 
+    // (empirically derived mean sentiment intensity rating increase for
+    // exclamation points)
     epCount * ExclIncr
   }
 
+  /**
+    * check for added emphasis resulting from question marks (2 or 3+)
+    *
+    * @param text
+    * @return
+    */
   private def amplifyQuestion(text: String): Double = {
     val qmCount: Int = text.count(x => x == '?')
 
-    if (qmCount < 1) {
-      return 0
-    }
-
-    if (qmCount <= 3) {
+    if (qmCount < 2) return 0 // no or 1
+    else if (qmCount <= 3) { // 2 or 3
       return qmCount * QuesIncrSmall
+    } else { // 3+ question marks
+       QuesIncrLarge
     }
-
-    QuesIncrLarge
   }
 
+  /**
+   * separate positive versus negative sentiment scores
+   * @param sentiments
+   * @return
+   */
   private def siftSentimentScores(sentiments: Seq[Double]): SiftSentiments = {
     val siftSentiments = SiftSentiments()
 
     for (sentiment <- sentiments) {
       if (sentiment > 0) {
-        siftSentiments.posSum += (sentiment + 1); //1 compensates for neutrals
+        siftSentiments.posSum += (sentiment + 1); // compensates for neutral words that are counted as 1
       }
 
       if (sentiment < 0) {
@@ -324,5 +356,29 @@ class SentimentIntensityAnalyzer {
       case 3 => (value * 1000).round / 1000.toDouble
       case 4 => (value * 10000).round / 10000.toDouble
     }
+  }
+
+  private def valenceAndSentiments(
+    wordsAndEmoticons: List[(String, Int)],
+    sentiText: SentiText,
+    _sentiments: ListBuffer[Double]): (Double, ListBuffer[Double]) = {
+    var sentiments = _sentiments
+    val item = wordsAndEmoticons.head._1
+    val i = wordsAndEmoticons.head._2
+    var valence: Double = 0
+    // check for vader_lexicon words that may be used as modifiers or negations and turn their valence to 0
+    if ((i < wordsAndEmoticons.size - 1 &&
+          item.toLowerCase() == "kind" &&
+          wordsAndEmoticons(i + 1)._1 == "of")
+      || SentimentUtils.boosterDict.contains(item.toLowerCase())) {
+      sentiments += valence
+    } else {
+      val (_valence, _sentiments) = sentimentValence(valence, sentiText, item, i, sentiments)
+      valence = _valence
+      sentiments = _sentiments
+    }
+
+    if (wordsAndEmoticons.tail == List.empty) (valence, sentiments)
+    else valenceAndSentiments(wordsAndEmoticons.tail, sentiText, sentiments)
   }
 }

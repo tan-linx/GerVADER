@@ -18,12 +18,6 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     standardGoodTest.positive shouldEqual 0.746
     standardGoodTest.compound shouldEqual 0.8316
 
-    val kindOfTest = analyzer.polarityScores("The book was kind of good.")
-    print(kindOfTest)
-    kindOfTest.negative shouldEqual 0
-    //kindOfTest.neutral shouldEqual 0.657
-    //kindOfTest.positive shouldEqual 0.343
-    //kindOfTest.compound shouldEqual 0.3832
 
     val complexTest = analyzer.polarityScores("The plot was good, but the characters are uncompelling and the dialog is not great.")
     complexTest.negative shouldEqual 0.327
@@ -33,10 +27,19 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
 
     //it isn't a horrible book.---------------------------------------- {'neg': 0.0, 'neu': 0.584, 'pos': 0.416, 'compound': 0.431}
     val negationTest = analyzer.polarityScores("it isn't a horrible book.")
+    negationTest.compound shouldEqual 0.431
     negationTest.negative shouldEqual 0.0
     negationTest.neutral shouldEqual 0.584
     negationTest.positive shouldEqual 0.416
-    negationTest.compound shouldEqual 0.431
+
+    // check negative index of idiomscheck
+    val kindOfTest = analyzer.polarityScores("The book was kind of good.")
+    print(kindOfTest)
+    kindOfTest.negative shouldEqual 0
+    //kindOfTest.neutral shouldEqual 0.657
+    //kindOfTest.positive shouldEqual 0.343
+    kindOfTest.compound shouldEqual 0.3832
+
   }
 
   "A SentimentIntensityAnalyzer" should "neverCheck" in {
@@ -56,18 +59,6 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     analyzer.neverCheck(1.0, Seq("I", "was", "never", "so", "thankful", "to", "see", "a", "friendly", "face"), 2, 4) shouldEqual 1.25
     analyzer.neverCheck(1.0, Seq("I", "was", "never", "this", "thankful", "to", "see", "a", "friendly", "face"), 2, 4) shouldEqual 1.25
     analyzer.neverCheck(1.0, Seq("I", "like", "you"), 0, 1) shouldEqual 1.0
-  }
-
-
-  "A SentimentIntensityAnalyzer" should "sentimentValence" in {
-    //(valenc: Double, sentiText: SentiText, item: String, i: Int, sentiments: ListBuffer[Double])
-    val analyzer = new SentimentIntensityAnalyzer()
-    // lexikon does not contain item
-    analyzer.sentimentValence(1.0, new SentiText("It isn't a horrible book."), "book", 4, ListBuffer(1.85)) shouldEqual (1.0, ListBuffer(1.85, 1.0)) //normalized 0.67082
-    // lexikon contains item never check
-    analyzer.sentimentValence(1.0, new SentiText("It isn't a horrible book."), "horrible", 3, ListBuffer()) shouldEqual (1.85, ListBuffer(1.85)) // nevercheck -0.74*-2.0
-    // weird results not equal to original vader
-    //analyzer.sentimentValence(0.0, new SentiText("It isn't a incredibly horrible book."), "horrible", 4, ListBuffer(0.0, 0, 0, 2.06682)) shouldEqual (2.06682, ListBuffer(0.0, 0, 0, 2.06682))
   }
 
   "A SentimentIntensityAnalyzer" should "butCheck" in {
@@ -106,8 +97,78 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     analyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 4) shouldEqual 0
   }
 
+  "A SentimentIntensityAnalyzer" should "scoreValence" in {
+    val analyzer = new SentimentIntensityAnalyzer()
+    // no sentimens
+    analyzer.scoreValence(Seq(), "Idk. ") shouldEqual SentimentAnalysisResults(
+      compound = 0.0,
+      positive = 0.0,
+      negative = 0.0,
+      neutral = 0.0
+    )
+
+    // no exclamation
+    analyzer.scoreValence(Seq(1.85), "it isn't a horrible book.") shouldEqual SentimentAnalysisResults(
+      compound = 0.431,
+      positive = 1.0,
+      negative = 0.0,
+      neutral = 0.0
+    )
+
+    // punctuation emphasis
+    // question emphasis
+    // 0 or 1
+    analyzer.scoreValence(Seq(1.7, 1.1), "Do you support the sanctions as well?") shouldEqual SentimentAnalysisResults(
+      compound = 0.5859,
+      positive = 1.0,
+      negative = 0.0,
+      neutral = 0.0
+    )
+    // 2-3
+     analyzer.scoreValence(Seq(1.7, 1.1), "Do you support the sanctions as well??") shouldEqual SentimentAnalysisResults(
+      compound = 0.6322,
+      positive = 1.0,
+      negative = 0.0,
+      neutral = 0.0
+    )
+
+    // 3+
+    analyzer.scoreValence(Seq(1.7, 1.1), "Do you support the sanctions as well????") shouldEqual SentimentAnalysisResults(
+      compound = 0.6966,
+      positive = 1.0,
+      negative = 0.0,
+      neutral = 0.0
+    )
+
+    // exclamation emphasis
+    analyzer.scoreValence(Seq(-1.9), "Sanctions suck!!!") shouldEqual SentimentAnalysisResults(
+      compound = -0.5826,
+      positive = 0.0,
+      negative = 1.0,
+      neutral = 0.0
+    )
+
+    // more than 4 exclamation points
+    val fourExclValence = analyzer.scoreValence(Seq(-1.9), "Sanctions suck!!!!")
+    analyzer.scoreValence(Seq(-1.9), "Sanctions suck!!!!!!") shouldEqual fourExclValence
+  }
+
+  "A SentimentIntensityAnalyzer" should "sentimentValence" in {
+    val analyzer = new SentimentIntensityAnalyzer()
+    // lexikon does not contain item
+    analyzer.sentimentValence(1.0, new SentiText("It isn't a horrible book."), "book", 4, ListBuffer(1.85)) shouldEqual (1.0, ListBuffer(1.85, 1.0))
+    // lexikon contains item never check
+    analyzer.sentimentValence(1.0, new SentiText("It isn't a horrible book."), "horrible", 3, ListBuffer()) shouldEqual (1.85, ListBuffer(1.85)) // nevercheck -0.74*-2.0
+    // weird results not equal to original vader
+    analyzer.sentimentValence(0.0, new SentiText("It isn't a incredibly horrible book."), "horrible", 4, ListBuffer(0.0, 2, 3)) shouldEqual (2.06682, ListBuffer(0.0, 2, 3, 2.06682))
+  }
+
+  "A SentimentIntensityAnalyzer" should "makeLexDict" in {
+    val analyzer = new SentimentIntensityAnalyzer()
+    val lexikon = analyzer.makeLexDict()
+    lexikon("$:") shouldEqual -1.5
+  }
   /**
-   * leastcheck and special case idioms
     "A SentimentIntensityAnalyzer" should "calculate polarity scores (German)" in {
     val analyzer = new SentimentIntensityAnalyzer
 
