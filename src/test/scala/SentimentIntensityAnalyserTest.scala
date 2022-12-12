@@ -47,6 +47,20 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     onlyKindOfTest.negative shouldEqual 0.0
     onlyKindOfTest.neutral shouldEqual 0.697
     onlyKindOfTest.positive shouldEqual 0.303
+
+    analyzer.polarityScores("Without a doubt, an excellent idea").compound shouldEqual 0.7013
+    analyzer.polarityScores("With VADER, sentiment analysis is the shit!").compound shouldEqual 0.6476
+    analyzer.polarityScores("On the other hand, VADER is quite bad ass").compound shouldEqual 0.802
+    analyzer.polarityScores("Sentiment analysis has never been this good!").compound shouldEqual 0.5672
+    analyzer.polarityScores("Most automated sentiment analysis tools are shit.").compound shouldEqual -0.5574
+    analyzer.polarityScores("Other sentiment analysis tools can be quite bad.").compound shouldEqual -0.5849
+    analyzer.polarityScores("Roger Dodger is one of the most compelling variations on this theme.").compound shouldEqual 0.2944
+    analyzer.polarityScores("Roger Dodger is at least compelling as a variation on the theme.").compound shouldEqual 0.2263
+    analyzer.polarityScores(" Not such a badass after all.").compound shouldEqual -0.2584
+    analyzer.polarityScores("VADER is very smart, handsome, and funny").compound shouldEqual 0.8545
+    analyzer.polarityScores("VADER is VERY SMART, handsome, and FUNNY.").compound shouldEqual 0.9227
+    analyzer.polarityScores("VADER is VERY SMART, uber handsome, and FRIGGIN FUNNY!!!").compound shouldEqual 0.9469
+    analyzer.polarityScores("Today SUX!").compound shouldEqual -0.5461
   }
 
   "A SentimentIntensityAnalyzer" should "neverCheck" in {

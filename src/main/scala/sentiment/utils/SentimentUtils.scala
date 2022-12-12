@@ -125,30 +125,6 @@ private[sentiment] object SentimentUtils {
     false
   }
 
-  /**
-   * Helper to determine if input contains negation words
-   *
-   * @param inputWords
-   * @param negations
-   * @return
-   */
-  private def containsNegation(inputWords: List[String], negations: List[String]): Boolean = {
-    if (inputWords.contains(negations.head)) true
-    else if (negations.tail == List.empty) false
-    else containsNegation(inputWords, negations.tail)
-  }
-
-  /**
-   * Helper to determine if input contains nt
-   *
-   * @param inputWords
-   * @return
-   */
-  private def containsnT(inputWords: List[String]): Boolean = {
-    if (inputWords.head.contains("n't")) true
-    else if (inputWords.tail == List.empty) false
-    else containsnT(inputWords.tail)
-  }
 
   /**
    * Normalizes score to be between -1 and 1
@@ -172,8 +148,8 @@ private[sentiment] object SentimentUtils {
   /**
    * Checks whether some but not all of words in input are ALL CAPS
    *
-   * @param words
-   * @return
+   * @param words The words to inspect
+   * @return `True` if some but not all items in `words` are ALL CAPS
    */
   def allCapDifferential(words: Seq[String]): Boolean = {
     var allCapWords: Int = 0
@@ -220,7 +196,38 @@ private[sentiment] object SentimentUtils {
     }
   }
 
+  /**
+   * Check if preceding words increase, decrease or negate the valence
+   *
+   * @param cs check if a word is in ALLCAPs
+   * @return `True` if word is in ALLCAPs
+   */
   def isUpper(cs: String): Boolean = {
     cs.forall(c => Character.isUpperCase(c))
+  }
+
+    /**
+   * Helper to determine if input contains negation words
+   *
+   * @param inputWords
+   * @param negations
+   * @return
+   */
+  private def containsNegation(inputWords: List[String], negations: List[String]): Boolean = {
+    if (inputWords.contains(negations.head)) true
+    else if (negations.tail == List.empty) false
+    else containsNegation(inputWords, negations.tail)
+  }
+
+  /**
+   * Helper to determine if input contains nt
+   *
+   * @param inputWords
+   * @return `True` inputwords contains "n't"
+   */
+  private def containsnT(inputWords: List[String]): Boolean = {
+    if (inputWords.head.contains("n't")) true // todo nt?
+    else if (inputWords.tail == List.empty) false
+    else containsnT(inputWords.tail)
   }
 }

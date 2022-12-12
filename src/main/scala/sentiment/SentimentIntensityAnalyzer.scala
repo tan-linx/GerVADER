@@ -134,6 +134,15 @@ class SentimentIntensityAnalyzer {
     (valence, sentiments)
   }
 
+  /**
+   *  Calculate valence for given text
+   * @param valenc valence of word
+   * @param sentiText text that contains item
+   * @param item item that sentiment valence is being calculated for
+   * @param i index of item in sentiText
+   * @param sentiments already calculated sentiments of text
+   * @return item's valence and sentiments list appended with items valence
+   */
   def scoreValence(sentiments: Seq[Double], text: String): SentimentAnalysisResults = {
 
     if (sentiments.isEmpty) {
@@ -143,10 +152,11 @@ class SentimentIntensityAnalyzer {
     var sum: Double = sentiments.sum
     var puncAmplifier: Double = punctuationEmphasis(text)
 
-    // add emphasis for puncutation
+    // compute and add emphasis from punctuation in text
     sum += scala.math.signum(sum) * puncAmplifier
 
     val compound: Double = SentimentUtils.normalize(sum)
+    // discriminate between positive, negative and neutral sentiment scores
     val sifted: SiftSentiments = siftSentimentScores(sentiments)
 
     if (sifted.posSum > scala.math.abs(sifted.negSum)) {
@@ -165,6 +175,12 @@ class SentimentIntensityAnalyzer {
     )
   }
 
+  /**
+   * @param wordsAndEmoticons `text` to analyze
+   * @param valenc `valence` of word
+   * @param i index word to analyze
+   * @return
+   */
   def idiomsCheck(valenc: Double, wordsAndEmoticons: Seq[String], i: Int): Double = {
     // todo: check negative indices
 
@@ -208,7 +224,7 @@ class SentimentIntensityAnalyzer {
   }
 
   def leastCheck(valenc: Double, wordsAndEmoticons: Seq[String], i: Int): Double = {
-
+    // check for negation case using "least"
     var valence: Double = valenc
 
     if (i > 1 && !lexicon.contains(wordsAndEmoticons(i - 1).toLowerCase()) &&
@@ -256,6 +272,7 @@ class SentimentIntensityAnalyzer {
     valence
   }
 
+  // check for modification in sentiment due to contrastive conjunction 'but'
   def butCheck(wordsAndEmoticons: Seq[String], sentiments: ListBuffer[Double]): ListBuffer[Double] = {
     val wordsAndEmoticonsLower = wordsAndEmoticons.map(_.toLowerCase())
 
