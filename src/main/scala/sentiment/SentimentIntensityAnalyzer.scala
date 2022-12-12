@@ -50,19 +50,16 @@ class SentimentIntensityAnalyzer {
 
     val wordsAndEmoticons: Seq[String] = sentiText.wordsAndEmoticons
 
-    breakable {
-      for ((item, i) <- wordsAndEmoticons.view.zipWithIndex) {
-        // append valence 0 if word is not in lexikon
-        var valence: Double = 0
-        // check for vader_lexicon words that may be used as modifiers or negations and turn their valence to 0
-        if ((i < wordsAndEmoticons.size - 1 &&
-             item.toLowerCase() == "kind" &&
-             wordsAndEmoticons(i + 1) == "of")
-          || SentimentUtils.boosterDict.contains(item.toLowerCase())) {
-          sentiments += valence
-          break()
-        }
-
+    for ((item, i) <- wordsAndEmoticons.view.zipWithIndex) {
+      // append valence 0 if word is not in lexikon
+      var valence: Double = 0
+      // check for vader_lexicon words that may be used as modifiers or negations and turn their valence to 0
+      if ((i < wordsAndEmoticons.size-1 &&
+            item.toLowerCase() == "kind" &&
+            wordsAndEmoticons(i + 1).toLowerCase() == "of")
+        || SentimentUtils.boosterDict.contains(item.toLowerCase())) {
+        sentiments += valence
+      } else {
         val (_valence, _sentiments) = sentimentValence(valence, sentiText, item, i, sentiments)
         valence = _valence
         sentiments = _sentiments
@@ -180,7 +177,6 @@ class SentimentIntensityAnalyzer {
     val threeTwoOne = wordsAndEmoticons(i - 3)
       .concat(" ").concat(wordsAndEmoticons(i - 2)).concat(" ").concat(wordsAndEmoticons(i - 1))
     val threeTwo = wordsAndEmoticons(i - 3).concat(" ").concat(wordsAndEmoticons(i - 2))
-
     val sequences = Array(oneZero, twoOneZero, twoOne, threeTwoOne, threeTwo)
 
     breakable {
