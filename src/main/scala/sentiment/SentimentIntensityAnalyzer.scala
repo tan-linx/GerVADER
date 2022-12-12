@@ -91,15 +91,16 @@ class SentimentIntensityAnalyzer {
 
     var valence = valenc
     val itemLowerCase: String = item.toLowerCase()
-    if (!lexicon.contains(itemLowerCase)) {
+    if (!lexicon.contains(itemLowerCase)) { //check
       sentiments += valence
       return (valence, sentiments)
-    } //check
+    }
 
     val isCapDiff: Boolean = sentiText.isCapDifferential
     val wordsAndEmoticons = sentiText.wordsAndEmoticons
     valence = lexicon(itemLowerCase)
 
+    // check if sentiment laden word is in ALL CAPS (while others aren't)
     if (isCapDiff && SentimentUtils.isUpper(item)) {
       if (valence > 0) {
         valence += SentimentUtils.CIncr
@@ -119,12 +120,11 @@ class SentimentIntensityAnalyzer {
         if (startI == 2 && s != 0) {
           s = s * 0.9
         }
-
         valence = valence + s
 
         valence = neverCheck(valence, wordsAndEmoticons, startI, i)
 
-        if (startI == 2) {
+        if (startI == 2) { // ensures there are at least 2 preceding words
           valence = idiomsCheck(valence, wordsAndEmoticons, i)
         }
 
@@ -302,8 +302,7 @@ class SentimentIntensityAnalyzer {
       epCount = 4
     }
 
-    // (empirically derived mean sentiment intensity rating increase for
-    // exclamation points)
+    // (empirically derived mean sentiment intensity rating increase for exclamation points)
     epCount * ExclIncr
   }
 

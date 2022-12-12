@@ -11,6 +11,10 @@ import sentiment.SentiText
 class SentiTextTest extends AnyFlatSpec with should.Matchers {
 
   "SentiText" should "getWordsAndEmoticons (Tokenization)" in {
+    // normal test
+    val sentiTextWithKindOf = new SentiText("The book was kind of good")
+    sentiTextWithKindOf.wordsAndEmoticons shouldEqual Seq("The", "book", "was", "kind", "of", "good")
+
     val puncAndEmojiText = new SentiText(".Removes :leading: and ,trailing !puncutation!!! :)")
     puncAndEmojiText.wordsAndEmoticons shouldEqual Seq("Removes", "leading", "and", "trailing", "puncutation", ":)")
 
@@ -39,5 +43,9 @@ class SentiTextTest extends AnyFlatSpec with should.Matchers {
     // this sentence fails on @zirayal project due to tokenization
     val complexSentiText = new SentiText("The plot was good, but the characters are uncompelling and the dialog is not great.")
     complexSentiText.wordsAndEmoticons shouldEqual Seq("The", "plot", "was", "good", "but", "the", "characters", "are", "uncompelling", "and", "the", "dialog", "is", "not", "great")
+
+    // text with a
+    val sentiTextWithA = new SentiText("it isn't a horrible book.")
+    sentiTextWithA.wordsAndEmoticons shouldEqual Seq("it", "isn't", "a", "horrible", "book")
   }
 }

@@ -16,8 +16,8 @@ private[sentiment] class SentiText(val text: String) {
   private def stripPuncIfWord(token: String, puncList: List[String]): String= {
     val punc = puncList.head
     val stripped = token.stripPrefix(punc).stripSuffix(punc)
-    if (puncList.tail == List.empty) stripped
-    else if (stripped.length <= 2) return token
+    if (stripped.size <= 2) token
+    else if (puncList.tail == List.empty) stripped
     else stripPuncIfWord(stripped, puncList.tail)
   }
 
@@ -27,7 +27,7 @@ private[sentiment] class SentiText(val text: String) {
    * @return
    */
   private def getWordsAndEmoticons(): List[String] = {
-    var wes: List[String] = text.split(" ").filter(x => x.length > 1).toList
-    wes.map(x => stripPuncIfWord(x, SentimentUtils.puncList))
+    var wes: List[String] = text.split(" ").toList
+    wes.map(x => stripPuncIfWord(x, SentimentUtils.puncList)).filter(x => x.length > 0).toList
   }
 }
