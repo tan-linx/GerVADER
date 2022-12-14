@@ -8,3 +8,6 @@ lazy val root = (project in file(".")).
   )
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "3.2.9" % Test
+
+// show deprecations
+scalacOptions += "-deprecation"

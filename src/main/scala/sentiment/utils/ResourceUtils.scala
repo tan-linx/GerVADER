@@ -1,13 +1,11 @@
 package sentiment.utils
 
-import java.io.InputStream
+import scala.io.{ Source, Codec }
 
 private[sentiment] object ResourceUtils {
 
-  def readFileAsList(path: String): Seq[String] = {
-    val stream: InputStream = getClass.getResourceAsStream(path)
-    val lines: Iterator[String] = scala.io.Source.fromInputStream(stream).getLines()
-
-    lines.toList
+  def readFileAsListUTF(path: String): Seq[String] = {
+    // specify UTF8 for emoji lexikon
+    Source.fromResource(path)(codec = Codec.UTF8).getLines().toList
   }
 }

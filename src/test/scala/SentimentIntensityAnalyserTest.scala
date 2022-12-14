@@ -48,6 +48,14 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     onlyKindOfTest.neutral shouldEqual 0.697
     onlyKindOfTest.positive shouldEqual 0.303
 
+    val emojiTest = analyzer.polarityScores("Catch utf-8 emoji such as 💘 and 💋 and 😁")
+    emojiTest.compound shouldEqual 0.875
+    emojiTest.negative shouldEqual 0.0
+    emojiTest.neutral shouldEqual  0.583
+    emojiTest.positive shouldEqual 0.417
+
+    val emojiTest2 = analyzer.polarityScores("what a stupid 🤡🤡🤡")
+    emojiTest2.compound shouldEqual -0.5267
     analyzer.polarityScores("Without a doubt, an excellent idea").compound shouldEqual 0.7013
     analyzer.polarityScores("With VADER, sentiment analysis is the shit!").compound shouldEqual 0.6476
     analyzer.polarityScores("On the other hand, VADER is quite bad ass").compound shouldEqual 0.802
@@ -189,6 +197,16 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     val lexikon = analyzer.makeLexDict()
     lexikon("$:") shouldEqual -1.5
   }
+
+  "A SentimentIntensityAnalyzer" should "makeEmojiDict" in {
+    val analyzer = new SentimentIntensityAnalyzer()
+    val emoji_lexikon = analyzer.makeEmojiDict()
+    emoji_lexikon("💔") shouldEqual "broken heart"
+    emoji_lexikon("🤡") shouldEqual "clown face"
+    emoji_lexikon("🤣") shouldEqual "rolling on the floor laughing"
+    emoji_lexikon("😂") shouldEqual "face with tears of joy"
+  }
+
   /**
     "A SentimentIntensityAnalyzer" should "calculate polarity scores (German)" in {
     val analyzer = new SentimentIntensityAnalyzer

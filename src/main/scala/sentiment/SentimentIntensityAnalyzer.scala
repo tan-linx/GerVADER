@@ -2,6 +2,7 @@
 package sentiment
 
 import sentiment.utils.{ResourceUtils, SentimentUtils}
+import java.nio.charset.StandardCharsets
 
 import scala.collection.mutable.ListBuffer
 import scala.collection.{Seq, _}
@@ -11,14 +12,16 @@ import scala.util.control.Breaks._
  * An abstraction to represent the sentiment intensity analyzer.
  */
 class SentimentIntensityAnalyzer {
-  val VADER_LEXICON_PATH = "/vader_lexicon.txt"
-
+  val VADER_LEXICON_PATH = "vader_lexicon.txt"
+  val VADER_EMOJI_LEXICON_PATH = "emoji_utf8_lexicon.txt"
   val ExclIncr: Double = 0.292
   val QuesIncrSmall: Double = 0.18
   val QuesIncrLarge: Double = 0.96
 
-  val lexiconFile: Seq[String] = ResourceUtils.readFileAsList(VADER_LEXICON_PATH)
+  val lexiconFile: Seq[String] = ResourceUtils.readFileAsListUTF(VADER_LEXICON_PATH)
+  val emojiLexiconFile: Seq[String] = ResourceUtils.readFileAsListUTF(VADER_EMOJI_LEXICON_PATH)
   var lexicon: Map[String, Double] = makeLexDict()
+  var emojiLexikon: Map[String, String] = makeEmojiDict()
 
   private case class SiftSentiments(var posSum: Double = 0, var negSum: Double = 0, var neuCount: Int = 0)
 
@@ -37,17 +40,33 @@ class SentimentIntensityAnalyzer {
   }
 
   /**
+   *
+   * Makes Emoji dict
+   *
+   * @return
+   */
+  def makeEmojiDict(): Map[String, String] = {
+    emojiLexiconFile.map(line => {
+        val lineArray = line.trim().split('\t')
+        lineArray(0) -> lineArray(1)
+      }
+    ).toMap
+  }
+
+  /**
    * Return metrics for positive, negative and neutral sentiment based on the input text.
    *
    * @param input
    * @return
    */
   def polarityScores(input: String): SentimentAnalysisResults = {
-    // todo: convert emojis to their textual descriptions
+    // convert emojis to their textual descriptions
+    val emojisInInput = "[^\u0000-\uFFFF]".r.findAllIn(input).toList
+    var textNoEmoji = replaceEmojisWithDescription(emojisInInput, input)
 
-    val sentiText: SentiText = new SentiText(input)
+    // tokonize
+    val sentiText: SentiText = new SentiText(textNoEmoji.trim())
     var sentiments: ListBuffer[Double] = ListBuffer[Double]()
-
     val wordsAndEmoticons: Seq[String] = sentiText.wordsAndEmoticons
 
     for ((item, i) <- wordsAndEmoticons.view.zipWithIndex) {
@@ -392,5 +411,24 @@ class SentimentIntensityAnalyzer {
 
     if (wordsAndEmoticons.tail == List.empty) (valence, sentiments)
     else valenceAndSentiments(wordsAndEmoticons.tail, sentiText, sentiments)
+  }
+
+  /**
+    *
+    *
+    * @param emojis
+    * @param input
+    * @return text without emojis but with textual descriptions
+    */
+  private def replaceEmojisWithDescription(emojis: List[String], input: String): String = {
+    if (emojis.isEmpty) return input
+    var textNoEmoji = input
+    val emoji = emojis.head
+    if (input.contains(emoji)) {
+      textNoEmoji = input.replace(emoji, " ".concat(emojiLexikon.getOrElse(emoji, "")).concat(" "))
+    }
+    //textNoEmoji = textNoEmoji.replace("  ", " ")
+    if (emojis.tail.isEmpty) return textNoEmoji
+    else replaceEmojisWithDescription(emojis.tail, textNoEmoji)
   }
 }
