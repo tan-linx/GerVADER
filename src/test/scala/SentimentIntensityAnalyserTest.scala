@@ -188,11 +188,11 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
   "A SentimentIntensityAnalyzer" should "sentimentValence" in {
     val analyzer = new SentimentIntensityAnalyzer()
     // lexikon does not contain item
-    analyzer.sentimentValence(1.0, new SentiText("It isn't a horrible book."), "book", 4, ListBuffer(1.85)) shouldEqual (1.0, ListBuffer(1.85, 1.0))
+    analyzer.sentimentValence(1.0, new SentiText("It isn't a horrible book."), "book", 4) shouldEqual 1.0
     // lexikon contains item never check
-    analyzer.sentimentValence(1.0, new SentiText("It isn't a horrible book."), "horrible", 3, ListBuffer()) shouldEqual (1.85, ListBuffer(1.85)) // nevercheck -0.74*-2.0
+    analyzer.sentimentValence(1.0, new SentiText("It isn't a horrible book."), "horrible", 3) shouldEqual 1.85 // nevercheck -0.74*-2.0
     // weird results not equal to original vader
-    analyzer.sentimentValence(0.0, new SentiText("It isn't a incredibly horrible book."), "horrible", 4, ListBuffer(0.0, 2, 3)) shouldEqual (2.06682, ListBuffer(0.0, 2, 3, 2.06682))
+    analyzer.sentimentValence(0.0, new SentiText("It isn't a incredibly horrible book."), "horrible", 4) shouldEqual 2.06682
   }
 
   "A SentimentIntensityAnalyzer" should "makeLexDict" in {

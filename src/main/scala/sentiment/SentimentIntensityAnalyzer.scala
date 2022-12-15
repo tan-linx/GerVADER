@@ -20,38 +20,10 @@ class SentimentIntensityAnalyzer {
 
   val lexiconFile: Seq[String] = ResourceUtils.readFileAsListUTF(VADER_LEXICON_PATH)
   val emojiLexiconFile: Seq[String] = ResourceUtils.readFileAsListUTF(VADER_EMOJI_LEXICON_PATH)
-  var lexicon: Map[String, Double] = makeLexDict()
-  var emojiLexikon: Map[String, String] = makeEmojiDict()
+  val lexicon: Map[String, Double] = makeLexDict()
+  val emojiLexikon: Map[String, String] = makeEmojiDict()
 
   private case class SiftSentiments(var posSum: Double = 0, var negSum: Double = 0, var neuCount: Int = 0)
-
-  /**
-   *
-   * Makes Lex dict
-   *
-   * @return
-   */
-  def makeLexDict(): Map[String, Double] = {
-    lexiconFile.map(line => {
-        val lineArray = line.trim().split('\t')
-        (lineArray(0) -> lineArray(1).toDouble)
-      }
-    ).toMap
-  }
-
-  /**
-   *
-   * Makes Emoji dict
-   *
-   * @return
-   */
-  def makeEmojiDict(): Map[String, String] = {
-    emojiLexiconFile.map(line => {
-        val lineArray = line.trim().split('\t')
-        lineArray(0) -> lineArray(1)
-      }
-    ).toMap
-  }
 
   /**
    * Return metrics for positive, negative and neutral sentiment based on the input text.
@@ -62,33 +34,27 @@ class SentimentIntensityAnalyzer {
   def polarityScores(input: String): SentimentAnalysisResults = {
     // convert emojis to their textual descriptions
     val emojisInInput = "[^\u0000-\uFFFF]".r.findAllIn(input).toList
-    var textNoEmoji = replaceEmojisWithDescription(emojisInInput, input)
+    val textNoEmoji = replaceEmojisWithDescription(emojisInInput, input)
 
-    // tokonize
+    // tokenize
     val sentiText: SentiText = new SentiText(textNoEmoji.trim())
-    var sentiments: ListBuffer[Double] = ListBuffer[Double]()
     val wordsAndEmoticons: Seq[String] = sentiText.wordsAndEmoticons
+    val valence: Double = 0
 
-    for ((item, i) <- wordsAndEmoticons.view.zipWithIndex) {
-      // append valence 0 if word is not in lexikon
-      var valence: Double = 0
-      // check for vader_lexicon words that may be used as modifiers or negations and turn their valence to 0
-      if ((i < wordsAndEmoticons.size-1 &&
+    val sentimentsBeforeButCheck = wordsAndEmoticons.view.zipWithIndex.map(
+      (item, i) => {
+        if ((i < wordsAndEmoticons.size-1 &&
             item.toLowerCase() == "kind" &&
             wordsAndEmoticons(i + 1).toLowerCase() == "of")
-        || SentimentUtils.boosterDict.contains(item.toLowerCase())) {
-        sentiments += valence
-      } else {
-        val (_valence, _sentiments) = sentimentValence(valence, sentiText, item, i, sentiments)
-        valence = _valence
-        sentiments = _sentiments
+            || SentimentUtils.boosterDict.contains(item.toLowerCase())) {
+          valence
+        } else {
+          sentimentValence(valence, sentiText, item, i)
+        }
       }
-    }
+    ).toList.to(ListBuffer)
 
-    /* val (_valence, _sentiments) = valenceAndSentiments(wordsAndEmoticons.view.zipWithIndex.toList, sentiText, sentiments)
-    sentiments = _sentiments */
-    sentiments = butCheck(wordsAndEmoticons, sentiments)
-
+    val sentiments = butCheck(wordsAndEmoticons, sentimentsBeforeButCheck)
     scoreValence(sentiments, input)
   }
 
@@ -103,13 +69,12 @@ class SentimentIntensityAnalyzer {
    * @return item's valence and sentiments list appended with items valence
    */
   def sentimentValence(valenc: Double, sentiText: SentiText,
-    item: String, i: Int, sentiments: ListBuffer[Double]): (Double, ListBuffer[Double]) = {
+    item: String, i: Int): Double = {
 
     var valence = valenc
     val itemLowerCase: String = item.toLowerCase()
     if (!lexicon.contains(itemLowerCase)) { //check
-      sentiments += valence
-      return (valence, sentiments)
+      return valence
     }
 
     val isCapDiff: Boolean = sentiText.isCapDifferential
@@ -159,11 +124,8 @@ class SentimentIntensityAnalyzer {
 
       }
     }
-
     valence = leastCheck(valence, wordsAndEmoticons, i)
-    sentiments += valence
-
-    (valence, sentiments)
+    valence
   }
 
   /**
@@ -402,30 +364,6 @@ class SentimentIntensityAnalyzer {
     }
   }
 
-  private def valenceAndSentiments(
-    wordsAndEmoticons: List[(String, Int)],
-    sentiText: SentiText,
-    _sentiments: ListBuffer[Double]): (Double, ListBuffer[Double]) = {
-    var sentiments = _sentiments
-    val item = wordsAndEmoticons.head._1
-    val i = wordsAndEmoticons.head._2
-    var valence: Double = 0
-    // check for vader_lexicon words that may be used as modifiers or negations and turn their valence to 0
-    if ((i < wordsAndEmoticons.size - 1 &&
-          item.toLowerCase() == "kind" &&
-          wordsAndEmoticons(i + 1)._1 == "of")
-      || SentimentUtils.boosterDict.contains(item.toLowerCase())) {
-      sentiments += valence
-    } else {
-      val (_valence, _sentiments) = sentimentValence(valence, sentiText, item, i, sentiments)
-      valence = _valence
-      sentiments = _sentiments
-    }
-
-    if (wordsAndEmoticons.tail == List.empty) (valence, sentiments)
-    else valenceAndSentiments(wordsAndEmoticons.tail, sentiText, sentiments)
-  }
-
   /**
     *
     *
@@ -444,4 +382,33 @@ class SentimentIntensityAnalyzer {
     if (emojis.tail.isEmpty) return textNoEmoji
     else replaceEmojisWithDescription(emojis.tail, textNoEmoji)
   }
+
+  /**
+   *
+   * Makes Lex dict
+   *
+   * @return
+   */
+  def makeLexDict(): Map[String, Double] = {
+    lexiconFile.map(line => {
+        val lineArray = line.trim().split('\t')
+        (lineArray(0) -> lineArray(1).toDouble)
+      }
+    ).toMap
+  }
+
+  /**
+   *
+   * Makes Emoji dict
+   *
+   * @return
+   */
+  def makeEmojiDict(): Map[String, String] = {
+    emojiLexiconFile.map(line => {
+        val lineArray = line.trim().split('\t')
+        lineArray(0) -> lineArray(1)
+      }
+    ).toMap
+  }
+
 }
