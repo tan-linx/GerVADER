@@ -27,7 +27,7 @@ private[sentiment] class SentiText(val text: String) {
   /**
    * Removes leading and trailing punctuation. Leaves contractions and most emoticons.
    *
-   * @return
+   * @return Tokens
    */
   private def getWordsAndEmoticons(): List[String] = {
     var wes: List[String] = text.split(" ").toList

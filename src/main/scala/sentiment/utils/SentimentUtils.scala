@@ -152,16 +152,13 @@ private[sentiment] object SentimentUtils {
    * @return `True` if some but not all items in `words` are ALL CAPS
    */
   def allCapDifferential(words: Seq[String]): Boolean = {
-    var allCapWords: Int = 0
-
-    for (word <- words) {
-      if (isUpper(word)) {
-        allCapWords += 1
+   val allCapWords = words.foldLeft(0)(
+      (allCapWords, word) => {
+        if (isUpper(word)) allCapWords + 1
+        else allCapWords
       }
-    }
-
+    )
     val capDifferential = words.size - allCapWords
-
     capDifferential > 0 && capDifferential < words.size
   }
 
@@ -182,16 +179,13 @@ private[sentiment] object SentimentUtils {
       if (valence < 0) {
         scalar *= -1
       }
-
       if (isUpper(word) && isCapDiff) {
-
         if (valence > 0) {
           scalar += CIncr
         } else {
           scalar += -CIncr
         }
       }
-
       scalar
     }
   }
