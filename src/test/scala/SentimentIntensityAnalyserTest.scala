@@ -54,6 +54,9 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     emojiTest.neutral shouldEqual  0.583
     emojiTest.positive shouldEqual 0.417
 
+    val noNegationTest = analyzer.polarityScores("I prefer no sanctions")
+    noNegationTest.compound shouldEqual -0.296
+
     val emojiTest2 = analyzer.polarityScores("what a stupid 🤡🤡🤡")
     emojiTest2.compound shouldEqual -0.5267
     analyzer.polarityScores("Without a doubt, an excellent idea").compound shouldEqual 0.7013
