@@ -12,7 +12,7 @@ import scala.util.control.Breaks._
  * An abstraction to represent the sentiment intensity analyzer.
  */
 class SentimentIntensityAnalyzer {
-  val VADER_LEXICON_PATH = "vader_lexicon.txt"
+  val VADER_LEXICON_PATH = "gervader_lexikon.txt"
   val VADER_EMOJI_LEXICON_PATH = "emoji_utf8_lexicon.txt"
   // (empirically derived mean sentiment intensity rating increase for exclamation points)
   val ExclIncr: Double = 0.292
@@ -71,13 +71,27 @@ class SentimentIntensityAnalyzer {
    */
   def sentimentValence(valenc: Double, sentiText: SentiText, item: String, i: Int): Double = {
     var valence = valenc
-    val itemLowerCase: String = item.toLowerCase()
-    if (!lexicon.contains(itemLowerCase)) {
-      return valence
-    }
     val isCapDiff: Boolean = sentiText.isCapDifferential
     val wordsAndEmoticons = sentiText.wordsAndEmoticons
-    valence = lexicon(itemLowerCase)
+    val itemLowerCase: String = item.toLowerCase()
+    val itemFirstLetterCapitalized = item.toLowerCase().capitalize
+
+    if (!lexicon.contains(item)
+        && !lexicon.contains(itemLowerCase)
+        && !lexicon.contains(itemFirstLetterCapitalized)) {
+      return valence
+    }
+    //1. Check if the currently inspected word can be found in the lexicon
+    //2. If not, transform the word to all lower cases and recheck the lexicon
+    //3. If not, only capitalize the first letter of the word and recheck the lexicon
+    val words = List(item,itemLowerCase, itemFirstLetterCapitalized)
+    def getValence(items: List[String]): Double = {
+      val word = items.head
+      if (lexicon.contains(word))
+        lexicon(word)
+      else getValence(items.tail)
+    }
+    valence = getValence(words)
 
     //   # check for "no" as negation for an adjacent lexicon item vs "no" as its own stand-alone lexicon item
     if (itemLowerCase == "no" &&

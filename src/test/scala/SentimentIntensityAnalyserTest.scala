@@ -8,70 +8,67 @@ import scala.collection.mutable.ListBuffer
 import sentiment.utils.SentimentUtils
 
 class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
-  "A SentimentIntensityAnalyzer" should "calculate polarity scores (English)" in {
+  "A SentimentIntensityAnalyzer" should "calculate polarity scores (German)" in {
+
     val analyzer = new SentimentIntensityAnalyzer
 
-    //success
-    val standardGoodTest = analyzer.polarityScores("VADER is smart, handsome, and funny.")
-    standardGoodTest.negative shouldEqual 0
-    standardGoodTest.neutral shouldEqual 0.254
-    standardGoodTest.positive shouldEqual 0.746
-    standardGoodTest.compound shouldEqual 0.8316
+    // added Step in GerVADER: In the lexicon, words can have a different intensity whether it is for example a noun (written in capital in German) or a verb.  e.g. Anstieg and anstieg
+    analyzer.polarityScores("der Anstieg der Kohleförderung").compound shouldEqual 0.2732
+    analyzer.polarityScores("als die Kohleförderung anstieg").compound shouldEqual 0.1779
 
-    val complexTest = analyzer.polarityScores("The plot was good, but the characters are uncompelling and the dialog is not great.")
-    complexTest.negative shouldEqual 0.327
-    complexTest.neutral shouldEqual 0.579
-    complexTest.positive shouldEqual 0.094
-    complexTest.compound shouldEqual -0.7042
+    val testGood = analyzer.polarityScores("GerVADER hat viel Potential <3")
+    testGood.negative shouldEqual 0.0
+    testGood.neutral shouldEqual 0.58
+    testGood.positive shouldEqual 0.42
+    testGood.compound shouldEqual 0.4404
 
-    val negationTest = analyzer.polarityScores("it isn't an horrible book.")
-    negationTest.compound shouldEqual 0.431
-    negationTest.negative shouldEqual 0.0
-    negationTest.neutral shouldEqual 0.584
-    negationTest.positive shouldEqual 0.416
+    val testGood2 = analyzer.polarityScores("Fußball entfacht in mir ein Feuer der Leidenschaft.")
+    testGood2.negative shouldEqual 0.174
+    testGood2.neutral shouldEqual 0.496
+    testGood2.positive shouldEqual 0.331
+    testGood2.compound shouldEqual 0.4404
 
-    val exampleWithA = analyzer.polarityScores("VADER is such a badass!")
-    exampleWithA.compound shouldEqual 0.4003
-    exampleWithA.negative shouldEqual 0.0
-    exampleWithA.neutral shouldEqual 0.598
-    exampleWithA.positive shouldEqual 0.402
+    val testGood3 = analyzer.polarityScores("Kaltes Eis, kalter Pool und die Sonne die mich anlacht, schön schön	positive")
+    testGood3.negative shouldEqual 0.223
+    testGood3.neutral shouldEqual 0.426
+    testGood3.positive shouldEqual 0.351
+    testGood3.compound shouldEqual 0.5267
 
-    val kindOfTest = analyzer.polarityScores("The book was kind of good.")
-    kindOfTest.negative shouldEqual 0
-    kindOfTest.neutral shouldEqual 0.657
-    kindOfTest.positive shouldEqual 0.343
-    kindOfTest.compound shouldEqual 0.3832
+    val testNegative = analyzer.polarityScores("gwroße zeitverschwendung heute >:/")
+    testNegative.negative shouldEqual 0.726
+    testNegative.neutral shouldEqual 0.274
+    testNegative.positive shouldEqual 0.0
+    testNegative.compound shouldEqual -0.6486
 
-    val onlyKindOfTest = analyzer.polarityScores("The book was only kind of good.")
-    onlyKindOfTest.compound shouldEqual 0.3832
-    onlyKindOfTest.negative shouldEqual 0.0
-    onlyKindOfTest.neutral shouldEqual 0.697
-    onlyKindOfTest.positive shouldEqual 0.303
+    val testNegative2 = analyzer.polarityScores("ich finde das überhaupt nicht gut")
+    testNegative2.negative shouldEqual 0.338
+    testNegative2.neutral shouldEqual 0.662
+    testNegative2.positive shouldEqual 0.0
+    testNegative2.compound shouldEqual -0.3724
 
-    val emojiTest = analyzer.polarityScores("Catch utf-8 emoji such as 💘 and 💋 and 😁")
-    emojiTest.compound shouldEqual 0.875
-    emojiTest.negative shouldEqual 0.0
-    emojiTest.neutral shouldEqual  0.583
-    emojiTest.positive shouldEqual 0.417
+    val testNegative3 = analyzer.polarityScores("richtiger scheiß alter")
+    testNegative2.negative shouldEqual 0.634
+    testNegative2.neutral shouldEqual 0.0
+    testNegative2.positive shouldEqual 0.366
+    testNegative2.compound shouldEqual -0.2263
 
-    val noNegationTest = analyzer.polarityScores("I prefer no sanctions")
-    noNegationTest.compound shouldEqual -0.296
+    val testNeutral = analyzer.polarityScores("Danach bin ich nach Hause gegangen")
+    testNeutral.negative shouldEqual 0.0
+    testNeutral.neutral shouldEqual 1.0
+    testNeutral.positive shouldEqual 0.0
+    testNeutral.compound shouldEqual 0.0
 
-    val emojiTest2 = analyzer.polarityScores("what a stupid 🤡🤡🤡")
-    emojiTest2.compound shouldEqual -0.5267
-    analyzer.polarityScores("Without a doubt, an excellent idea").compound shouldEqual 0.7013
-    analyzer.polarityScores("With VADER, sentiment analysis is the shit!").compound shouldEqual 0.6476
-    analyzer.polarityScores("On the other hand, VADER is quite bad ass").compound shouldEqual 0.802
-    analyzer.polarityScores("Sentiment analysis has never been this good!").compound shouldEqual 0.5672
-    analyzer.polarityScores("Most automated sentiment analysis tools are shit.").compound shouldEqual -0.5574
-    analyzer.polarityScores("Other sentiment analysis tools can be quite bad.").compound shouldEqual -0.5849
-    analyzer.polarityScores("Roger Dodger is one of the most compelling variations on this theme.").compound shouldEqual 0.2944
-    analyzer.polarityScores("Roger Dodger is at least compelling as a variation on the theme.").compound shouldEqual 0.2263
-    analyzer.polarityScores(" Not such a badass after all.").compound shouldEqual -0.2584
-    analyzer.polarityScores("VADER is very smart, handsome, and funny").compound shouldEqual 0.8545
-    analyzer.polarityScores("VADER is VERY SMART, handsome, and FUNNY.").compound shouldEqual 0.9227
-    analyzer.polarityScores("VADER is VERY SMART, uber handsome, and FRIGGIN FUNNY!!!").compound shouldEqual 0.9469
-    analyzer.polarityScores("Today SUX!").compound shouldEqual -0.5461
+    val testNeutral2 = analyzer.polarityScores("Katzen miauen manchmal wenn der Halter fortgeht.")
+    testNeutral2.negative shouldEqual 0.0
+    testNeutral2.neutral shouldEqual 1.0
+    testNeutral2.positive shouldEqual 0.0
+    testNeutral2.compound shouldEqual 0.0
+
+    // todo translate emojis
+    val testWithoutEmoji = analyzer.polarityScores("Heute war ein SCHÖNER Tag")
+    testWithoutEmoji.compound shouldEqual 0.6166
+    val testWithEmoji = analyzer.polarityScores("Heute war ein SCHÖNER Tag 😀")
+    testWithEmoji.compound shouldEqual 0.6166
   }
 
   "A SentimentIntensityAnalyzer" should "neverCheck" in {
@@ -209,33 +206,4 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     emoji_lexikon("🤣") shouldEqual "rolling on the floor laughing"
     emoji_lexikon("😂") shouldEqual "face with tears of joy"
   }
-
-  /**
-    "A SentimentIntensityAnalyzer" should "calculate polarity scores (German)" in {
-    val analyzer = new SentimentIntensityAnalyzer
-
-    val testGood = analyzer.polarityScores("GerVADER hat viel Potential <3")
-    testGood.negative shouldEqual 0.0
-    testGood.neutral shouldEqual 0.58
-    testGood.positive shouldEqual 0.42
-    testGood.compound shouldEqual 0.4404
-
-    val testGood2 = analyzer.polarityScores("Fußball entfacht in mir ein Feuer der Leidenschaft.")
-    testGood2.negative shouldEqual 0.174
-    testGood2.neutral shouldEqual 0.496
-    testGood2.positive shouldEqual 0.331
-    testGood2.compound shouldEqual 0.4404
-
-    val testNegative = analyzer.polarityScores("gwroße zeitverschwendung heute >:/")
-    testNegative.negative shouldEqual 0.726
-    testNegative.neutral shouldEqual 0.274
-    testNegative.positive shouldEqual 0.0
-    testNegative.compound shouldEqual -0.6486
-
-    val testNegative2 = analyzer.polarityScores("ich finde das überhaupt nicht gut")
-    testNegative2.negative shouldEqual 0.338
-    testNegative2.neutral shouldEqual 0.662
-    testNegative2.positive shouldEqual 0.0
-    testNegative2.compound shouldEqual -0.3724
-  } */
 }
