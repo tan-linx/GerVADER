@@ -12,10 +12,6 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
 
     val analyzer = new SentimentIntensityAnalyzer
 
-    // added Step in GerVADER: In the lexicon, words can have a different intensity whether it is for example a noun (written in capital in German) or a verb.  e.g. Anstieg and anstieg
-    analyzer.polarityScores("der Anstieg der Kohleförderung").compound shouldEqual 0.2732
-    analyzer.polarityScores("als die Kohleförderung anstieg").compound shouldEqual 0.1779
-
     val testGood = analyzer.polarityScores("GerVADER hat viel Potential <3")
     testGood.negative shouldEqual 0.0
     testGood.neutral shouldEqual 0.58
@@ -28,7 +24,7 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     testGood2.positive shouldEqual 0.331
     testGood2.compound shouldEqual 0.4404
 
-    val testGood3 = analyzer.polarityScores("Kaltes Eis, kalter Pool und die Sonne die mich anlacht, schön schön	positive")
+    val testGood3 = analyzer.polarityScores("Kaltes Eis, kalter Pool und die Sonne die mich anlacht, schön schön")
     testGood3.negative shouldEqual 0.223
     testGood3.neutral shouldEqual 0.426
     testGood3.positive shouldEqual 0.351
@@ -47,10 +43,10 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     testNegative2.compound shouldEqual -0.3724
 
     val testNegative3 = analyzer.polarityScores("richtiger scheiß alter")
-    testNegative2.negative shouldEqual 0.634
-    testNegative2.neutral shouldEqual 0.0
-    testNegative2.positive shouldEqual 0.366
-    testNegative2.compound shouldEqual -0.2263
+    testNegative3.negative shouldEqual 0.634
+    testNegative3.neutral shouldEqual 0.0
+    testNegative3.positive shouldEqual 0.366
+    testNegative3.compound shouldEqual -0.2263
 
     val testNeutral = analyzer.polarityScores("Danach bin ich nach Hause gegangen")
     testNeutral.negative shouldEqual 0.0
@@ -69,16 +65,49 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     testWithoutEmoji.compound shouldEqual 0.6166
     val testWithEmoji = analyzer.polarityScores("Heute war ein SCHÖNER Tag 😀")
     testWithEmoji.compound shouldEqual 0.6166
+
+    // added Step in GerVADER: In the lexicon, words can have a different intensity whether it is for example a noun (written in capital in German) or a verb.  e.g. Anstieg and anstieg
+    analyzer.polarityScores("der Anstieg der Kohleförderung").compound shouldEqual 0.2732
+    analyzer.polarityScores("als die Kohleförderung anstieg").compound shouldEqual 0.1779
+
+    analyzer.polarityScores("Sentimentanalysen waren nie gut.").compound shouldEqual -0.3724
+    analyzer.polarityScores("Sentimentanalysen waren noch nie so gut!").compound shouldEqual -0.5432
+    analyzer.polarityScores("Die meisten Sentimentanalysen sind scheiße!").compound shouldEqual -0.5707
+    // todo  translate "der shit"
+    analyzer.polarityScores("Mit Vader, sind Sentimentanalysen der Shit!!").compound shouldEqual 0.0
+    //
+    analyzer.polarityScores("Sentimentanalysen waren noch nie so gut!").compound shouldEqual -0.5432
+
+    // booster at the end of sentence
+    analyzer.polarityScores("VADER ist mega.").compound shouldEqual 0.0
+
+    // todo without a doubt?
+    analyzer.polarityScores("Ohne Zweifel, großartige Idee..").compound shouldEqual -0.1877
+
+    analyzer.polarityScores("Roger Dodger is eine der verlockendsten Variationen des Themes.").compound shouldEqual 0.3182
+    //Sentimentanalysen waren nie gut.------------------------------------- {'neg': 0.46, 'neu': 0.54, 'pos': 0.0, 'compound': -0.3724}
+    // Sentimentanalysen waren noch nie so gut!----------------------------- {'neg': 0.412, 'neu': 0.588, 'pos': 0.0, 'compound': -0.5432}
+    // Die meisten Sentimentanalysen sind scheiße!-------------------------- {'neg': 0.48, 'neu': 0.52, 'pos': 0.0, 'compound': -0.5707}
+    // Mit Vader, sind Sentimentanalysen der Shit!-------------------------- {'neg': 0.0, 'neu': 1.0, 'pos': 0.0, 'compound': 0.0}
+    // Andere Sentimentanalysentools können ziemlich schlecht sein.--------- {'neg': 0.351, 'neu': 0.649, 'pos': 0.0, 'compound': -0.4033}
+    // Anderseits, ist VADER ganz schön krass------------------------------- {'neg': 0.0, 'neu': 0.396, 'pos': 0.604, 'compound': 0.7269}
+    // VADER ist mega.------------------------------------------------------ {'neg': 0.0, 'neu': 1.0, 'pos': 0.0, 'compound': 0.0}
+    // Ohne Zweifel, großartige Idee.--------------------------------------- {'neg': 0.413, 'neu': 0.276, 'pos': 0.311, 'compound': -0.1877}
+    // Roger Dodger is eine der verlockendsten Variationen des Themes.------ {'neg': 0.0, 'neu': 0.777, 'pos': 0.223, 'compound': 0.3182}
+    // Roger Dodger ist zumindest eine verlockende Variation des Themes.---- {'neg': 0.0, 'neu': 0.777, 'pos': 0.223, 'compound': 0.3182}
+    // Roger Dodger ist mitunter eine der wenigsten verlockenden Themes.---- {'neg': 0.0, 'neu': 0.777, 'pos': 0.223, 'compound': 0.3182}
+    // Nicht so krass letztlich.-------------------------------------------- {'neg': 0.459, 'neu': 0.541, 'pos': 0.0, 'compound': -0.3713}
+    // Ohne Zweifel, eine exzellente Idee.---------------------------------- {'neg': 0.374, 'neu': 0.357, 'pos': 0.269, 'compound': -0.2235}
   }
 
   "A SentimentIntensityAnalyzer" should "neverCheck" in {
     val analyzer = new SentimentIntensityAnalyzer
-    // 1word preceding lexicon word (w/o stopwords)
-    analyzer.neverCheck(1.0, Seq("It", "isn't", "a", "horrible", "book", ":)"), 0, 2) shouldEqual -0.74
-    // 2 word preceding lexicon word (w/o stopwords)
-    analyzer.neverCheck(1.0, Seq("she", "wont", "do", "this",":)"), 1, 3) shouldEqual -0.74
+    // 1word preceding lexicon word "schlechtes" (w/o stopwords)
+    analyzer.neverCheck(1.0, Seq("Es", "ist", "kein", "schlechtes", "Buch", ":)"), 0, 3) shouldEqual -0.74
+    // 2 word preceding lexicon word "angst" (w/o stopwords)
+    analyzer.neverCheck(1.0, Seq("sie", "hat", "nicht", "wirklich","angst"), 1, 4) shouldEqual -0.74
     // 3 word preceding lexicon word (w/o stopwords)
-    analyzer.neverCheck(1.0, Seq("I", "cant", "do", "my", "homework"), 2, 4) shouldEqual -0.74
+    analyzer.neverCheck(1.0, Seq("Ich", "bin", "selten", "für", "sie", "da"), 2, 5) shouldEqual -0.74
     // 3 word preceding the lexikon, word preceding the lexikon is "this", "so"
     analyzer.neverCheck(1.0, Seq("I", "cant", "do", "this",":-)"), 2, 4) shouldEqual 1.25
     analyzer.neverCheck(1.0, Seq("she", "wont", "do", "so",":-)"), 2, 4) shouldEqual 1.25
@@ -120,8 +149,8 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
    //analyzer.idiomsCheck(0.0, Seq("VADER", "is", "the", "bomb"), 0) shouldEqual 3
 
     // booster/dampener check
-    analyzer.idiomsCheck(0.0, Seq("The", "book", "was", "kind", "of", "good"), 5) shouldEqual -0.293
-    analyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 5) shouldEqual -0.293
+    //analyzer.idiomsCheck(0.0, Seq("The", "book", "was", "kind", "of", "good"), 5) shouldEqual -0.293
+    //analyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 5) shouldEqual -0.293
     // word at index 4 of
     analyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 4) shouldEqual 0
   }
@@ -185,11 +214,11 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
   "A SentimentIntensityAnalyzer" should "sentimentValence" in {
     val analyzer = new SentimentIntensityAnalyzer()
     // lexikon does not contain item
-    analyzer.sentimentValence(1.0, new SentiText("It isn't a horrible book."), "book", 4) shouldEqual 1.0
+    analyzer.sentimentValence(1.0, new SentiText("Es ist kein schlechtes Buch"), "Buch", 4) shouldEqual 1.0
     // lexikon contains item never check
-    analyzer.sentimentValence(1.0, new SentiText("It isn't a horrible book."), "horrible", 3) shouldEqual 1.85 // nevercheck -0.74*-2.0
-    // weird results not equal to original vader
-    analyzer.sentimentValence(0.0, new SentiText("It isn't a incredibly horrible book."), "horrible", 4) shouldEqual 2.06682
+    analyzer.sentimentValence(1.0, new SentiText("Es ist kein schlechtes Buch"), "schlechtes", 3) shouldEqual 1.48 // nevercheck -0.74*-2.0
+    // (-2.0-0.293)*-0.74
+    analyzer.sentimentValence(0.0, new SentiText("Es ist kein extrem schlechtes Buch"), "schlechtes", 4) shouldEqual 1.69682
   }
 
   "A SentimentIntensityAnalyzer" should "makeLexDict" in {

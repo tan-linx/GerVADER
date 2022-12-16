@@ -15,7 +15,7 @@ private[sentiment] object SentimentUtils {
   val negate = List(
     "nicht", "nie",
     "never", "niemals",
-    "keine", "nope", "nichts", "weder", "nix", "nirgendwo",
+    "kein", "keine", "keinen", "keinem", "nope", "nichts", "weder", "nix", "nirgendwo",
     "uhuh","uh-uh",
     "ohne", "selten", "kaum", "seltentst", "rar", "trotz", "trotzdem", "obwohl"
   )

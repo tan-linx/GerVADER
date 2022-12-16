@@ -37,31 +37,36 @@ class SentimentUtilsTest extends AnyFlatSpec with should.Matchers {
   }
 
   "SentimentUtils" should "negated" in {
-    SentimentUtils.negated(List("It", "isn't", "a", "horrible", "book"), true) shouldEqual true
-    SentimentUtils.negated(List("I", "am", "not", "mad")) shouldEqual true
-    SentimentUtils.negated(List("You", "are", "mad")) shouldEqual false
-    // should fail cause it isn't a negation
+    //SentimentUtils.negated(List("It", "isn't", "a", "horrible", "book"), true) shouldEqual true
+    SentimentUtils.negated(List("Es", "ist", "kein", "schlechtes", "Buch"), true) shouldEqual true
+    SentimentUtils.negated(List("Ich", "kenne", "keinen", "Ausweg"), true) shouldEqual true
+    SentimentUtils.negated(List("Ich", "hab", "keinen", "Plan"), true) shouldEqual true
+    SentimentUtils.negated(List("Sie", "schreckten", "vor", "keinem", "Verbrechen", "zurück"), true) shouldEqual true
+    SentimentUtils.negated(List("Ich", "bin", "nicht", "sauer")) shouldEqual true
+    SentimentUtils.negated(List("das", "würde", "ich", "niemals", "tun")) shouldEqual true
+    // should fail cause there is no negation
+    SentimentUtils.negated(List("Du", "bist", "sauer")) shouldEqual false
     SentimentUtils.negated(List("managment")) shouldEqual false
   }
 
   "SentimentUtils" should "scalarIncDec" in {
-    // dampener
-    SentimentUtils.scalarIncDec("kinda", 1, false) shouldEqual -0.293
-    SentimentUtils.scalarIncDec("little", -1, false) shouldEqual 0.293
+    // dampener & no cap differential
+    SentimentUtils.scalarIncDec("irgendwie", 1, false) shouldEqual -0.293
+    SentimentUtils.scalarIncDec("bisschen", -1, false) shouldEqual 0.293
 
-    // booster
-    SentimentUtils.scalarIncDec("absolutely", 1, true) shouldEqual 0.293
-    SentimentUtils.scalarIncDec("completely", -1, true) shouldEqual -0.293
+    // booster & cap differential
+    SentimentUtils.scalarIncDec("absolut", 1, true) shouldEqual 0.293
+    SentimentUtils.scalarIncDec("total", -1, true) shouldEqual -0.293
 
     // booster is ALLCAPS & no cap differential
-    SentimentUtils.scalarIncDec("FABULOUSLY", 1, false) shouldEqual 0.293
-    SentimentUtils.scalarIncDec("FABULOUSLY", -1, false) shouldEqual -0.293
+    SentimentUtils.scalarIncDec("SAGENHAFT", 1, false) shouldEqual 0.293
+    SentimentUtils.scalarIncDec("SAGENHAFT", -1, false) shouldEqual -0.293
 
     // dampener word is ALLCAPS & cap differential
     // 0.733 = (empirically derived mean sentiment intensity
     // rating increase for using ALLCAPs to emphasize a word)
-    SentimentUtils.scalarIncDec("BARELY", 1, true) shouldEqual -0.293+0.733
-    SentimentUtils.scalarIncDec("BARELY", -1, true) shouldEqual 0.293-0.733
+    SentimentUtils.scalarIncDec("KAUM", 1, true) shouldEqual -0.293+0.733
+    SentimentUtils.scalarIncDec("KAUM", -1, true) shouldEqual 0.293-0.733
 
     // word is not in booster dic
     SentimentUtils.scalarIncDec("lol", -1, true) shouldEqual 0.0
