@@ -10,3 +10,7 @@ German Sentiment analysis with GerVADER using Scala
 https://github.com/ziyasal/Sentiment
 
 > R. Remus, U. Quasthoff & G. Heyer: SentiWS - a Publicly Available German-language Resource for Sentiment Analysis. In: Proceedings of the 7th International Language Ressources and Evaluation (LREC'10), pp. 1168-1171, 2010
+
+> Schuette, S. (2021). Analyse der Impfbereitschaft der Deutschen anhand
+von Beitr¨agen auf Twitter. Bachelorarbeit, Hochschule fur Wirtschaft und ¨
+Technik Berlin.

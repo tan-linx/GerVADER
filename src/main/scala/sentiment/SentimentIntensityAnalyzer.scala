@@ -226,14 +226,14 @@ class SentimentIntensityAnalyzer {
   }
 
   def leastCheck(valence: Double, wordsAndEmoticons: Seq[String], i: Int): Double = {
-    // check for negation case using "least"
+    // check for negation case using "zumindest"
     if (i > 1 && !lexicon.contains(wordsAndEmoticons(i - 1).toLowerCase()) &&
-      wordsAndEmoticons(i - 1).toLowerCase() == "least") {
-      if (wordsAndEmoticons(i - 2).toLowerCase() != "at" && wordsAndEmoticons(i - 2).toLowerCase() != "very") {
-        valence * SentimentUtils.NScalar
-      } else valence
+      (wordsAndEmoticons(i - 1).toLowerCase() == "wenigsten")) {
+      //if (wordsAndEmoticons(i - 2).toLowerCase() != "at" && wordsAndEmoticons(i - 2).toLowerCase() != "very") {
+      valence * SentimentUtils.NScalar
+      // } else valence
     } else if (i > 0 && !lexicon.contains(wordsAndEmoticons(i - 1).toLowerCase())
-      && wordsAndEmoticons(i - 1).toLowerCase() == "least") {
+      && (wordsAndEmoticons(i - 1).toLowerCase() == "wenigsten")) {
       valence * SentimentUtils.NScalar
     } else valence
   }
@@ -246,7 +246,7 @@ class SentimentIntensityAnalyzer {
         if (SentimentUtils.negated(list)) valence * SentimentUtils.NScalar else valence
       }
       case 1 => {
-        if (wordsAndEmoticonsLower(i - 2) == "never" &&
+        if (wordsAndEmoticonsLower(i - 2) == "nie" &&
           (wordsAndEmoticonsLower(i - 1) == "so" || wordsAndEmoticonsLower(i - 1) == "this"))
           valence * 1.25
         else if (SentimentUtils.negated(List(wordsAndEmoticonsLower(i - (startI + 1))))) // 2 words preceding the lexicon word position
@@ -254,7 +254,7 @@ class SentimentIntensityAnalyzer {
         else valence
       }
       case 2 => {
-        if (wordsAndEmoticonsLower(i - 3) == "never"
+        if (wordsAndEmoticonsLower(i - 3) == "nie"
           && (wordsAndEmoticonsLower(i - 2) == "so" || wordsAndEmoticonsLower(i - 2) == "this")
           || (wordsAndEmoticonsLower(i - 1) == "so" || wordsAndEmoticonsLower(i - 1) == "this"))
           valence * 1.25
@@ -270,9 +270,9 @@ class SentimentIntensityAnalyzer {
   def butCheck(wordsAndEmoticons: Seq[String], sentiments: ListBuffer[Double]): ListBuffer[Double] = {
     val wordsAndEmoticonsLower = wordsAndEmoticons.map(_.toLowerCase())
 
-    if (!wordsAndEmoticonsLower.contains("but")) return sentiments
+    if (!wordsAndEmoticonsLower.contains("aber")) return sentiments
 
-    val butIndex: Int = wordsAndEmoticonsLower.indexOf("but")
+    val butIndex: Int = wordsAndEmoticonsLower.indexOf("aber")
 
     sentiments.view.zipWithIndex.map((sentiment: Double, i: Int) => {
       if (i < butIndex) sentiment * 0.5
