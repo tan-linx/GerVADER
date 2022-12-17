@@ -60,12 +60,6 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     testNeutral2.positive shouldEqual 0.0
     testNeutral2.compound shouldEqual 0.0
 
-    // todo translate emojis
-    val testWithoutEmoji = analyzer.polarityScores("Heute war ein SCHÖNER Tag")
-    testWithoutEmoji.compound shouldEqual 0.6166
-    val testWithEmoji = analyzer.polarityScores("Heute war ein SCHÖNER Tag 😀")
-    testWithEmoji.compound shouldEqual 0.6166
-
     // added Step in GerVADER: In the lexicon, words can have a different intensity whether it is for example a noun (written in capital in German) or a verb.  e.g. Anstieg and anstieg
     analyzer.polarityScores("der Anstieg der Kohleförderung").compound shouldEqual 0.2732
     analyzer.polarityScores("als die Kohleförderung anstieg").compound shouldEqual 0.1779
@@ -88,6 +82,25 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     // original GerVADER: 0.3182
     analyzer.polarityScores("Roger Dodger ist mitunter eine der wenigsten verlockenden Themes.").compound shouldEqual
     -0.2411
+
+    val testnocaps = analyzer.polarityScores("Heute war ein schöner Tag")
+    testnocaps.compound shouldEqual 0.5106
+    val testWithoutEmoji = analyzer.polarityScores("Heute war ein SCHÖNER Tag")
+    testWithoutEmoji.compound shouldEqual 0.6166
+    val testWithEmoji = analyzer.polarityScores("Heute war ein SCHÖNER Tag 😀")
+    testWithEmoji.compound shouldEqual 0.7603
+    val testWithEmoji2 = analyzer.polarityScores("Heute war ein SCHÖNER Tag 💘 💋 😁")
+    testWithEmoji2.compound shouldEqual 0.9329
+    val testWithEmoji3 = analyzer.polarityScores("Heute war ein SCHÖNER Tag 🎉")
+    testWithEmoji3.compound shouldEqual 0.7739
+    val testWithEmoji4 = analyzer.polarityScores("Heute war ein SCHÖNER Tag 💣")
+    testWithEmoji4.compound shouldEqual 0.2103
+    val testWithEmoji5 = analyzer.polarityScores("Heute war ein SCHÖNER Tag 😃")
+    testWithEmoji5.compound shouldEqual 0.7603
+    val testWithEmoji6 = analyzer.polarityScores("Heute war ein SCHÖNER Tag 😄")
+    testWithEmoji6.compound shouldEqual 0.8602
+    val testallcaps = analyzer.polarityScores("HEUTE WAR EIN SCHÖNER TAG")
+    testallcaps.compound shouldEqual 0.5106
     //Sentimentanalysen waren nie gut.------------------------------------- {'neg': 0.46, 'neu': 0.54, 'pos': 0.0, 'compound': -0.3724}
     // Sentimentanalysen waren noch nie so gut!----------------------------- {'neg': 0.412, 'neu': 0.588, 'pos': 0.0, 'compound': -0.5432}
     // Die meisten Sentimentanalysen sind scheiße!-------------------------- {'neg': 0.48, 'neu': 0.52, 'pos': 0.0, 'compound': -0.5707}
@@ -231,10 +244,10 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
 
   "A SentimentIntensityAnalyzer" should "makeEmojiDict" in {
     val analyzer = new SentimentIntensityAnalyzer()
-    val emoji_lexikon = analyzer.makeEmojiDict()
-    emoji_lexikon("💔") shouldEqual "broken heart"
-    emoji_lexikon("🤡") shouldEqual "clown face"
-    emoji_lexikon("🤣") shouldEqual "rolling on the floor laughing"
-    emoji_lexikon("😂") shouldEqual "face with tears of joy"
+    val emojiLexikon = analyzer.makeEmojiDict()
+    emojiLexikon("💔") shouldEqual "broken heart"
+    emojiLexikon("🤡") shouldEqual "clown face"
+    emojiLexikon("🤣") shouldEqual "rolling on the floor laughing"
+    emojiLexikon("😂") shouldEqual "face with tears of joy"
   }
 }
