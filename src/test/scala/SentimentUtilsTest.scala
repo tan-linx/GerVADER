@@ -47,6 +47,8 @@ class SentimentUtilsTest extends AnyFlatSpec with should.Matchers {
     // should fail cause there is no negation
     SentimentUtils.negated(List("Du", "bist", "sauer")) shouldEqual false
     SentimentUtils.negated(List("managment")) shouldEqual false
+    // enthält n't
+    SentimentUtils.negated(List("I", "can't", "believe", "you", "support", "sanctions")) shouldEqual true
   }
 
   "SentimentUtils" should "scalarIncDec" in {

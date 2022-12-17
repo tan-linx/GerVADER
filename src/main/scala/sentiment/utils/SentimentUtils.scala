@@ -72,7 +72,8 @@ private[sentiment] object SentimentUtils {
     //"barely" -> BDecr,
     "kaum" -> BDecr, //"hardly" -> BDecr,
     "geradeso" -> BDecr, //"just enough" -> BDecr,
-    "irgendwie" -> BDecr, "ziemlich" -> BDecr, "quasi" -> BDecr, //"kind of" -> BDecr,
+    "irgendwie" -> BDecr, "ziemlich" -> BDecr, "quasi" -> BDecr, "ein bisschen" -> BDecr,
+  //"kind of" -> BDecr,
     //"kinda" -> BDecr,
     //"kindof" -> BDecr,
     //"kind-of" -> BDecr,
@@ -80,7 +81,7 @@ private[sentiment] object SentimentUtils {
     //"little" -> BDecr,
     "geringfügig" -> BDecr, "unwesentlich" -> BDecr, "marginal" -> BDecr, //"marginally" -> BDecr,
     "zeitweise" -> BDecr, "gelegentlich" -> BDecr, "mitunter" -> BDecr, //"occasionally" -> BDecr,
-    "halbwegs" -> BDecr, "teils" -> BDecr, "tweilweise" -> BDecr, //"partly" -> BDecr,
+    "halbwegs" -> BDecr, "teils" -> BDecr, "teilweise" -> BDecr, //"partly" -> BDecr,
     //"scarcely" -> BDecr,
     "etwas" -> BDecr, "bisschen" -> BDecr, //"slightly" -> BDecr,
     "einigermaßen" -> BDecr, //"somewhat" -> BDecr,
@@ -91,6 +92,7 @@ private[sentiment] object SentimentUtils {
   )
 
   val specialCaseIdioms = Map[String, Double](
+    "der scheiß" -> 3,
     "the shit" -> 3,
     "the bomb" -> 3,
     "bad ass" -> 1.5,
@@ -134,13 +136,12 @@ private[sentiment] object SentimentUtils {
   def normalize(score: Double, alpha: Double = 15): Double = {
     val normScore: Double = score / math.sqrt(score * score + alpha)
 
-    if (normScore < -1.0) {
+    if (normScore < -1.0)
       -1.0
-    } else if (normScore > 1.0) {
+    else if (normScore > 1.0)
       1.0
-    } else {
+    else
       normScore
-    }
   }
 
   /**
@@ -218,7 +219,7 @@ private[sentiment] object SentimentUtils {
    * @return `True` inputwords contains "n't"
    */
   private def containsnT(inputWords: List[String]): Boolean = {
-    if (inputWords.head.contains("n't")) true // todo nt?
+    if (inputWords.head.contains("n't")) true
     else if (inputWords.tail == List.empty) false
     else containsnT(inputWords.tail)
   }

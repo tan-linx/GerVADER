@@ -101,6 +101,9 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     testWithEmoji6.compound shouldEqual 0.8602
     val testallcaps = analyzer.polarityScores("HEUTE WAR EIN SCHÖNER TAG")
     testallcaps.compound shouldEqual 0.5106
+
+    // test kind of
+    analyzer.polarityScores("es ist kind of dumm").compound shouldEqual -0.5106
     //Sentimentanalysen waren nie gut.------------------------------------- {'neg': 0.46, 'neu': 0.54, 'pos': 0.0, 'compound': -0.3724}
     // Sentimentanalysen waren noch nie so gut!----------------------------- {'neg': 0.412, 'neu': 0.588, 'pos': 0.0, 'compound': -0.5432}
     // Die meisten Sentimentanalysen sind scheiße!-------------------------- {'neg': 0.48, 'neu': 0.52, 'pos': 0.0, 'compound': -0.5707}
@@ -132,6 +135,9 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     // 3 words preceding the lexikon is "never this/so" -> "nie so"
     analyzer.neverCheck(1.0, Seq("Ich", "war", "noch", "nie", "so", "krass", "hungrig"), 2, 6) shouldEqual 1.25
     analyzer.neverCheck(1.0, Seq("ich", "mag", "dich"), 0, 1) shouldEqual 1.0
+
+    // negation 4 words preceding the item at i has no influence
+    analyzer.neverCheck(1.0, Seq("ich", "mochte", "Mathe", "nicht", "damals", "doch", "jetzt", "mag", "ich", "es"), 4, 7) shouldEqual 1.0
   }
 
   "A SentimentIntensityAnalyzer" should "butCheck" in {
@@ -151,6 +157,8 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     val valence = 1
     analyzer.leastCheck(valence, Seq("du", "bist", "der", "am", "wenigsten", "schlaue", "mensch", "den", "ich", "kenne"), 5) shouldEqual -0.74
     analyzer.leastCheck(valence, Seq("am", "wenigsten", "schlau"), 2) shouldEqual -0.74
+    analyzer.leastCheck(valence, Seq("wenigsten", "Ängste"), 1) shouldEqual -0.74
+
 
     // at least/very least preceding word at given index doesn't modify valence -> "Zumindest"
     analyzer.leastCheck(valence, Seq("Zumindest", "mag", "sie", "dich"), 2) shouldEqual 1.0
@@ -168,6 +176,19 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     //analyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 5) shouldEqual -0.293
     // word at index 4 of
     analyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 4) shouldEqual 0
+
+    // zeroOne idioms
+    analyzer.idiomsCheck(0.0, Seq("The", "VADER", "algorithm", "ist", "the", "shit", "ha"), 4) shouldEqual 3
+
+    // zeroOneTwo
+    analyzer.idiomsCheck(0.0, Seq("The", "VADER", "algorithm", "will", "cut", "the", "mustard"), 4) shouldEqual 2
+
+    // index out of bounds
+    analyzer.idiomsCheck(0.0, Seq("VADER", "will", "cut", "the", "mustard"), 2) shouldEqual 0.0
+    analyzer.idiomsCheck(0.0, Seq("VADER", "will", "cut", "the", "mustard"), 5) shouldEqual 0.0
+
+    // check for dampener in front of idiom
+    analyzer.idiomsCheck(0.0, Seq("VADEr", "is", "ein", "bisschen", "the", "shit"), 4) shouldEqual 2.707 // todo
   }
 
   "A SentimentIntensityAnalyzer" should "scoreValence" in {
@@ -231,9 +252,20 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     // lexikon does not contain item
     analyzer.sentimentValence(1.0, new SentiText("Es ist kein schlechtes Buch"), "Buch", 4) shouldEqual 1.0
     // lexikon contains item never check
-    analyzer.sentimentValence(1.0, new SentiText("Es ist kein schlechtes Buch"), "schlechtes", 3) shouldEqual 1.48 // nevercheck -0.74*-2.0
-    // (-2.0-0.293)*-0.74
+    analyzer.sentimentValence(1.0, new SentiText("Es ist kein schlechtes Buch"), "schlechtes", 3) shouldEqual 1.48 // schlechtes=-2.0  nevercheck -0.74*-2.0
+    // check if sentiment laden word is in ALL CAPS (while others aren't)
+    analyzer.sentimentValence(0.0, new SentiText("Es ist ein SCHLECHTES Buch"), "SCHLECHTES", 3) shouldEqual -2.733
+    // (-2.0-0.733)
     analyzer.sentimentValence(0.0, new SentiText("Es ist kein extrem schlechtes Buch"), "schlechtes", 4) shouldEqual 1.69682
+
+    // dampen scalar of booster by 0.95 if 2 words preceding is booster
+    // extrem = 0.293, Anstieg = 1.1
+    // (0.293*0.95) + 1.1 = 1.37835
+    analyzer.sentimentValence(0.0, new SentiText("Es ist ein extrem steiler Anstieg"), "Anstieg", 5) shouldEqual (0.293*0.95)+1.1
+    // dampen scalar of booster by 0.9 if 3 words preceding is booster
+    analyzer.sentimentValence(0.0, new SentiText("ich bin total fertig und traurig"), "traurig", 5) shouldEqual (-0.293*0.9)-2.2
+    // failing because "komplett is in lexicon"
+    // analyzer.sentimentValence(0.0, new SentiText("ich bin komplett fertig und traurig"), "traurig", 5) shouldEqual -2.4637
   }
 
   "A SentimentIntensityAnalyzer" should "makeLexDict" in {

@@ -94,17 +94,17 @@ class SentimentIntensityAnalyzer {
     valence = getValence(words)
 
     //   # check for "no" as negation for an adjacent lexicon item vs "no" as its own stand-alone lexicon item
-    if (itemLowerCase == "no" &&
-        i != wordsAndEmoticons.size-1 &&
-        lexicon.contains(wordsAndEmoticons(i+1).toLowerCase)) {
-      // don't use valence of "no" as a lexicon item. Instead set it's valence to 0.0 and negate the next item
-      valence = 0.0
-      if ((i > 0 && wordsAndEmoticons(i - 1).toLowerCase == "no") ||
-          (i > 1 && wordsAndEmoticons(i - 2).toLowerCase == "no") ||
-          (i > 2 && wordsAndEmoticons(i - 3).toLowerCase == "no"
-          && List("or", "nor").contains(wordsAndEmoticons(i - 1).toLowerCase))
-      ) then valence = valence * SentimentUtils.NScalar
-    }
+    // if (itemLowerCase == "no" &&
+    //     i != wordsAndEmoticons.size-1 &&
+    //     lexicon.contains(wordsAndEmoticons(i+1).toLowerCase)) {
+    //   // don't use valence of "no" as a lexicon item. Instead set it's valence to 0.0 and negate the next item
+    //   valence = 0.0
+    //   if ((i > 0 && wordsAndEmoticons(i - 1).toLowerCase == "no") ||
+    //       (i > 1 && wordsAndEmoticons(i - 2).toLowerCase == "no") ||
+    //       (i > 2 && wordsAndEmoticons(i - 3).toLowerCase == "no"
+    //       && List("or", "nor").contains(wordsAndEmoticons(i - 1).toLowerCase))
+    //   ) then valence = valence * SentimentUtils.NScalar
+    // }
 
     // check if sentiment laden word is in ALL CAPS (while others aren't)
     if (isCapDiff && SentimentUtils.isUpper(item)) {
@@ -118,11 +118,12 @@ class SentimentIntensityAnalyzer {
     // dampen valence, negationCheck & idiomsCheck
     valence = (0 until 3).foldLeft(valence)(
         (valenceAcc, startI) => {
-        if (i > startI && !lexicon.contains(wordsAndEmoticons(i - (startI + 1)).toLowerCase())) {
-          val s: Double = SentimentUtils.scalarIncDec(wordsAndEmoticons(i - (startI + 1)), valenceAcc, isCapDiff)
+        if (i > startI && (!lexicon.contains(wordsAndEmoticons(i - (startI + 1)).toLowerCase()))
+          ) {
+          val s: Double = SentimentUtils.scalarIncDec(wordsAndEmoticons(i - (startI + 1)), valenceAcc, isCapDiff) //
           val scalar =
-            if (startI == 1 && s != 0) s * 0.95
-            else if (startI == 2 && s != 0) s * 0.9
+            if (startI == 1 && s != 0) s * 0.95 // 2 words preceding item is booster
+            else if (startI == 2 && s != 0) s * 0.9 // 3 words preceding item is booster
             else s
           val valenceNeg = neverCheck(valenceAcc + scalar, wordsAndEmoticons, startI, i)
           if (startI == 2) { // ensures there are at least 2 preceding words
@@ -184,6 +185,8 @@ class SentimentIntensityAnalyzer {
    * @return
    */
   def idiomsCheck(valenc: Double, wordsAndEmoticons: Seq[String], i: Int): Double = {
+    if (i < 3 || i > wordsAndEmoticons.size - 1) return valenc
+
     var valence = valenc
     val oneZero = wordsAndEmoticons(i - 1).concat(" ").concat(wordsAndEmoticons(i))
     val twoOneZero = wordsAndEmoticons(i - 2)
@@ -199,8 +202,6 @@ class SentimentIntensityAnalyzer {
       if (sequences.isEmpty) return valence
       if (SentimentUtils.specialCaseIdioms.contains(sequences.head))
         SentimentUtils.specialCaseIdioms(sequences.head)
-      else if (sequences.tail == Array.empty[String])
-        valence
       else
         containsSpecialCaseIdiomHelper(valence, sequences.tail)
     }
@@ -346,8 +347,6 @@ class SentimentIntensityAnalyzer {
 
   private def roundWithDecimalPlaces(value: Double, decPlaces: Int): Double = {
     decPlaces match {
-      case 1 => (value * 10).round / 10.toDouble
-      case 2 => (value * 100).round / 100.toDouble
       case 3 => (value * 1000).round / 1000.toDouble
       case 4 => (value * 10000).round / 10000.toDouble
     }
@@ -363,9 +362,7 @@ class SentimentIntensityAnalyzer {
   private def replaceEmojisWithDescription(emojis: List[String], input: String): String = {
     if (emojis.isEmpty) return input
     val emoji = emojis.head
-    val textNoEmoji =
-      if (input.contains(emoji)) input.replace(emoji, " ".concat(emojiLexikon.getOrElse(emoji, "")).concat(" "))
-      else input
+    val textNoEmoji = input.replace(emoji, " ".concat(emojiLexikon.getOrElse(emoji, "")).concat(" "))
     //textNoEmoji = textNoEmoji.replace("  ", " ")
     if (emojis.tail.isEmpty) textNoEmoji
     else replaceEmojisWithDescription(emojis.tail, textNoEmoji)
