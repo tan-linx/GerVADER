@@ -1,7 +1,6 @@
 package sentiment
 
 import sentiment.utils.SentimentUtils
-import util.control.Breaks._
 
 /**
  * Identify sentiment-relevant string-level properties of input `text`.

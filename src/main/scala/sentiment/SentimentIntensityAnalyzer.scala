@@ -2,11 +2,9 @@
 package sentiment
 
 import sentiment.utils.{ResourceUtils, SentimentUtils}
-import java.nio.charset.StandardCharsets
 
 import scala.collection.mutable.ListBuffer
-import scala.collection.{Seq, _}
-import scala.util.control.Breaks._
+import scala.collection.Seq
 
 /**
  * An abstraction to represent the sentiment intensity analyzer.
