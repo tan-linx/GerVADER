@@ -116,36 +116,34 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     // Ohne Zweifel, eine exzellente Idee.---------------------------------- {'neg': 0.374, 'neu': 0.357, 'pos': 0.269, 'compound': -0.2235}
   }
 
-  "A SentimentIntensityAnalyzer" should "neverCheck" in {
+  "A SentimentIntensityAnalyzer" should "negationCheck" in {
     val analyzer = new SentimentIntensityAnalyzer
     // 1word preceding lexicon word "schlechtes" (w/o stopwords)
-    analyzer.neverCheck(1.0, Seq("Es", "ist", "kein", "schlechtes", "Buch", ":)"), 0, 3) shouldEqual -0.74
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Es", "ist", "kein", "schlechtes", "Buch", ":)"), 0, 3) shouldEqual -0.74
     // 2 word preceding lexicon word "angst" (w/o stopwords)
-    analyzer.neverCheck(1.0, Seq("sie", "hat", "nicht", "wirklich","angst"), 1, 4) shouldEqual -0.74
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("sie", "hat", "nicht", "wirklich","angst"), 1, 4) shouldEqual -0.74
     // 3 word preceding lexicon word (w/o stopwords)
-    analyzer.neverCheck(1.0, Seq("Ich", "bin", "selten", "für", "sie", "da"), 2, 5) shouldEqual -0.74
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich", "bin", "selten", "für", "sie", "da"), 2, 5) shouldEqual -0.74
     // 3 word preceding the lexikon, word preceding the lexikon is "this", "so"
-    analyzer.neverCheck(1.0, Seq("I", "cant", "do", "this",":-)"), 2, 4) shouldEqual 1.25
-    analyzer.neverCheck(1.0, Seq("she", "wont", "do", "so",":-)"), 2, 4) shouldEqual 1.25
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("I", "cant", "do", "this",":-)"), 2, 4) shouldEqual 1.25
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("she", "wont", "do", "so",":-)"), 2, 4) shouldEqual 1.25
     // 2 words preceding the lexikon is "never this/so" -> "nie so"
-    analyzer.neverCheck(1.0, Seq("Ich", "war", "nie", "so", "dankbar", "ein", "freundliches", "gesicht", "zu", "sehen"), 1, 4) shouldEqual 1.25
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich", "war", "nie", "so", "dankbar", "ein", "freundliches", "gesicht", "zu", "sehen"), 1, 4) shouldEqual 1.25
     // 3 words preceding the lexikon is "never this/so" -> "nie so"
-    analyzer.neverCheck(1.0, Seq("Ich", "war", "noch", "nie", "so", "krass", "hungrig"), 2, 6) shouldEqual 1.25
-    analyzer.neverCheck(1.0, Seq("ich", "mag", "dich"), 0, 1) shouldEqual 1.0
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich", "war", "noch", "nie", "so", "krass", "hungrig"), 2, 6) shouldEqual 1.25
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("ich", "mag", "dich"), 0, 1) shouldEqual 1.0
 
     // negation 4 words preceding the item at i has no influence
-    analyzer.neverCheck(1.0, Seq("ich", "mochte", "Mathe", "nicht", "damals", "doch", "jetzt", "mag", "ich", "es"), 4, 7) shouldEqual 1.0
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("ich", "mochte", "Mathe", "nicht", "damals", "doch", "jetzt", "mag", "ich", "es"), 4, 7) shouldEqual 1.0
   }
 
   "A SentimentIntensityAnalyzer" should "butCheck" in {
-    val analyzer = new SentimentIntensityAnalyzer()
-
-    analyzer.butCheck(Seq("nicht", "schlecht", "aber", "auch", "nicht", "gut"), ListBuffer(1, 1, 0, 1, 1, 1)) shouldEqual ListBuffer(0.5, 0.5, 0, 1.5, 1.5, 1.5)
-    analyzer.butCheck(Seq("nicht", "schlecht", "ABER", "ohne", "Zweifel", "unkreativ"), ListBuffer(1, 1, 0, 1, 1, 1, 1)) shouldEqual ListBuffer(0.5, 0.5, 0, 1.5, 1.5, 1.5, 1.5)
-    analyzer.butCheck(Seq("nicht", "schlecht", "aBeR", "ohne", "Zweifel", "dumm"), ListBuffer(1, 1, 0, 1, 1, 1, 1)) shouldEqual ListBuffer(0.5, 0.5, 0, 1.5, 1.5, 1.5, 1.5)
+    SentimentIntensityAnalyzer.butCheck(Seq("nicht", "schlecht", "aber", "auch", "nicht", "gut"), ListBuffer(1, 1, 0, 1, 1, 1)) shouldEqual ListBuffer(0.5, 0.5, 0, 1.5, 1.5, 1.5)
+    SentimentIntensityAnalyzer.butCheck(Seq("nicht", "schlecht", "ABER", "ohne", "Zweifel", "unkreativ"), ListBuffer(1, 1, 0, 1, 1, 1, 1)) shouldEqual ListBuffer(0.5, 0.5, 0, 1.5, 1.5, 1.5, 1.5)
+    SentimentIntensityAnalyzer.butCheck(Seq("nicht", "schlecht", "aBeR", "ohne", "Zweifel", "dumm"), ListBuffer(1, 1, 0, 1, 1, 1, 1)) shouldEqual ListBuffer(0.5, 0.5, 0, 1.5, 1.5, 1.5, 1.5)
 
     // no contrast conjuction
-    analyzer.butCheck(Seq("Ich", "kann", "das", "nicht",":-)"), ListBuffer(1, 1, 1, 1, 1)) shouldEqual ListBuffer(1, 1, 1, 1, 1)
+    SentimentIntensityAnalyzer.butCheck(Seq("Ich", "kann", "das", "nicht",":-)"), ListBuffer(1, 1, 1, 1, 1)) shouldEqual ListBuffer(1, 1, 1, 1, 1)
   }
 
   "A SentimentIntensityAnalyzer" should "leastcheck" in {
@@ -163,29 +161,28 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
   }
 
   "A SentimentIntensityAnalyzer" should "idiomsCheck" in {
-    val analyzer = new SentimentIntensityAnalyzer()
-    analyzer.idiomsCheck(0.0, Seq("VADEr", "is", "the", "shit"), 3) shouldEqual 3
-    analyzer.idiomsCheck(0.0, Seq("VADER", "is", "the", "bomb"), 3) shouldEqual 3
-   //analyzer.idiomsCheck(0.0, Seq("VADER", "is", "the", "bomb"), 0) shouldEqual 3
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADEr", "is", "the", "shit"), 3) shouldEqual 3
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "is", "the", "bomb"), 3) shouldEqual 3
+   //SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "is", "the", "bomb"), 0) shouldEqual 3
 
     // booster/dampener check
-    //analyzer.idiomsCheck(0.0, Seq("The", "book", "was", "kind", "of", "good"), 5) shouldEqual -0.293
-    //analyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 5) shouldEqual -0.293
+    //SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "book", "was", "kind", "of", "good"), 5) shouldEqual -0.293
+    //SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 5) shouldEqual -0.293
     // word at index 4 of
-    analyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 4) shouldEqual 0
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 4) shouldEqual 0
 
     // zeroOne idioms
-    analyzer.idiomsCheck(0.0, Seq("The", "VADER", "algorithm", "ist", "the", "shit", "ha"), 4) shouldEqual 3
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "VADER", "algorithm", "ist", "the", "shit", "ha"), 4) shouldEqual 3
 
     // zeroOneTwo
-    analyzer.idiomsCheck(0.0, Seq("The", "VADER", "algorithm", "will", "cut", "the", "mustard"), 4) shouldEqual 2
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "VADER", "algorithm", "will", "cut", "the", "mustard"), 4) shouldEqual 2
 
     // index out of bounds
-    analyzer.idiomsCheck(0.0, Seq("VADER", "will", "cut", "the", "mustard"), 2) shouldEqual 0.0
-    analyzer.idiomsCheck(0.0, Seq("VADER", "will", "cut", "the", "mustard"), 5) shouldEqual 0.0
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "will", "cut", "the", "mustard"), 2) shouldEqual 0.0
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "will", "cut", "the", "mustard"), 5) shouldEqual 0.0
 
     // check for dampener in front of idiom
-    analyzer.idiomsCheck(0.0, Seq("VADEr", "is", "ein", "bisschen", "the", "shit"), 4) shouldEqual 2.707 // todo
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADEr", "is", "ein", "bisschen", "the", "shit"), 4) shouldEqual 2.707 // todo
   }
 
   "A SentimentIntensityAnalyzer" should "scoreValence" in {
@@ -250,7 +247,7 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     // lexikon does not contain item
     analyzer.sentimentValence(1.0, new SentiText("Es ist kein schlechtes Buch"), "Buch", 4) shouldEqual 1.0
     // lexikon contains item never check
-    analyzer.sentimentValence(1.0, new SentiText("Es ist kein schlechtes Buch"), "schlechtes", 3) shouldEqual 1.48 // schlechtes=-2.0  nevercheck -0.74*-2.0
+    analyzer.sentimentValence(1.0, new SentiText("Es ist kein schlechtes Buch"), "schlechtes", 3) shouldEqual 1.48 // schlechtes=-2.0  negationCheck -0.74*-2.0
     // check if sentiment laden word is in ALL CAPS (while others aren't)
     analyzer.sentimentValence(0.0, new SentiText("Es ist ein SCHLECHTES Buch"), "SCHLECHTES", 3) shouldEqual -2.733
     // (-2.0-0.733)

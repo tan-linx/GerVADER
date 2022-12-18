@@ -12,6 +12,20 @@ private[sentiment] class SentiText(val text: String) {
   val isCapDifferential: Boolean = SentimentUtils.allCapDifferential(wordsAndEmoticons)
 
   /**
+   * Tokenizes `text`.
+   * Removes leading and trailing punctuation. Leaves contractions and most emoticons.
+   *
+   * @return tokens of `text`
+   */
+  private def getWordsAndEmoticons(): List[String] = {
+    var wes: List[String] = text.split(" ").toList
+    wes.map(x => SentiText.stripPuncIfWord(x, SentimentUtils.puncList)).filter(x => x.length > 0).toList
+  }
+}
+
+private[sentiment] object SentiText {
+
+  /**
    * Removes all trailing and leading punctuation.
    * If the resulting string has two or fewer characters,
    * then it was likely an emoticon, so return original string
@@ -26,17 +40,6 @@ private[sentiment] class SentiText(val text: String) {
     val stripped = token.stripPrefix(punc).stripSuffix(punc)
     if (stripped.size <= 2) token
     else if (puncList.tail == List.empty) stripped
-    else stripPuncIfWord(stripped, puncList.tail)
-  }
-
-  /**
-   * Tokenizes `text`.
-   * Removes leading and trailing punctuation. Leaves contractions and most emoticons.
-   *
-   * @return tokens of `text`
-   */
-  private def getWordsAndEmoticons(): List[String] = {
-    var wes: List[String] = text.split(" ").toList
-    wes.map(x => stripPuncIfWord(x, SentimentUtils.puncList)).filter(x => x.length > 0).toList
+    else SentiText.stripPuncIfWord(stripped, puncList.tail)
   }
 }

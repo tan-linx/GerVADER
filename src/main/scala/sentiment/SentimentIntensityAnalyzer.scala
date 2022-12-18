@@ -17,8 +17,8 @@ class SentimentIntensityAnalyzer {
 
   private val lexicon: Map[String, Double] = makeLexDict()
   private val emojiLexikon: Map[String, String] = makeEmojiDict()
-
   private case class SiftSentiments(var posSum: Double = 0, var negSum: Double = 0, var neuCount: Int = 0)
+
 
   /**
    * Computes sentiment valence of `input`
@@ -49,7 +49,7 @@ class SentimentIntensityAnalyzer {
       }
     ).toList.to(ListBuffer)
 
-    val sentiments = butCheck(wordsAndEmoticons, sentimentsBeforeButCheck)
+    val sentiments = SentimentIntensityAnalyzer.butCheck(wordsAndEmoticons, sentimentsBeforeButCheck)
     scoreValence(sentiments, input)
   }
 
@@ -119,9 +119,9 @@ class SentimentIntensityAnalyzer {
             if (startI == 1 && s != 0) s * 0.95 // 2 words preceding item is booster
             else if (startI == 2 && s != 0) s * 0.9 // 3 words preceding item is booster
             else s
-          val valenceNeg = neverCheck(valenceAcc + scalar, wordsAndEmoticons, startI, i)
+          val valenceNeg = SentimentIntensityAnalyzer.negationCheck(valenceAcc + scalar, wordsAndEmoticons, startI, i)
           if (startI == 2) { // ensures there are at least 2 preceding words
-             idiomsCheck(valenceNeg, wordsAndEmoticons, i)
+             SentimentIntensityAnalyzer.idiomsCheck(valenceNeg, wordsAndEmoticons, i)
           } else {
              valenceNeg
           }
@@ -162,11 +162,131 @@ class SentimentIntensityAnalyzer {
     val total: Double = sifted.posSum + scala.math.abs(sifted.negSum) + sifted.neuCount
 
     SentimentAnalysisResults(
-      compound = roundWithDecimalPlaces(compound, 4),
-      positive = roundWithDecimalPlaces(scala.math.abs(sifted.posSum / total), 3),
-      negative = roundWithDecimalPlaces(scala.math.abs(sifted.negSum / total), 3),
-      neutral = roundWithDecimalPlaces(scala.math.abs(sifted.neuCount / total), 3)
+      compound = SentimentIntensityAnalyzer.roundWithDecimalPlaces(compound, 4),
+      positive = SentimentIntensityAnalyzer.roundWithDecimalPlaces(scala.math.abs(sifted.posSum / total), 3),
+      negative = SentimentIntensityAnalyzer.roundWithDecimalPlaces(scala.math.abs(sifted.negSum / total), 3),
+      neutral = SentimentIntensityAnalyzer.roundWithDecimalPlaces(scala.math.abs(sifted.neuCount / total), 3)
     )
+  }
+
+  /**
+   * Checks for negation case using "least" (german: "wenigsten").
+   * Does not modify valence of word following "at least" or "very least" ("wenigstens").
+   * @param valence valence of token at index `i` in `wordsAndEmoticons` before leastCheck
+   * @param wordsAndEmoticons tokens of text that is being analyzed
+   * @param i index of token in `wordsAndEmoticons` that is being analyzed
+   * @return valence of token at index `i` in `wordsAndEmoticons` after leastCheck
+   */
+  def leastCheck(valence: Double, wordsAndEmoticons: Seq[String], i: Int): Double = {
+    if (i > 1 && !lexicon.contains(wordsAndEmoticons(i - 1).toLowerCase()) &&
+      (wordsAndEmoticons(i - 1).toLowerCase() == "wenigsten")) {
+      if (wordsAndEmoticons(i - 2).toLowerCase() != "at" && wordsAndEmoticons(i - 2).toLowerCase() != "very")
+        return valence * SentimentUtils.NScalar
+    } else if (i > 0 && !lexicon.contains(wordsAndEmoticons(i - 1).toLowerCase())
+      && (wordsAndEmoticons(i - 1).toLowerCase() == "wenigsten"))
+        return valence * SentimentUtils.NScalar
+    valence
+  }
+
+  /**
+    * Adds emphasis from exclamation points (up to 4 of them) and question marks (2 or 3+)
+    *
+    * @param text text which is being analyzed for exclamation points and question marks
+    * @return Added sentiment points from exclamation points and question marks.
+    */
+  def punctuationEmphasis(text: String): Double = {
+    SentimentIntensityAnalyzer.amplifyExclamation(text) + SentimentIntensityAnalyzer.amplifyQuestion(text)
+  }
+
+  /**
+   * Separates positive versus negative sentiment scores
+   * @param sentiments of text
+   * @return separated sentiment scores
+   */
+  private def siftSentimentScores(sentiments: Seq[Double]): SiftSentiments = {
+    val siftSentiments = SiftSentiments()
+
+    sentiments.foldLeft(siftSentiments) (
+      (siftSentiments,  sentiment) => {
+        if (sentiment > 0)
+          siftSentiments.posSum += (sentiment + 1) // compensates for neutral words that are counted as 1
+        if (sentiment < 0)
+          siftSentiments.negSum += (sentiment - 1)
+        if (sentiment == 0)
+          siftSentiments.neuCount += 1
+        siftSentiments
+      }
+    )
+  }
+
+  /**
+    * Replaces emojis in `input` with their textual descriptions.
+    *
+    * @param emojis emojis that are being checked for
+    * @param input text containing `emojis`
+    * @return text without `emojis` but with their textual descriptions
+    */
+  private def replaceEmojisWithDescription(emojis: List[String], input: String): String = {
+    if (emojis.isEmpty) return input
+    val emoji = emojis.head
+    val textNoEmoji = input.replace(emoji, " ".concat(emojiLexikon.getOrElse(emoji, "")).concat(" "))
+    //textNoEmoji = textNoEmoji.replace("  ", " ")
+    if (emojis.tail.isEmpty) textNoEmoji
+    else replaceEmojisWithDescription(emojis.tail, textNoEmoji)
+  }
+
+  /**
+   * Creates sentiment lexicon dict
+   *
+   * @return sentiment lexicon
+   */
+  def makeLexDict(): Map[String, Double] = {
+    val lexiconFile: Seq[String] = ResourceUtils.readFileAsListUTF(VADER_LEXICON_PATH)
+    lexiconFile.map(line => {
+        val lineArray = line.trim().split('\t')
+        (lineArray(0) -> lineArray(1).toDouble)
+      }
+    ).toMap
+  }
+
+  /**
+   * Creates the emoji dict
+   *
+   * @return emoji dictionary
+   */
+  def makeEmojiDict(): Map[String, String] = {
+    val emojiLexiconFile: Seq[String] = ResourceUtils.readFileAsListUTF(VADER_EMOJI_LEXICON_PATH)
+    emojiLexiconFile.map(line => {
+        val lineArray = line.trim().split('\t')
+        lineArray(0) -> lineArray(1)
+      }
+    ).toMap
+  }
+}
+
+
+object SentimentIntensityAnalyzer {
+
+  /**
+   * Checks for modification in sentiment due to contrastive conjunction 'but'.
+   * Words before contrastive conjunction are weighted with 0.5, where as words after with 1.5.
+   *
+   * @param wordsAndEmoticons tokens of text that is being analyzed
+   * @param sentiments sentiments of each token in `wordsAndEmoticons`
+   * @return sentiments of `wordsAndEmoticons` after checking for contrastive conjunction
+   */
+  def butCheck(wordsAndEmoticons: Seq[String], sentiments: ListBuffer[Double]): ListBuffer[Double] = {
+    val wordsAndEmoticonsLower = wordsAndEmoticons.map(_.toLowerCase())
+
+    if (!wordsAndEmoticonsLower.contains("aber")) return sentiments
+
+    val butIndex: Int = wordsAndEmoticonsLower.indexOf("aber")
+
+    sentiments.view.zipWithIndex.map((sentiment: Double, i: Int) => {
+      if (i < butIndex) sentiment * 0.5
+      else if (i > butIndex) sentiment * 1.5
+      else sentiment
+    }).toList.to(ListBuffer)
   }
 
   /**
@@ -227,25 +347,6 @@ class SentimentIntensityAnalyzer {
   }
 
   /**
-   * Checks for negation case using "least" (german: "wenigsten").
-   * Does not modify valence of word following "at least" or "very least" ("wenigstens").
-   * @param valence valence of token at index `i` in `wordsAndEmoticons` before leastCheck
-   * @param wordsAndEmoticons tokens of text that is being analyzed
-   * @param i index of token in `wordsAndEmoticons` that is being analyzed
-   * @return valence of token at index `i` in `wordsAndEmoticons` after leastCheck
-   */
-  def leastCheck(valence: Double, wordsAndEmoticons: Seq[String], i: Int): Double = {
-    if (i > 1 && !lexicon.contains(wordsAndEmoticons(i - 1).toLowerCase()) &&
-      (wordsAndEmoticons(i - 1).toLowerCase() == "wenigsten")) {
-      if (wordsAndEmoticons(i - 2).toLowerCase() != "at" && wordsAndEmoticons(i - 2).toLowerCase() != "very")
-        return valence * SentimentUtils.NScalar
-    } else if (i > 0 && !lexicon.contains(wordsAndEmoticons(i - 1).toLowerCase())
-      && (wordsAndEmoticons(i - 1).toLowerCase() == "wenigsten"))
-        return valence * SentimentUtils.NScalar
-    valence
-  }
-
-  /**
    * Checks for negations in sentence e.g. "nicht"
    * @param valence valence of token at index `i` in `wordsAndEmoticons` before negationCheck
    * @param wordsAndEmoticons tokens of text that is being analyzed
@@ -253,7 +354,7 @@ class SentimentIntensityAnalyzer {
    * @param i index of token in `wordsAndEmoticons` that is being analyzed
    * @return valence of token at index `i` in `wordsAndEmoticons` after negationCheck
   */
-  def neverCheck(valence: Double, wordsAndEmoticons: Seq[String], startI: Int, i: Int): Double = {
+  def negationCheck(valence: Double, wordsAndEmoticons: Seq[String], startI: Int, i: Int): Double = {
     val wordsAndEmoticonsLower = wordsAndEmoticons.map(_.toLowerCase())
     startI match {
       case 0 => {
@@ -277,38 +378,6 @@ class SentimentIntensityAnalyzer {
       case _ => valence
     }
     valence
-  }
-
-  /**
-   * Checks for modification in sentiment due to contrastive conjunction 'but'.
-   * Words before contrastive conjunction are weighted with 0.5, where as words after with 1.5.
-   *
-   * @param wordsAndEmoticons tokens of text that is being analyzed
-   * @param sentiments sentiments of each token in `wordsAndEmoticons`
-   * @return sentiments of `wordsAndEmoticons` after checking for contrastive conjunction
-   */
-  def butCheck(wordsAndEmoticons: Seq[String], sentiments: ListBuffer[Double]): ListBuffer[Double] = {
-    val wordsAndEmoticonsLower = wordsAndEmoticons.map(_.toLowerCase())
-
-    if (!wordsAndEmoticonsLower.contains("aber")) return sentiments
-
-    val butIndex: Int = wordsAndEmoticonsLower.indexOf("aber")
-
-    sentiments.view.zipWithIndex.map((sentiment: Double, i: Int) => {
-      if (i < butIndex) sentiment * 0.5
-      else if (i > butIndex) sentiment * 1.5
-      else sentiment
-    }).toList.to(ListBuffer)
-  }
-
-  /**
-    * Adds emphasis from exclamation points (up to 4 of them) and question marks (2 or 3+)
-    *
-    * @param text text which is being analyzed for exclamation points and question marks
-    * @return Added sentiment points from exclamation points and question marks.
-    */
-  private def punctuationEmphasis(text: String): Double = {
-    amplifyExclamation(text) + amplifyQuestion(text)
   }
 
   /**
@@ -342,75 +411,10 @@ class SentimentIntensityAnalyzer {
     else QuesIncrLarge // 3+ question marks
   }
 
-  /**
-   * Separates positive versus negative sentiment scores
-   * @param sentiments of text
-   * @return separated sentiment scores
-   */
-  private def siftSentimentScores(sentiments: Seq[Double]): SiftSentiments = {
-    val siftSentiments = SiftSentiments()
-
-    sentiments.foldLeft(siftSentiments) (
-      (siftSentiments,  sentiment) => {
-        if (sentiment > 0)
-          siftSentiments.posSum += (sentiment + 1) // compensates for neutral words that are counted as 1
-        if (sentiment < 0)
-          siftSentiments.negSum += (sentiment - 1)
-        if (sentiment == 0)
-          siftSentiments.neuCount += 1
-        siftSentiments
-      }
-    )
-  }
-
   private def roundWithDecimalPlaces(value: Double, decPlaces: Int): Double = {
     decPlaces match {
       case 3 => (value * 1000).round / 1000.toDouble
       case 4 => (value * 10000).round / 10000.toDouble
     }
-  }
-
-  /**
-    * Replaces emojis in `input` with their textual descriptions.
-    *
-    * @param emojis emojis that are being checked for
-    * @param input text containing `emojis`
-    * @return text without `emojis` but with their textual descriptions
-    */
-  private def replaceEmojisWithDescription(emojis: List[String], input: String): String = {
-    if (emojis.isEmpty) return input
-    val emoji = emojis.head
-    val textNoEmoji = input.replace(emoji, " ".concat(emojiLexikon.getOrElse(emoji, "")).concat(" "))
-    //textNoEmoji = textNoEmoji.replace("  ", " ")
-    if (emojis.tail.isEmpty) textNoEmoji
-    else replaceEmojisWithDescription(emojis.tail, textNoEmoji)
-  }
-
-  /**
-   * Creates sentiment lexicon dict
-   *
-   * @return sentiment lexicon
-   */
-  def makeLexDict(): Map[String, Double] = {
-    val lexiconFile: Seq[String] = ResourceUtils.readFileAsListUTF(VADER_LEXICON_PATH)
-    lexiconFile.map(line => {
-        val lineArray = line.trim().split('\t')
-        (lineArray(0) -> lineArray(1).toDouble)
-      }
-    ).toMap
-  }
-
-  /**
-   * Creates the emoji dict
-   *
-   * @return emoji dictionary
-   */
-  def makeEmojiDict(): Map[String, String] = {
-    val emojiLexiconFile: Seq[String] = ResourceUtils.readFileAsListUTF(VADER_EMOJI_LEXICON_PATH)
-    emojiLexiconFile.map(line => {
-        val lineArray = line.trim().split('\t')
-        lineArray(0) -> lineArray(1)
-      }
-    ).toMap
   }
 }
