@@ -4,6 +4,7 @@ private[sentiment] object SentimentUtils {
 
   val BIncr: Double = 0.293
   val BDecr: Double = -0.293
+  // Cap Increase
   val CIncr: Double = 0.733
   val NScalar: Double = -0.74
 
@@ -103,17 +104,30 @@ private[sentiment] object SentimentUtils {
   )
 
   /**
-   * Determine if input contains negation words
+   * Determine if `inputWords` contains negation words
    *
    * @param inputWords
-   * @param includenT
-   * @return
+   * @param includenT `True` if n't should be analyzed
+   * @return `True` if `inputWords` contains negation
    */
   def negated(inputWords: List[String], includenT: Boolean = true): Boolean = {
     val inputWordsLC = inputWords.map(_.toLowerCase())
 
+    // Helper to determine if input contains negation words
+    def containsNegation(inputWords: List[String], negations: List[String]): Boolean = {
+      if (inputWords.contains(negations.head)) true
+      else if (negations.tail == List.empty) false
+      else containsNegation(inputWords, negations.tail)
+    }
     if (containsNegation(inputWordsLC, negate)) return true
 
+
+    // Helper to determine if input contains nt
+    def containsnT(inputWords: List[String]): Boolean = {
+      if (inputWords.head.contains("n't")) true
+      else if (inputWords.tail == List.empty) false
+      else containsnT(inputWords.tail)
+    }
     if (includenT && containsnT(inputWordsLC)) return true
 
     /* if (inputWords.contains("least")) {
@@ -131,7 +145,7 @@ private[sentiment] object SentimentUtils {
    *
    * @param score
    * @param alpha
-   * @return
+   * @return normalized score
    */
   def normalize(score: Double, alpha: Double = 15): Double = {
     val normScore: Double = score / math.sqrt(score * score + alpha)
@@ -145,10 +159,10 @@ private[sentiment] object SentimentUtils {
   }
 
   /**
-   * Checks whether some but not all of words in input are ALL CAPS
+   * Checks whether some but not all words in `words` are ALL-CAPS
    *
-   * @param words The words to inspect
-   * @return `True` if some but not all items in `words` are ALL CAPS
+   * @param words
+   * @return `True` if some but not all items in `words` are ALL-CAPS
    */
   def allCapDifferential(words: Seq[String]): Boolean = {
    val allCapWords = words.foldLeft(0)(
@@ -162,11 +176,11 @@ private[sentiment] object SentimentUtils {
   }
 
   /**
-   * Check if preceding words increase, decrease or negate the valence
+   * Increases/decreases scalar if `word` is a booster
    *
-   * @param word
-   * @param valence
-   * @param isCapDiff
+   * @param word potential booster word
+   * @param valence valence of word following booster word
+   * @param isCapDiff `True` if there is a cap differential in the sentence
    * @return
    */
   def scalarIncDec(word: String, valence: Double, isCapDiff: Boolean): Double = {
@@ -190,37 +204,12 @@ private[sentiment] object SentimentUtils {
   }
 
   /**
-   * Check if preceding words increase, decrease or negate the valence
+   * Checks if `cs` is in ALL-CAPs
    *
-   * @param cs check if a word is in ALLCAPs
-   * @return `True` if word is in ALLCAPs
+   * @param cs
+   * @return `True` if `cs` is in ALLCAPs
    */
   def isUpper(cs: String): Boolean = {
     cs.forall(c => Character.isUpperCase(c))
-  }
-
-    /**
-   * Helper to determine if input contains negation words
-   *
-   * @param inputWords
-   * @param negations
-   * @return
-   */
-  private def containsNegation(inputWords: List[String], negations: List[String]): Boolean = {
-    if (inputWords.contains(negations.head)) true
-    else if (negations.tail == List.empty) false
-    else containsNegation(inputWords, negations.tail)
-  }
-
-  /**
-   * Helper to determine if input contains nt
-   *
-   * @param inputWords
-   * @return `True` inputwords contains "n't"
-   */
-  private def containsnT(inputWords: List[String]): Boolean = {
-    if (inputWords.head.contains("n't")) true
-    else if (inputWords.tail == List.empty) false
-    else containsnT(inputWords.tail)
   }
 }

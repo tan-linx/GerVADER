@@ -9,7 +9,6 @@ import sentiment.utils.SentimentUtils
 
 class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
   "A SentimentIntensityAnalyzer" should "calculate polarity scores (German)" in {
-
     val analyzer = new SentimentIntensityAnalyzer
 
     val testGood = analyzer.polarityScores("GerVADER hat viel Potential <3")
@@ -60,15 +59,12 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     testNeutral2.positive shouldEqual 0.0
     testNeutral2.compound shouldEqual 0.0
 
-    // added Step in GerVADER: In the lexicon, words can have a different intensity whether it is for example a noun (written in capital in German) or a verb.  e.g. Anstieg and anstieg
+    // test added step in GerVADER: in the lexicon, words can have a different intensity whether it is for example a noun (written in capital in German) or a verb.  e.g. Anstieg and anstieg
     analyzer.polarityScores("der Anstieg der Kohleförderung").compound shouldEqual 0.2732
     analyzer.polarityScores("als die Kohleförderung anstieg").compound shouldEqual 0.1779
 
     analyzer.polarityScores("Sentimentanalysen waren nie gut.").compound shouldEqual -0.3724
     analyzer.polarityScores("Die meisten Sentimentanalysen sind scheiße!").compound shouldEqual -0.5707
-    // todo  translate "der shit"
-    analyzer.polarityScores("Mit Vader, sind Sentimentanalysen der Shit!!").compound shouldEqual 0.0
-
     analyzer.polarityScores("Sentimentanalysen waren noch nie so gut!").compound shouldEqual 0.7211 // original GerVADER:-0.5432
     analyzer.polarityScores("VADER ist mega.").compound shouldEqual 0.0
 
@@ -87,23 +83,24 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     testnocaps.compound shouldEqual 0.5106
     val testWithoutEmoji = analyzer.polarityScores("Heute war ein SCHÖNER Tag")
     testWithoutEmoji.compound shouldEqual 0.6166
-    val testWithEmoji = analyzer.polarityScores("Heute war ein SCHÖNER Tag 😀")
-    testWithEmoji.compound shouldEqual 0.7603
-    val testWithEmoji2 = analyzer.polarityScores("Heute war ein SCHÖNER Tag 💘 💋 😁")
-    testWithEmoji2.compound shouldEqual 0.9329
-    val testWithEmoji3 = analyzer.polarityScores("Heute war ein SCHÖNER Tag 🎉")
-    testWithEmoji3.compound shouldEqual 0.7739
-    val testWithEmoji4 = analyzer.polarityScores("Heute war ein SCHÖNER Tag 💣")
-    testWithEmoji4.compound shouldEqual 0.2103
-    val testWithEmoji5 = analyzer.polarityScores("Heute war ein SCHÖNER Tag 😃")
-    testWithEmoji5.compound shouldEqual 0.7603
-    val testWithEmoji6 = analyzer.polarityScores("Heute war ein SCHÖNER Tag 😄")
-    testWithEmoji6.compound shouldEqual 0.8602
+
+    //emoji tests
+    analyzer.polarityScores("Heute war ein SCHÖNER Tag 😀").compound shouldEqual 0.7603
+    analyzer.polarityScores("Heute war ein SCHÖNER Tag 💘 💋 😁").compound shouldEqual 0.9329
+    analyzer.polarityScores("Heute war ein SCHÖNER Tag 🎉").compound shouldEqual 0.7739
+    analyzer.polarityScores("Heute war ein SCHÖNER Tag 💣").compound shouldEqual 0.2103
+    analyzer.polarityScores("Heute war ein SCHÖNER Tag 😃").compound shouldEqual 0.7603
+    analyzer.polarityScores("Heute war ein SCHÖNER Tag 😄").compound shouldEqual 0.8602
+    analyzer.polarityScores("Heute war ein SCHÖNER Tag 😅😆").compound shouldEqual 0.8415
+    analyzer.polarityScores("Heute war ein SCHÖNER Tag 😆 😅").compound shouldEqual 0.8415
+
+    //Heute war ein SCHÖNER Tag 😅😆----------------------------------------- {'neg': 0.0, 'neu': 0.554, 'pos': 0.446, 'compound': 0.6166}
     val testallcaps = analyzer.polarityScores("HEUTE WAR EIN SCHÖNER TAG")
     testallcaps.compound shouldEqual 0.5106
 
     // test kind of
     analyzer.polarityScores("es ist kind of dumm").compound shouldEqual -0.5106
+
     //Sentimentanalysen waren nie gut.------------------------------------- {'neg': 0.46, 'neu': 0.54, 'pos': 0.0, 'compound': -0.3724}
     // Sentimentanalysen waren noch nie so gut!----------------------------- {'neg': 0.412, 'neu': 0.588, 'pos': 0.0, 'compound': -0.5432}
     // Die meisten Sentimentanalysen sind scheiße!-------------------------- {'neg': 0.48, 'neu': 0.52, 'pos': 0.0, 'compound': -0.5707}
@@ -147,7 +144,7 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     analyzer.butCheck(Seq("nicht", "schlecht", "ABER", "ohne", "Zweifel", "unkreativ"), ListBuffer(1, 1, 0, 1, 1, 1, 1)) shouldEqual ListBuffer(0.5, 0.5, 0, 1.5, 1.5, 1.5, 1.5)
     analyzer.butCheck(Seq("nicht", "schlecht", "aBeR", "ohne", "Zweifel", "dumm"), ListBuffer(1, 1, 0, 1, 1, 1, 1)) shouldEqual ListBuffer(0.5, 0.5, 0, 1.5, 1.5, 1.5, 1.5)
 
-    // no but
+    // no contrast conjuction
     analyzer.butCheck(Seq("Ich", "kann", "das", "nicht",":-)"), ListBuffer(1, 1, 1, 1, 1)) shouldEqual ListBuffer(1, 1, 1, 1, 1)
   }
 
@@ -218,6 +215,7 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
       negative = 0.0,
       neutral = 0.0
     )
+
     // 2-3
      analyzer.scoreValence(Seq(1.7, 1.1), "Do you support the sanctions as well??") shouldEqual SentimentAnalysisResults(
       compound = 0.6322,
