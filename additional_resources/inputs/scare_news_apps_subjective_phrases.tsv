@@ -1,0 +1,662 @@
+aspect	6000	35	39	Bild	6000-aspect5	Unknown	Related
+aspect	6000	97	101	Bild	6000-aspect4	Unknown	Related
+aspect	6000	268	271	App	6000-aspect3	Neutral	Related
+subjective	6000	272	280	2 Sterne	6000-subjective4	Negative	Related
+aspect	6000	368	372	Geld	6000-aspect2	Neutral	Related
+subjective	6000	402	409	zu viel	6000-subjective3	Negative	Related
+subjective	6000	499	505	Schade	6000-subjective2	Negative	Related
+subjective	6000	515	520	tolle	6000-subjective1	Positive	Related
+aspect	6000	521	524	App	6000-aspect1	Neutral	Related
+aspect	6001	0	9	Nachricht	6001-aspect5	Unknown	Related
+subjective	6001	10	13	Top	6001-subjective4	Positive	Related
+aspect	6001	16	25	Umsetzung	6001-aspect4	Neutral	Related
+subjective	6001	26	30	Flop	6001-subjective3	Negative	Related
+aspect	6001	339	352	Audio-Beitrag	6001-aspect3	Neutral	Related
+subjective	6001	381	387	stoppt	6001-subjective2	Negative	Related
+aspect	6001	397	404	Beitrag	6001-aspect2	Neutral	Related
+aspect	6001	433	447	Audio-Beiträge	6001-aspect1	Neutral	Related
+subjective	6001	492	495	:-(	6001-subjective1	Negative	Related
+aspect	6002	0	7	Werbung	6002-aspect5	Unknown	Related
+aspect	6002	15	22	Werbung	6002-aspect4	Unknown	Related
+subjective	6002	88	98	informiert	6002-subjective4	Positive	Related
+aspect	6002	103	106	App	6002-aspect3	Neutral	Related
+subjective	6002	120	123	gut	6002-subjective3	Positive	Related
+aspect	6002	130	143	Artikel lesen	6002-aspect2	Neutral	Related
+subjective	6002	216	224	fehlende	6002-subjective2	Negative	Related
+aspect	6002	225	236	Performance	6002-aspect1	Neutral	Related
+subjective	6002	245	259	Datenfresserei	6002-subjective1	Negative	Related
+aspect	6003	0	6	Inhalt	6003-aspect2	Unknown	Related
+subjective	6003	7	11	okay	6003-subjective3	Positive	Related
+aspect	6003	13	16	APP	6003-aspect1	Neutral	Related
+subjective	6003	17	34	taugt nichts mehr	6003-subjective2	Negative	Related
+subjective	6003	159	173	nervt nur noch	6003-subjective1	Negative	Related
+subjective	6004	0	7	Kompakt	6004-subjective1	Positive	Related
+aspect	6005	13	19	Update	6005-aspect1	Unknown	Related
+subjective	6006	0	3	Gut	6006-subjective2	Positive	Related
+subjective	6006	11	30	macht , was sie soll	6006-subjective1	Positive	Related
+subjective	6007	0	20	Alles wieder paletti	6007-subjective2	Positive	Related
+subjective	6007	21	23	👍	6007-subjective1	Positive	Related
+subjective	6008	22	37	Wirklich klasse	6008-subjective1	Positive	Related
+subjective	6009	0	9	Immer gut	6009-subjective1	Positive	Related
+aspect	6009	10	20	informiert	6009-aspect1	Neutral	Related
+subjective	6010	0	12	Weitermachen	6010-subjective2	Positive	Related
+subjective	6010	17	41	Besser geht's nur selten	6010-subjective1	Positive	Related
+subjective	6011	0	2	Ok	6011-subjective1	Positive	Related
+subjective	6012	23	32	Weiter so	6012-subjective1	Positive	Related
+subjective	6012	15	22	Beschte	6012-subjective0	Positive	Related
+subjective	6012	5	11	4 EVER	6012-subjective2	Positive	Related
+aspect	6012	0	4	BILD	6012-aspect0	Unknown	Related
+subjective	6013	12	23	null sterne	6013-subjective0	Negative	Related
+subjective	6014	25	38	einfach super	6014-subjective0	Positive	Related
+aspect	6014	6	21	Nachrichten app	6014-aspect0	Neutral	Related
+subjective	6014	0	5	beste	6014-subjective1	Positive	Related
+subjective	6015	25	37	nix passiert	6015-subjective1	Negative	Related
+subjective	6015	7	17	laden ewig	6015-subjective0	Negative	Related
+aspect	6015	0	6	Videos	6015-aspect0	Unknown	Related
+aspect	6016	72	92	Deutschland - Ticker	6016-aspect0	Unknown	Related
+subjective	6016	56	63	Krönung	6016-subjective3	Positive	Related
+subjective	6016	39	47	sehr gut	6016-subjective2	Positive	Related
+subjective	6016	10	23	übersichtlich	6016-subjective1	Positive	Related
+subjective	6016	0	5	Smart	6016-subjective0	Positive	Related
+subjective	6017	116	122	Schade	6017-subjective1	Negative	Related
+subjective	6017	0	14	War mal besser	6017-subjective0	Negative	Related
+subjective	6018	170	183	startet nicht	6018-subjective3	Negative	Related
+aspect	6018	164	169	Video	6018-aspect3	Neutral	Related
+aspect	6018	109	125	Video anzuzeigen	6018-aspect2	Neutral	Related
+subjective	6018	71	89	noch nie geschafft	6018-subjective2	Negative	Related
+aspect	6018	51	58	Werbung	6018-aspect1	Neutral	Related
+subjective	6018	42	50	nervigen	6018-subjective1	Negative	Related
+subjective	6018	7	19	laufen nicht	6018-subjective0	Negative	Related
+aspect	6018	0	6	Videos	6018-aspect0	Unknown	Related
+aspect	6019	221	234	lokale Rubrik	6019-aspect4	Neutral	Foreign
+subjective	6019	193	201	Wünschen	6019-subjective4	Negative	Related
+aspect	6019	182	191	pack u go	6019-aspect3	Neutral	Related
+aspect	6019	155	161	Aufbau	6019-aspect2	Neutral	Related
+subjective	6019	140	154	übersichtliche	6019-subjective2	Positive	Related
+subjective	6019	119	135	Sehr lobendswert	6019-subjective3	Positive	Related
+subjective	6019	62	79	beste Info Quelle	6019-subjective1	Positive	Related
+aspect	6019	42	49	Spiegel	6019-aspect1	Neutral	Related
+aspect	6019	6	21	Nachrichten App	6019-aspect0	Neutral	Related
+subjective	6019	0	5	Beste	6019-subjective0	Positive	Related
+aspect	6020	64	67	app	6020-aspect2	Neutral	Related
+subjective	6020	49	59	lohnt sich	6020-subjective2	Positive	Related
+aspect	6020	39	45	videos	6020-aspect1	Neutral	Related
+subjective	6020	26	38	interessante	6020-subjective1	Positive	Related
+aspect	6020	6	9	app	6020-aspect0	Neutral	Related
+subjective	6020	0	5	Super	6020-subjective0	Positive	Related
+subjective	6021	0	8	Sehr gut	6021-subjective0	Positive	Related
+subjective	6022	78	92	so gehts nicht	6022-subjective3	Negative	Related
+subjective	6022	65	71	Schade	6022-subjective2	Negative	Related
+aspect	6022	48	61	Kamerazugriff	6022-aspect2	Neutral	Related
+aspect	6022	44	47	APP	6022-aspect3	Unknown	Related
+subjective	6022	25	29	Wozu	6022-subjective1	Negative	Related
+aspect	6022	14	20	Kamera	6022-aspect1	Neutral	Related
+subjective	6022	9	13	Wozu	6022-subjective0	Negative	Related
+aspect	6022	0	6	Rechte	6022-aspect0	Unknown	Related
+subjective	6023	7	10	Top	6023-subjective1	Positive	Related
+subjective	6023	0	3	Top	6023-subjective0	Positive	Related
+aspect	6024	6	15	Tor Alarm	6024-aspect2	Neutral	Foreign
+aspect	6024	72	81	Tor Alarm	6024-aspect1	Neutral	Related
+subjective	6024	123	128	nervt	6024-subjective1	Negative	Related
+subjective	6025	0	7	Exelent	6025-subjective3	Positive	Related
+subjective	6025	16	24	exelente	6025-subjective2	Positive	Related
+aspect	6025	25	34	Übersicht	6025-aspect3	Neutral	Related
+aspect	6025	51	62	Nachrichten	6025-aspect2	Neutral	Related
+aspect	6025	67	73	Videos	6025-aspect1	Neutral	Related
+subjective	6025	74	83	wunderbar	6025-subjective1	Positive	Related
+subjective	6026	0	6	Nervig	6026-subjective2	Negative	Related
+subjective	6026	10	33	Hängt sich nur noch auf	6026-subjective1	Negative	Related
+subjective	6027	0	5	SUPER	6027-subjective1	Positive	Related
+aspect	6027	6	9	APP	6027-aspect1	Neutral	Related
+subjective	6028	0	3	Gut	6028-subjective2	Positive	Related
+subjective	6028	15	20	tolle	6028-subjective1	Positive	Related
+aspect	6028	21	24	App	6028-aspect2	Neutral	Related
+aspect	6028	70	80	Eilmeldung	6028-aspect1	Neutral	Related
+subjective	6029	0	7	Schwach	6029-subjective3	Negative	Related
+subjective	6029	44	54	ungenügend	6029-subjective2	Negative	Related
+aspect	6029	55	64	umgesetzt	6029-aspect2	Neutral	Related
+aspect	6029	189	205	Benachrichtigung	6029-aspect1	Neutral	Related
+subjective	6029	245	253	schlecht	6029-subjective1	Negative	Related
+subjective	6030	0	5	tolle	6030-subjective2	Positive	Related
+aspect	6030	6	9	app	6030-aspect2	Neutral	Related
+subjective	6030	17	27	wo bleiben	6030-subjective1	Negative	Related
+aspect	6030	32	45	breaking news	6030-aspect1	Neutral	Related
+subjective	6031	0	8	Peinlich	6031-subjective2	Negative	Related
+aspect	6031	21	24	App	6031-aspect2	Unknown	Related
+aspect	6031	37	43	Design	6031-aspect1	Neutral	Related
+subjective	6031	53	73	nicht mehr zeitgemäß	6031-subjective1	Negative	Related
+subjective	6032	0	13	Hervorragende	6032-subjective1	Positive	Related
+aspect	6032	14	17	app	6032-aspect1	Neutral	Related
+subjective	6033	17	22	lange	6033-subjective2	Negative	Related
+aspect	6033	23	31	Ladezeit	6033-aspect1	Neutral	Related
+subjective	6033	41	49	Zumutung	6033-subjective1	Negative	Related
+aspect	6034	26	34	Beiträge	6034-aspect1	Neutral	Related
+subjective	6034	103	115	Sehr schwach	6034-subjective1	Negative	Related
+subjective	6035	0	8	Astreine	6035-subjective3	Positive	Related
+aspect	6035	9	12	APP	6035-aspect1	Neutral	Related
+subjective	6035	24	38	sehr zufrieden	6035-subjective2	Positive	Related
+subjective	6035	39	42	, - )	6035-subjective1	Positive	Related
+aspect	6036	5	20	Nachrichten-App	6036-aspect0	Neutral	Related
+subjective	6036	0	4	Gute	6036-subjective0	Positive	Related
+subjective	6037	106	123	so viel Platz ein	6037-subjective2	Negative	Related
+aspect	6037	54	67	Überschriften	6037-aspect0	Neutral	Related
+subjective	6037	28	44	nur noch in weiß	6037-subjective1	Negative	Related
+subjective	6037	0	18	Keine verbesserung	6037-subjective0	Negative	Related
+subjective	6038	131	159	jetzt reicht es mir wirklich	6038-subjective1	Negative	Related
+subjective	6038	78	90	nicht nutzen	6038-subjective0	Negative	Related
+aspect	6038	68	77	Bild Plus	6038-aspect0	Unknown	Related
+aspect	6039	6	23	Samsung Bloatware	6039-aspect0	Unknown	Related
+subjective	6039	0	5	Blöde	6039-subjective0	Negative	Related
+subjective	6040	4	14	vool gheil	6040-subjective0	Positive	Related
+subjective	6041	0	13	Sehr nützlich	6041-subjective0	Positive	Related
+subjective	6042	0	19	Immer dieser Zwang !	6042-subjective0	Negative	Related
+aspect	6043	44	47	App	6043-aspect1	Neutral	Related
+aspect	6043	23	36	Zurück-Button	6043-aspect0	Neutral	Related
+subjective	6043	16	22	keinen	6043-subjective0	Negative	Related
+aspect	6044	368	396	Berichte zu aktuellen Themen	6044-aspect3	Neutral	Related
+subjective	6044	354	359	viele	6044-subjective5	Positive	Related
+aspect	6044	261	276	60 sec . Version	6044-aspect5	Neutral	Related
+subjective	6044	225	245	schnelle Alternative	6044-subjective7	Positive	Related
+subjective	6044	141	155	immer abrufbar	6044-subjective6	Positive	Related
+aspect	6044	107	126	aktuelle Tagesschau	6044-aspect4	Neutral	Related
+aspect	6044	91	101	informiert	6044-aspect2	Neutral	Related
+subjective	6044	77	90	immer bestens	6044-subjective4	Positive	Related
+subjective	6044	37	50	ohne Probleme	6044-subjective3	Positive	Related
+subjective	6044	25	32	flüssig	6044-subjective2	Positive	Related
+aspect	6044	19	24	Läuft	6044-aspect1	Neutral	Related
+aspect	6044	14	17	App	6044-aspect0	Neutral	Related
+subjective	6044	7	13	Klasse	6044-subjective1	Positive	Related
+subjective	6044	0	3	Top	6044-subjective0	Positive	Related
+subjective	6045	132	156	läuft wieder einwandfrei	6045-subjective3	Positive	Related
+aspect	6045	125	131	WIDGET	6045-aspect2	Neutral	Related
+subjective	6045	72	94	Bitte Fehler beheben !!	6045-subjective2	Negative	Related
+aspect	6045	40	54	Aktualisierung	6045-aspect1	Neutral	Related
+subjective	6045	34	39	Keine	6045-subjective1	Negative	Related
+subjective	6045	23	30	streikt	6045-subjective0	Negative	Related
+aspect	6045	11	22	n-TV Widget	6045-aspect0	Unknown	Related
+aspect	6046	128	139	Werbevideos	6046-aspect2	Neutral	Related
+subjective	6046	113	127	unaufgefordert	6046-subjective2	Negative	Related
+aspect	6046	54	57	App	6046-aspect1	Neutral	Related
+subjective	6046	32	40	VORSICHT	6046-subjective1	Negative	Related
+subjective	6046	20	25	super	6046-subjective0	Positive	Related
+aspect	6046	4	7	App	6046-aspect0	Unknown	Related
+subjective	6047	14	33	4,99 € pro Monat ???	6047-subjective1	Negative	Related
+subjective	6047	0	7	Abzocke	6047-subjective0	Negative	Related
+subjective	6048	223	231	stabiler	6048-subjective2	Positive	Related
+subjective	6048	206	218	konsistenter	6048-subjective1	Positive	Related
+aspect	6048	157	160	App	6048-aspect1	Neutral	Related
+aspect	6048	135	148	gestalterisch	6048-aspect2	Neutral	Related
+subjective	6048	27	35	stabiler	6048-subjective0	Positive	Related
+aspect	6048	0	12	Neue Version	6048-aspect0	Unknown	Related
+aspect	6049	110	113	App	6049-aspect1	Neutral	Related
+subjective	6049	98	109	informative	6049-subjective2	Positive	Related
+subjective	6049	84	93	angenehme	6049-subjective1	Positive	Related
+aspect	6049	51	57	Videos	6049-aspect2	Neutral	Related
+subjective	6049	45	50	keine	6049-subjective3	Negative	Related
+aspect	6049	5	11	Videos	6049-aspect0	Neutral	Related
+subjective	6049	0	4	Ohne	6049-subjective0	Negative	Related
+aspect	6050	23	33	Livestream	6050-aspect0	Neutral	Related
+subjective	6050	0	11	Einfach top	6050-subjective0	Positive	Related
+subjective	6051	193	213	nicht mehr abspielen	6051-subjective3	Negative	Related
+aspect	6051	163	169	Videos	6051-aspect4	Neutral	Related
+subjective	6051	129	148	nicht mehr angezigt	6051-subjective2	Negative	Related
+aspect	6051	119	123	Text	6051-aspect3	Neutral	Related
+subjective	6051	64	100	nur noch die Überschriften angezeigt	6051-subjective1	Negative	Related
+aspect	6051	56	63	Artikel	6051-aspect2	Neutral	Related
+subjective	6051	17	41	nicht mehr ordnungsgemäß	6051-subjective0	Negative	Related
+aspect	6051	4	16	funktioniert	6051-aspect1	Unknown	Related
+aspect	6051	0	3	App	6051-aspect0	Unknown	Related
+aspect	6052	37	52	Offlinefunktion	6052-aspect0	Neutral	Foreign
+subjective	6052	21	26	fehlt	6052-subjective1	Negative	Related
+subjective	6052	6	14	sehr gut	6052-subjective0	Positive	Related
+subjective	6053	0	3	Top	6053-subjective0	Positive	Related
+subjective	6054	390	421	mehr braucht man nicht erwarten	6054-subjective4	Negative	Related
+aspect	6054	374	388	neuesten Stand	6054-aspect6	Neutral	Related
+subjective	6054	360	365	immer	6054-subjective5	Positive	Related
+subjective	6054	347	350	gut	6054-subjective3	Positive	Related
+aspect	6054	322	331	Überblick	6054-aspect5	Neutral	Related
+subjective	6054	312	321	schnellen	6054-subjective6	Positive	Related
+subjective	6054	250	258	schlecht	6054-subjective2	Negative	Related
+aspect	6054	231	244	Videobeiträge	6054-aspect4	Neutral	Related
+subjective	6054	224	229	nicht	6054-subjective1	Negative	Related
+aspect	6054	211	223	Funktioniert	6054-aspect2	Neutral	Related
+aspect	6054	89	99	Kommentare	6054-aspect3	Neutral	Related
+aspect	6054	48	51	App	6054-aspect1	Neutral	Related
+subjective	6054	25	28	gut	6054-subjective0	Positive	Related
+aspect	6054	8	24	kurzen Überblick	6054-aspect0	Unknown	Related
+aspect	6055	70	73	App	6055-aspect1	Neutral	Related
+subjective	6055	48	69	ansehnlich gestaltete	6055-subjective2	Positive	Related
+subjective	6055	24	43	Sehr übersichtliche	6055-subjective1	Positive	Related
+aspect	6055	5	20	Nachrichten-App	6055-aspect0	Neutral	Related
+subjective	6055	0	4	Gute	6055-subjective0	Positive	Related
+subjective	6056	124	132	zu teuer	6056-subjective0	Negative	Related
+aspect	6056	110	114	Abos	6056-aspect0	Neutral	Related
+subjective	6056	41	48	schätze	6056-subjective1	Positive	Related
+aspect	6056	16	33	Berichterstattung	6056-aspect1	Unknown	Related
+aspect	6057	50	54	news	6057-aspect0	Unknown	Related
+subjective	6057	41	49	kompakte	6057-subjective1	Positive	Related
+subjective	6057	32	36	Kurz	6057-subjective0	Positive	Related
+aspect	6057	17	28	aufbereitet	6057-aspect2	Neutral	Related
+subjective	6057	13	16	gut	6057-subjective3	Positive	Related
+aspect	6057	5	11	Themen	6057-aspect1	Neutral	Related
+subjective	6057	0	4	Gute	6057-subjective2	Positive	Related
+aspect	6058	24	30	Design	6058-aspect0	Neutral	Related
+subjective	6058	8	23	Übersichtliches	6058-subjective1	Positive	Related
+subjective	6058	0	3	TOP	6058-subjective0	Positive	Related
+subjective	6059	144	158	sehr praktisch	6059-subjective1	Positive	Related
+aspect	6059	117	143	Bezahlung über Google Play	6059-aspect2	Neutral	Related
+subjective	6059	82	95	uninteressant	6059-subjective0	Negative	Related
+aspect	6059	59	77	Gelegenheitsnutzer	6059-aspect1	Neutral	Related
+subjective	6059	39	53	mehr als 100 %	6059-subjective2	Negative	Related
+aspect	6059	22	35	Preiserhöhung	6059-aspect3	Unknown	Related
+aspect	6059	0	13	Preiserhöhung	6059-aspect0	Unknown	Related
+subjective	6060	353	361	wäre Top	6060-subjective3	Positive	Related
+aspect	6060	337	352	Zusammenfassung	6060-aspect5	Neutral	Foreign
+aspect	6060	236	240	news	6060-aspect4	Neutral	Related
+aspect	6060	182	189	chronik	6060-aspect3	Neutral	Related
+subjective	6060	150	163	nicht optimal	6060-subjective2	Negative	Related
+aspect	6060	112	128	chronischen news	6060-aspect2	Neutral	Related
+aspect	6060	59	63	Wort	6060-aspect1	Neutral	Related
+aspect	6060	49	53	Satz	6060-aspect0	Neutral	Related
+subjective	6060	13	22	Schwächen	6060-subjective1	Negative	Related
+subjective	6060	0	3	Top	6060-subjective0	Positive	Related
+subjective	6061	0	14	Gut Informiert	6061-subjective0	Positive	Related
+aspect	6062	35	43	Artikeln	6062-aspect0	Unknown	Related
+subjective	6063	46	51	prima	6063-subjective0	Positive	Related
+aspect	6063	35	45	Eilmeldung	6063-aspect1	Unknown	Related
+aspect	6063	0	10	Eilmeldung	6063-aspect0	Unknown	Related
+subjective	6064	0	9	Alled gut	6064-subjective0	Positive	Related
+subjective	6066	0	8	Sehr gut	6066-subjective0	Positive	Related
+subjective	6067	0	3	Top	6067-subjective0	Positive	Related
+subjective	6068	11	20	Zufrieden	6068-subjective0	Positive	Related
+aspect	6068	0	7	HTC One	6068-aspect0	Unknown	Related
+aspect	6069	142	152	Aktualität	6069-aspect6	Neutral	Related
+aspect	6069	119	140	hochauflösende Bilder	6069-aspect7	Neutral	Related
+aspect	6069	96	117	Bewertungsmöglichkeit	6069-aspect5	Neutral	Related
+aspect	6069	89	94	Video	6069-aspect4	Neutral	Related
+aspect	6069	82	87	Audio	6069-aspect3	Neutral	Related
+aspect	6069	75	80	Lesen	6069-aspect2	Neutral	Related
+subjective	6069	60	73	Alles perfekt	6069-subjective0	Positive	Related
+aspect	6069	55	58	App	6069-aspect1	Unknown	Related
+aspect	6069	0	14	ARD Tagesschau	6069-aspect0	Unknown	Related
+subjective	6070	84	93	sehr cool	6070-subjective1	Positive	Related
+aspect	6070	63	79	Benachrichtigung	6070-aspect1	Neutral	Related
+aspect	6070	41	57	Sport- Kategorie	6070-aspect0	Neutral	Related
+subjective	6070	13	25	richtig cool	6070-subjective0	Positive	Related
+subjective	6071	54	69	Herzlichen Dank	6071-subjective1	Positive	Related
+subjective	6071	34	52	aktuell informiert	6071-subjective2	Positive	Related
+subjective	6071	11	27	Kurz und schnell	6071-subjective3	Positive	Related
+subjective	6071	0	7	Aktuell	6071-subjective0	Positive	Related
+subjective	6072	13	19	leider	6072-subjective0	Negative	Related
+subjective	6073	144	148	Mist	6073-subjective1	Negative	Related
+aspect	6073	122	129	Werbung	6073-aspect3	Neutral	Related
+aspect	6073	78	85	Werbung	6073-aspect2	Neutral	Related
+aspect	6073	54	62	Facebook	6073-aspect1	Neutral	Related
+aspect	6073	43	48	Focus	6073-aspect0	Neutral	Related
+subjective	6073	15	22	Schrott	6073-subjective0	Negative	Related
+subjective	6074	0	6	Klasse	6074-subjective0	Positive	Related
+subjective	6075	119	132	Bitte beheben	6075-subjective2	Negative	Related
+aspect	6075	104	113	scrollens	6075-aspect2	Neutral	Related
+aspect	6075	69	76	Nexus 5	6075-aspect1	Neutral	Related
+aspect	6075	26	29	App	6075-aspect0	Neutral	Related
+subjective	6075	15	21	stürzt	6075-subjective1	Negative	Related
+subjective	6075	0	6	Leider	6075-subjective0	Negative	Related
+subjective	6076	15	26	Ohne Fehler	6076-subjective1	Negative	Related
+aspect	6076	10	13	app	6076-aspect0	Neutral	Related
+subjective	6076	0	9	Sehr gute	6076-subjective0	Positive	Related
+subjective	6077	163	177	hoher Qualität	6077-subjective3	Positive	Related
+aspect	6077	145	153	Berichte	6077-aspect4	Neutral	Related
+subjective	6077	131	134	gut	6077-subjective2	Positive	Related
+subjective	6077	115	126	einwandfrei	6077-subjective1	Positive	Related
+aspect	6077	106	114	Programm	6077-aspect3	Neutral	Related
+aspect	6077	58	61	App	6077-aspect2	Neutral	Related
+subjective	6077	10	21	einwandfrei	6077-subjective0	Positive	Related
+aspect	6077	4	9	läuft	6077-aspect1	Unknown	Related
+aspect	6077	0	3	APP	6077-aspect0	Unknown	Related
+subjective	6078	199	210	Schandfleck	6078-subjective2	Negative	Related
+aspect	6078	187	194	app ist	6078-aspect2	Neutral	Related
+subjective	6078	102	117	unter aller Sau	6078-subjective1	Negative	Related
+aspect	6078	37	54	Berichterstattung	6078-aspect1	Neutral	Related
+aspect	6078	11	28	Berichterstattung	6078-aspect0	Neutral	Related
+subjective	6078	0	10	Einseitige	6078-subjective0	Negative	Related
+subjective	6079	442	450	veraltet	6079-subjective4	Negative	Related
+aspect	6079	413	420	Artikel	6079-aspect4	Neutral	Related
+aspect	6079	346	352	Widget	6079-aspect5	Neutral	Related
+subjective	6079	266	301	Behebt die grammatikalischen Mängel	6079-subjective3	Negative	Related
+aspect	6079	218	234	Berichterstatter	6079-aspect3	Neutral	Related
+subjective	6079	209	217	seriösen	6079-subjective2	Positive	Related
+subjective	6079	172	178	nerven	6079-subjective1	Negative	Related
+aspect	6079	155	171	fehlenden Wörter	6079-aspect2	Neutral	Related
+aspect	6079	132	150	Rechtschreibfehler	6079-aspect1	Neutral	Related
+aspect	6079	21	24	App	6079-aspect0	Neutral	Related
+subjective	6079	16	20	gute	6079-subjective0	Positive	Related
+aspect	6080	80	86	Bilder	6080-aspect1	Unknown	Related
+aspect	6080	57	64	Artikel	6080-aspect0	Unknown	Related
+subjective	6081	159	165	Schade	6081-subjective1	Negative	Related
+subjective	6081	146	157	Unbrauchbar	6081-subjective0	Negative	Related
+subjective	6081	113	135	nicht mehr einwandfrei	6081-subjective2	Negative	Related
+aspect	6081	106	112	Update	6081-aspect1	Unknown	Related
+aspect	6081	93	96	App	6081-aspect0	Unknown	Related
+aspect	6081	31	39	Artikeln	6081-aspect2	Unknown	Related
+aspect	6081	13	19	Update	6081-aspect3	Unknown	Related
+aspect	6082	85	98	Honeycomb 3.2	6082-aspect0	Unknown	Related
+aspect	6082	74	80	Videos	6082-aspect2	Neutral	Related
+aspect	6082	58	67	Abspielen	6082-aspect1	Neutral	Related
+subjective	6082	33	46	Stürzt leider	6082-subjective0	Negative	Related
+aspect	6082	20	29	Acer A500	6082-aspect3	Neutral	Related
+subjective	6082	0	11	Läuft nicht	6082-subjective1	Negative	Related
+subjective	6083	20	31	geht anders	6083-subjective0	Negative	Related
+aspect	6083	0	19	Intuitive Bedienung	6083-aspect0	Unknown	Related
+subjective	6084	0	3	Top	6084-subjective2	Positive	Related
+subjective	6084	20	25	super	6084-subjective1	Positive	Related
+subjective	6085	0	16	Reine Propaganda	6085-subjective2	Negative	Related
+subjective	6085	48	70	Bild Zeitung Kategorie	6085-subjective1	Negative	Related
+aspect	6086	191	194	App	6086-aspect1	Unknown	Related
+aspect	6087	42	45	App	6087-aspect2	Unknown	Related
+subjective	6087	60	78	Bitte um ein neues	6087-subjective1	Negative	Related
+aspect	6087	79	86	Updates	6087-aspect1	Neutral	Related
+subjective	6088	20	27	Seriöse	6088-subjective1	Positive	Related
+aspect	6088	28	31	App	6088-aspect1	Neutral	Related
+aspect	6089	47	59	Installation	6089-aspect3	Neutral	Related
+aspect	6089	82	87	Links	6089-aspect2	Neutral	Related
+subjective	6089	88	101	nicht richtig	6089-subjective2	Negative	Related
+subjective	6089	121	135	noch schlimmer	6089-subjective1	Negative	Related
+aspect	6089	147	152	Video	6089-aspect1	Neutral	Related
+subjective	6090	0	4	Gute	6090-subjective1	Positive	Related
+aspect	6090	5	8	App	6090-aspect1	Neutral	Related
+aspect	6091	0	7	Werbung	6091-aspect5	Unknown	Related
+aspect	6091	23	30	Werbung	6091-aspect4	Unknown	Related
+aspect	6091	51	55	Clip	6091-aspect3	Unknown	Related
+aspect	6091	67	71	Clip	6091-aspect2	Unknown	Related
+aspect	6091	109	112	App	6091-aspect1	Unknown	Related
+subjective	6092	0	4	Gute	6092-subjective6	Positive	Related
+aspect	6092	5	8	App	6092-aspect5	Neutral	Related
+subjective	6092	32	36	gute	6092-subjective5	Positive	Related
+aspect	6092	37	40	App	6092-aspect4	Neutral	Related
+aspect	6092	46	51	Laden	6092-aspect3	Neutral	Related
+subjective	6092	52	71	dauert mir zu lange	6092-subjective4	Negative	Related
+aspect	6092	80	88	Struktur	6092-aspect2	Neutral	Related
+subjective	6092	98	100	ok	6092-subjective3	Neutral	Related
+subjective	6092	106	126	nicht immer sinnvoll	6092-subjective2	Negative	Related
+aspect	6092	163	168	Links	6092-aspect1	Neutral	Related
+subjective	6092	169	192	machen manchmal stutzig	6092-subjective1	Negative	Related
+subjective	6093	0	8	Schlecht	6093-subjective1	Negative	Related
+aspect	6094	40	50	4x1 Widget	6094-aspect1	Unknown	Related
+subjective	6094	66	71	super	6094-subjective1	Positive	Related
+aspect	6095	147	155	Resultat	6095-aspect1	Unknown	Related
+subjective	6095	171	192	meistens enttäuschend	6095-subjective1	Negative	Related
+subjective	6096	12	22	Weiter so !	6096-subjective1	Positive	Related
+aspect	6096	5	8	app	6096-aspect0	Neutral	Related
+subjective	6096	0	4	Gute	6096-subjective0	Positive	Related
+aspect	6097	17	20	App	6097-aspect0	Neutral	Related
+subjective	6097	0	16	Eigentlich super	6097-subjective0	Positive	Related
+subjective	6098	110	149	Reine Verschwendung des Speicherplatzes	6098-subjective2	Negative	Related
+subjective	6098	105	108	tot	6098-subjective1	Negative	Related
+aspect	6098	96	104	Programm	6098-aspect0	Neutral	Related
+subjective	6098	0	7	Schrott	6098-subjective0	Negative	Related
+subjective	6099	26	33	Geht ok	6099-subjective0	Neutral	Related
+subjective	6100	35	49	sehr zufrieden	6100-subjective1	Positive	Related
+subjective	6100	0	8	Sehr gut	6100-subjective0	Positive	Related
+aspect	6101	277	287	Eilmeldung	6101-aspect2	Neutral	Related
+aspect	6101	244	256	Eilmeldungen	6101-aspect1	Neutral	Related
+subjective	6101	227	243	viel zu häufigen	6101-subjective2	Negative	Related
+subjective	6101	202	216	wirklich stört	6101-subjective1	Negative	Related
+subjective	6101	118	138	nicht ganz mein Fall	6101-subjective0	Negative	Related
+aspect	6101	102	108	Layout	6101-aspect0	Unknown	Related
+aspect	6101	0	12	Eilmeldungen	6101-aspect3	Unknown	Related
+subjective	6102	32	74	stimmt nicht immer alles was da drin steht	6102-subjective1	Negative	Related
+subjective	6102	21	28	Es geht	6102-subjective0	Neutral	Related
+subjective	6103	77	87	Please fix	6103-subjective2	Negative	Related
+aspect	6103	44	52	abstürze	6103-aspect1	Neutral	Related
+subjective	6103	36	43	zuviele	6103-subjective1	Negative	Related
+aspect	6103	13	16	App	6103-aspect0	Neutral	Related
+subjective	6103	0	12	Fantastische	6103-subjective0	Positive	Related
+subjective	6104	23	65	Vielen Dank für die schnelle Nachbesserung	6104-subjective1	Positive	Related
+subjective	6104	0	16	Alles wieder gut	6104-subjective0	Positive	Related
+subjective	6105	96	111	guten Überblick	6105-subjective2	Positive	Related
+aspect	6105	59	62	App	6105-aspect3	Neutral	Related
+aspect	6105	42	49	Autoren	6105-aspect2	Neutral	Related
+subjective	6105	37	41	gute	6105-subjective1	Positive	Related
+aspect	6105	29	35	Layout	6105-aspect1	Neutral	Related
+subjective	6105	23	28	Gutes	6105-subjective0	Positive	Related
+aspect	6105	6	19	Lieblings-App	6105-aspect0	Unknown	Related
+subjective	6106	0	9	ZUFRIEDEN	6106-subjective0	Positive	Related
+subjective	6107	0	7	Tip Top	6107-subjective0	Positive	Related
+subjective	6108	0	6	Super !	6108-subjective0	Positive	Related
+subjective	6109	66	104	nicht auf seine Bedürfnisse einstellen	6109-subjective2	Negative	Related
+aspect	6109	53	65	Eilmeldungen	6109-aspect1	Neutral	Related
+aspect	6109	20	29	aufgebaut	6109-aspect0	Neutral	Related
+subjective	6109	16	19	gut	6109-subjective1	Positive	Related
+subjective	6109	0	14	Nicht schlecht	6109-subjective0	Positive	Related
+subjective	6110	45	52	schnell	6110-subjective1	Positive	Related
+aspect	6110	33	40	aktuell	6110-aspect1	Neutral	Related
+subjective	6110	22	32	immer sehr	6110-subjective2	Positive	Related
+aspect	6110	5	21	Pushmitteilungen	6110-aspect0	Neutral	Related
+subjective	6110	0	4	Gute	6110-subjective0	Positive	Related
+subjective	6111	12	24	verschwunden	6111-subjective0	Negative	Related
+aspect	6111	5	11	Update	6111-aspect0	Unknown	Related
+subjective	6112	0	15	Pure Propaganda	6112-subjective0	Negative	Related
+aspect	6113	323	333	Livestream	6113-aspect8	Neutral	Foreign
+aspect	6113	245	255	Livestream	6113-aspect7	Neutral	Foreign
+subjective	6113	219	227	wäre gut	6113-subjective4	Negative	Related
+aspect	6113	204	214	Livestream	6113-aspect6	Neutral	Foreign
+aspect	6113	158	170	N24 News app	6113-aspect4	Neutral	Foreign
+subjective	6113	138	153	viel besser als	6113-subjective3	Positive	Related
+aspect	6113	130	133	App	6113-aspect5	Neutral	Related
+aspect	6113	109	119	Livestream	6113-aspect3	Neutral	Related
+subjective	6113	102	108	keinen	6113-subjective2	Negative	Related
+aspect	6113	98	101	App	6113-aspect2	Neutral	Related
+subjective	6113	56	59	gut	6113-subjective1	Positive	Related
+aspect	6113	48	51	App	6113-aspect1	Neutral	Related
+subjective	6113	11	16	fehlt	6113-subjective0	Negative	Related
+aspect	6113	0	10	Livestream	6113-aspect0	Unknown	Foreign
+aspect	6114	54	67	Breaking News	6114-aspect1	Neutral	Related
+subjective	6114	34	45	einwandfrei	6114-subjective1	Positive	Related
+aspect	6114	21	33	Funktioniert	6114-aspect0	Neutral	Related
+subjective	6114	0	17	macht was es soll	6114-subjective0	Positive	Related
+subjective	6115	37	46	weiter so	6115-subjective1	Positive	Related
+subjective	6115	23	34	gut gemacht	6115-subjective0	Positive	Related
+aspect	6115	12	22	Informativ	6115-aspect1	Unknown	Related
+aspect	6115	0	7	Aktuell	6115-aspect0	Unknown	Related
+subjective	6116	97	110	neuer Unsinn ?	6116-subjective1	Negative	Related
+subjective	6116	65	81	plötzlich zahlen	6116-subjective0	Negative	Related
+subjective	6117	430	453	Alles in allem sehr gut	6117-subjective9	Positive	Related
+subjective	6117	420	428	wäre gut	6117-subjective8	Positive	Related
+aspect	6117	369	405	individuelle Einstellungsmöglichkeit	6117-aspect5	Neutral	Foreign
+aspect	6117	248	277	Größe der Bilder einzustellen	6117-aspect6	Neutral	Foreign
+subjective	6117	186	219	Was noch verbessert werden könnte	6117-subjective10	Negative	Related
+subjective	6117	167	184	Sehr zu empfehlen	6117-subjective7	Positive	Related
+subjective	6117	158	165	möglich	6117-subjective6	Positive	Related
+aspect	6117	139	157	Auswahl der Themen	6117-aspect4	Neutral	Related
+aspect	6117	130	137	Werbung	6117-aspect3	Neutral	Related
+subjective	6117	124	129	wenig	6117-subjective5	Positive	Related
+subjective	6117	101	112	veränderbar	6117-subjective4	Positive	Related
+aspect	6117	88	100	Schriftgröße	6117-aspect2	Neutral	Foreign
+aspect	6117	76	86	informativ	6117-aspect1	Neutral	Related
+subjective	6117	71	75	Sehr	6117-subjective3	Positive	Related
+subjective	6117	45	69	Individuell zu gestalten	6117-subjective2	Positive	Related
+subjective	6117	25	43	Sehr übersichtlich	6117-subjective1	Positive	Related
+aspect	6117	17	21	Apps	6117-aspect0	Neutral	Related
+subjective	6117	10	16	besten	6117-subjective0	Positive	Related
+subjective	6118	26	40	sehr zufrieden	6118-subjective2	Positive	Related
+subjective	6118	11	20	Alles gut	6118-subjective1	Positive	Related
+subjective	6118	0	7	Perfekt	6118-subjective0	Positive	Related
+subjective	6119	0	8	Zu teuer	6119-subjective0	Negative	Related
+aspect	6120	34	37	APP	6120-aspect0	Unknown	Related
+subjective	6120	0	17	TOLLE ERFAHRUNGEN	6120-subjective0	Positive	Related
+subjective	6121	131	146	richtig schwach	6121-subjective1	Negative	Related
+subjective	6121	0	4	mist	6121-subjective0	Negative	Related
+subjective	6122	111	124	fast garnicht	6122-subjective1	Negative	Related
+aspect	6122	101	106	läuft	6122-aspect0	Neutral	Related
+subjective	6122	64	77	fehlt einiges	6122-subjective0	Positive	Related
+aspect	6122	37	41	Bild	6122-aspect1	Unknown	Related
+aspect	6123	19	25	zahlen	6123-aspect0	Unknown	Related
+subjective	6123	13	18	Immer	6123-subjective1	Positive	Related
+subjective	6123	0	9	Voll Kake	6123-subjective0	Negative	Related
+subjective	6124	17	24	Tip top	6124-subjective1	Positive	Related
+subjective	6124	0	13	Alles bestens	6124-subjective0	Positive	Related
+subjective	6125	55	58	top	6125-subjective2	Positive	Related
+aspect	6125	49	54	läuft	6125-aspect1	Neutral	Related
+subjective	6125	28	36	nützlich	6125-subjective1	Positive	Related
+subjective	6125	12	23	gut gemacht	6125-subjective0	Positive	Related
+aspect	6125	0	5	Heise	6125-aspect0	Unknown	Related
+subjective	6126	196	215	bin ichs jetzt leid	6126-subjective5	Negative	Related
+subjective	6126	133	144	nicht lesen	6126-subjective4	Negative	Related
+aspect	6126	104	112	Berichte	6126-aspect1	Neutral	Related
+subjective	6126	75	99	nur noch Fehlermeldungen	6126-subjective2	Negative	Related
+subjective	6126	53	60	geliebt	6126-subjective3	Positive	Related
+aspect	6126	49	52	App	6126-aspect0	Neutral	Related
+subjective	6126	19	32	super genervt	6126-subjective1	Negative	Related
+subjective	6126	0	7	PROBLEM	6126-subjective0	Negative	Related
+subjective	6127	10	26	super informativ	6127-subjective1	Positive	Related
+subjective	6127	0	8	Sehr gut	6127-subjective0	Positive	Related
+subjective	6128	74	80	Klasse	6128-subjective2	Positive	Related
+aspect	6128	58	69	Nachrichten	6128-aspect1	Neutral	Related
+subjective	6128	50	57	neusten	6128-subjective0	Positive	Related
+subjective	6128	25	35	frühzeitig	6128-subjective1	Positive	Related
+aspect	6128	0	15	NTV Nachrichten	6128-aspect0	Unknown	Related
+subjective	6129	206	223	Fakten war einmal	6129-subjective1	Neutral	Related
+aspect	6129	42	49	Artikel	6129-aspect0	Neutral	Related
+subjective	6129	0	28	Mehr Systempresse geht nicht	6129-subjective0	Negative	Related
+subjective	6130	0	7	Es geht	6130-subjective0	Neutral	Related
+subjective	6131	0	5	Super	6131-subjective0	Positive	Related
+aspect	6132	10	13	App	6132-aspect0	Neutral	Related
+subjective	6132	0	9	Sehr gute	6132-subjective0	Positive	Related
+subjective	6133	383	391	sehr gut	6133-subjective4	Positive	Related
+aspect	6133	375	378	App	6133-aspect5	Neutral	Related
+aspect	6133	314	334	Rechtsschreibfehlern	6133-aspect4	Neutral	Related
+subjective	6133	307	313	vielen	6133-subjective3	Negative	Related
+aspect	6133	243	253	informiert	6133-aspect3	Neutral	Related
+subjective	6133	237	242	nicht	6133-subjective2	Negative	Related
+subjective	6133	114	123	einseitig	6133-subjective1	Negative	Related
+aspect	6133	97	108	Nachrichten	6133-aspect2	Neutral	Related
+subjective	6133	39	47	tadellos	6133-subjective0	Positive	Related
+aspect	6133	26	38	funktioniert	6133-aspect1	Unknown	Related
+aspect	6133	22	25	App	6133-aspect0	Unknown	Related
+subjective	6134	121	124	x- (	6134-subjective2	Negative	Related
+aspect	6134	116	120	Icon	6134-aspect2	Neutral	Related
+subjective	6134	71	74	Weg	6134-subjective3	Negative	Related
+aspect	6134	56	60	wvga	6134-aspect1	Neutral	Related
+subjective	6134	46	51	nicht	6134-subjective1	Negative	Related
+aspect	6134	26	29	app	6134-aspect0	Neutral	Related
+subjective	6134	21	25	gute	6134-subjective0	Positive	Related
+subjective	6135	316	332	Meine Empfehlung	6135-subjective5	Positive	Related
+aspect	6135	304	314	informiert	6135-aspect1	Neutral	Related
+subjective	6135	296	303	schnell	6135-subjective6	Positive	Related
+aspect	6135	77	80	APP	6135-aspect0	Neutral	Related
+subjective	6135	65	76	informative	6135-subjective4	Positive	Related
+subjective	6135	47	60	sehr schnelle	6135-subjective3	Positive	Related
+subjective	6135	25	35	informativ	6135-subjective2	Positive	Related
+subjective	6135	13	20	aktuell	6135-subjective1	Positive	Related
+subjective	6135	0	12	Sehr schnell	6135-subjective0	Positive	Related
+subjective	6136	40	43	;-)	6136-subjective1	Positive	Related
+subjective	6136	0	3	Top	6136-subjective0	Positive	Related
+subjective	6137	6	14	in Kürze	6137-subjective0	Positive	Related
+aspect	6137	0	5	Infos	6137-aspect0	Unknown	Related
+subjective	6138	0	4	Gudi	6138-subjective0	Positive	Related
+subjective	6139	229	255	Bitte wieder so wie vorher	6139-subjective4	Negative	Related
+subjective	6139	199	227	nur bröckchenweise abspielen	6139-subjective3	Negative	Related
+subjective	6139	167	177	laden ewig	6139-subjective2	Negative	Related
+aspect	6139	160	166	Videos	6139-aspect2	Neutral	Related
+subjective	6139	137	154	läuft nichts mehr	6139-subjective1	Negative	Related
+aspect	6139	124	130	Update	6139-aspect1	Neutral	Related
+aspect	6139	37	48	Nachrichten	6139-aspect0	Neutral	Related
+subjective	6139	0	17	Richtig ärgerlich	6139-subjective0	Negative	Related
+subjective	6140	170	184	nicht erwarten	6140-subjective2	Negative	Related
+aspect	6140	159	169	Tagesschau	6140-aspect3	Neutral	Related
+aspect	6140	85	103	App Berechtigungen	6140-aspect2	Neutral	Related
+subjective	6140	69	84	schwachsinnigen	6140-subjective1	Negative	Related
+aspect	6140	28	31	App	6140-aspect1	Neutral	Related
+subjective	6140	18	27	Sehr gute	6140-subjective0	Positive	Related
+aspect	6140	0	14	Berechtigungen	6140-aspect0	Unknown	Related
+aspect	6141	59	62	App	6141-aspect1	Neutral	Related
+subjective	6141	33	47	Sehr zufrieden	6141-subjective2	Positive	Related
+aspect	6141	16	26	informiert	6141-aspect0	Neutral	Related
+subjective	6141	9	15	knackt	6141-subjective1	Positive	Related
+subjective	6141	0	4	Kurz	6141-subjective0	Positive	Related
+subjective	6142	46	64	nur mit Abo lesbar	6142-subjective2	Negative	Related
+subjective	6142	32	35	gut	6142-subjective1	Positive	Related
+aspect	6142	23	31	Bild App	6142-aspect1	Neutral	Related
+aspect	6142	15	19	Geld	6142-aspect0	Neutral	Related
+subjective	6142	0	14	kostet richtig	6142-subjective0	Positive	Related
+aspect	6143	214	230	Austausch button	6143-aspect3	Neutral	Related
+aspect	6143	94	101	werbung	6143-aspect2	Neutral	Related
+subjective	6143	86	93	häufige	6143-subjective3	Positive	Related
+subjective	6143	76	81	nervt	6143-subjective4	Positive	Related
+subjective	6143	48	56	spannend	6143-subjective2	Positive	Related
+aspect	6143	36	43	Artikel	6143-aspect1	Neutral	Related
+subjective	6143	31	35	Gute	6143-subjective1	Positive	Related
+aspect	6143	14	27	Informationen	6143-aspect0	Neutral	Related
+subjective	6143	0	13	Gute & schnelle	6143-subjective0	Positive	Related
+aspect	6144	168	171	app	6144-aspect4	Neutral	Related
+subjective	6144	160	167	liebste	6144-subjective5	Positive	Related
+subjective	6144	133	144	sehr schade	6144-subjective4	Negative	Related
+subjective	6144	113	131	lädt er wieder neu	6144-subjective3	Negative	Related
+aspect	6144	98	105	Artikel	6144-aspect3	Neutral	Related
+subjective	6144	51	75	nur noch auf die 1 . Seite	6144-subjective2	Negative	Related
+aspect	6144	34	40	Update	6144-aspect2	Neutral	Related
+subjective	6144	17	21	flop	6144-subjective1	Positive	Related
+aspect	6144	10	16	Tablet	6144-aspect1	Neutral	Related
+subjective	6144	6	9	top	6144-subjective0	Positive	Related
+aspect	6144	0	5	Handy	6144-aspect0	Unknown	Related
+subjective	6145	134	136	:)	6145-subjective2	Positive	Related
+aspect	6145	122	133	Nachrichten	6145-aspect1	Neutral	Related
+subjective	6145	65	82	sehr zu empfhelen	6145-subjective1	Positive	Related
+subjective	6145	29	47	tausend mal besser	6145-subjective0	Positive	Related
+aspect	6145	21	24	App	6145-aspect0	Unknown	Related
+subjective	6146	204	222	Extrem überflüssig	6146-subjective4	Negative	Related
+aspect	6146	86	93	Werbung	6146-aspect1	Neutral	Related
+subjective	6146	71	85	aufdringlicher	6146-subjective3	Negative	Related
+subjective	6146	45	60	völlig nerviger	6146-subjective2	Positive	Related
+aspect	6146	16	26	informiert	6146-aspect0	Neutral	Related
+subjective	6146	8	15	schnell	6146-subjective1	Positive	Related
+subjective	6146	0	3	Gut	6146-subjective0	Positive	Related
+aspect	6147	85	92	Artikel	6147-aspect1	Neutral	Related
+subjective	6147	73	84	lädt keinen	6147-subjective1	Negative	Related
+aspect	6147	11	18	Artikel	6147-aspect0	Unknown	Related
+subjective	6147	0	10	Lädt keine	6147-subjective0	Neutral	Related
+aspect	6148	44	74	Möglichkeit auf weisse Schrift	6148-aspect0	Neutral	Foreign
+subjective	6148	20	29	mir fehlt	6148-subjective1	Negative	Related
+subjective	6148	0	16	mittlerweile gut	6148-subjective0	Positive	Related
+subjective	6149	37	57	nicht mehr angezeigt	6149-subjective0	Negative	Related
+aspect	6149	23	29	Videos	6149-aspect2	Unknown	Related
+aspect	6149	12	18	Bilder	6149-aspect1	Unknown	Related
+aspect	6149	0	10	Thumbnails	6149-aspect0	Unknown	Related
+aspect	6150	21	27	Macher	6150-aspect0	Neutral	Related
+subjective	6150	4	6	+ 1	6150-subjective0	Positive	Related
+subjective	6151	82	91	schneller	6151-subjective0	Positive	Related
+aspect	6151	18	24	Update	6151-aspect0	Neutral	Related
+subjective	6151	0	12	funktioniert	6151-subjective1	Positive	Related
+aspect	6152	14	26	Journalismus	6152-aspect0	Unknown	Related
+subjective	6153	181	198	nur 4von5 Sternen	6153-subjective4	Negative	Related
+subjective	6153	151	170	BITTE BITTE beheben	6153-subjective3	Positive	Related
+aspect	6153	146	149	App	6153-aspect1	Neutral	Related
+subjective	6153	140	145	super	6153-subjective2	Positive	Related
+subjective	6153	94	118	immer wieder neu startet	6153-subjective1	Negative	Related
+aspect	6153	90	93	App	6153-aspect0	Neutral	Related
+subjective	6153	0	6	Schade	6153-subjective0	Negative	Related
+subjective	6154	129	137	5 Sterne	6154-subjective0	Positive	Related
+subjective	6155	50	56	nerven	6155-subjective3	Negative	Related
+aspect	6155	39	49	Ladezeiten	6155-aspect2	Neutral	Related
+subjective	6155	33	38	lange	6155-subjective2	Negative	Related
+subjective	6155	26	31	nervt	6155-subjective1	Negative	Related
+aspect	6155	22	25	GPS	6155-aspect1	Neutral	Related
+subjective	6155	14	20	nerven	6155-subjective0	Negative	Related
+aspect	6155	0	13	Pushmeldungen	6155-aspect0	Unknown	Related
+subjective	6156	87	92	öfter	6156-subjective2	Negative	Related
+aspect	6156	83	86	App	6156-aspect2	Neutral	Related
+aspect	6156	72	78	stürzt	6156-aspect1	Neutral	Related
+subjective	6156	53	64	oft zu lang	6156-subjective1	Negative	Related
+aspect	6156	32	52	Ladezeit der Artikel	6156-aspect0	Neutral	Related
+subjective	6156	0	13	Mit Schwächen	6156-subjective0	Negative	Related
+aspect	6157	23	26	App	6157-aspect0	Neutral	Related
+subjective	6157	18	22	gute	6157-subjective0	Positive	Related
+subjective	6158	82	95	immer aktuell	6158-subjective3	Positive	Related
+aspect	6158	65	76	Nachrichten	6158-aspect2	Neutral	Related
+aspect	6158	51	56	Infos	6158-aspect1	Neutral	Related
+subjective	6158	46	50	gute	6158-subjective2	Positive	Related
+aspect	6158	37	40	App	6158-aspect0	Neutral	Related
+subjective	6158	13	31	kann nicht meckern	6158-subjective1	Positive	Related
+subjective	6158	0	3	Gut	6158-subjective0	Positive	Related
+subjective	6159	52	58	schade	6159-subjective0	Negative	Related
+subjective	6159	21	28	Problem	6159-subjective1	Negative	Related

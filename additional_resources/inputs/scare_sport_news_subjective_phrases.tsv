@@ -1,0 +1,595 @@
+subjective	8000	0	3	Gut	8000-subjective1	Positive	Related
+aspect	8001	0	15	Material Design	8001-aspect1	Unknown	Foreign
+subjective	8001	16	21	fehlt	8001-subjective1	Negative	Related
+subjective	8002	0	11	Einfach gut	8002-subjective1	Positive	Related
+subjective	8003	0	12	Hervorragend	8003-subjective1	Positive	Related
+subjective	8004	11	14	top	8004-subjective3	Positive	Related
+aspect	8004	54	57	app	8004-aspect1	Neutral	Related
+subjective	8004	58	73	geht nicht mehr	8004-subjective1	Negative	Related
+subjective	8005	12	33	etwas unübersichtlich	8005-subjective3	Negative	Related
+subjective	8005	41	43	OK	8005-subjective2	Positive	Related
+subjective	8005	46	47	☺	8005-subjective1	Positive	Related
+subjective	8006	0	5	Super	8006-subjective1	Positive	Related
+aspect	8007	0	3	App	8007-aspect1	Unknown	Related
+subjective	8007	7	12	Super	8007-subjective1	Positive	Related
+aspect	8008	147	154	Updates	8008-aspect2	Unknown	Related
+subjective	8008	161	166	super	8008-subjective4	Positive	Related
+subjective	8008	171	184	sehr sinnvoll	8008-subjective3	Positive	Related
+subjective	8008	196	205	weiter so	8008-subjective2	Positive	Related
+subjective	8008	213	246	vielleicht noch drüber nachdenken	8008-subjective1	Negative	Related
+aspect	8008	264	299	Toralarmtöne individuell einstellen	8008-aspect1	Neutral	Foreign
+aspect	8009	17	31	Aktualisierung	8009-aspect1	Unknown	Related
+subjective	8009	32	49	nur noch Scheisse	8009-subjective3	Negative	Related
+subjective	8009	152	155	top	8009-subjective1	Positive	Related
+aspect	8010	0	6	Update	8010-aspect3	Unknown	Related
+aspect	8010	35	41	Update	8010-aspect2	Neutral	Related
+subjective	8010	57	68	gescheitert	8010-subjective2	Negative	Related
+aspect	8010	70	80	Paketdatei	8010-aspect1	Neutral	Related
+subjective	8010	81	90	ungueltig	8010-subjective1	Negative	Related
+subjective	8011	0	4	Geil	8011-subjective1	Positive	Related
+subjective	8012	291	306	nicht überladen	8012-subjective11	Negative	Related
+subjective	8012	282	289	schnell	8012-subjective10	Negative	Related
+subjective	8012	267	280	keine Werbung	8012-subjective9	Negative	Related
+aspect	8012	253	264	Sportstudio	8012-aspect4	Neutral	Foreign
+subjective	8012	225	232	löschen	8012-subjective8	Negative	Related
+aspect	8012	221	224	App	8012-aspect3	Neutral	Related
+subjective	8012	184	210	zu schnell online gestellt	8012-subjective7	Negative	Related
+subjective	8012	162	179	Schlecht getestet	8012-subjective6	Negative	Related
+subjective	8012	142	155	dann Absturz ,	8012-subjective5	Negative	Related
+aspect	8012	127	137	Ladezeiten	8012-aspect2	Neutral	Related
+subjective	8012	121	126	lange	8012-subjective4	Negative	Related
+aspect	8012	112	119	Werbung	8012-aspect1	Neutral	Related
+subjective	8012	102	111	Jetzt nur	8012-subjective3	Negative	Related
+subjective	8012	84	100	um längen besser	8012-subjective2	Negative	Related
+aspect	8012	71	79	alte App	8012-aspect0	Neutral	Foreign
+subjective	8012	51	64	echt übel ist	8012-subjective1	Negative	Related
+subjective	8012	0	9	echt mies	8012-subjective0	Negative	Related
+aspect	8013	87	92	App's	8013-aspect1	Neutral	Related
+subjective	8013	71	82	einwandfrei	8013-subjective2	Positive	Related
+aspect	8013	58	70	funktioniert	8013-aspect0	Neutral	Related
+subjective	8013	11	39	Bin Zufrieden halt damit !!!	8013-subjective1	Positive	Related
+subjective	8013	0	8	Ganz gut	8013-subjective0	Positive	Related
+subjective	8014	81	97	Das ist schlecht	8014-subjective2	Negative	Related
+aspect	8014	63	79	Benachrichtigung	8014-aspect2	Neutral	Related
+subjective	8014	20	58	bekomme ich einfach nicht abgeschaltet	8014-subjective1	Negative	Related
+aspect	8014	16	19	Ton	8014-aspect1	Neutral	Related
+aspect	8014	4	6	Ap	8014-aspect0	Neutral	Related
+subjective	8014	0	3	Top	8014-subjective0	Positive	Related
+subjective	8015	179	194	Bitte ändern !!!	8015-subjective4	Negative	Related
+subjective	8015	142	177	immer der falsche Bericht angezeigt	8015-subjective3	Negative	Related
+aspect	8015	120	136	News Feed Widged	8015-aspect2	Neutral	Related
+subjective	8015	90	102	total nervig	8015-subjective2	Negative	Related
+aspect	8015	78	81	läd	8015-aspect1	Neutral	Related
+subjective	8015	52	77	immer viiiiieeel zu lange	8015-subjective1	Negative	Related
+aspect	8015	48	51	App	8015-aspect0	Neutral	Related
+subjective	8015	0	16	Eigentlich super	8015-subjective0	Positive	Related
+aspect	8016	6	9	App	8016-aspect0	Unknown	Related
+subjective	8016	0	5	Tolle	8016-subjective0	Positive	Related
+subjective	8017	50	70	nicht mehr öffnen !!!	8017-subjective0	Negative	Related
+aspect	8017	42	49	artikel	8017-aspect2	Unknown	Related
+aspect	8017	19	25	update	8017-aspect1	Unknown	Related
+aspect	8017	0	6	update	8017-aspect0	Unknown	Related
+subjective	8018	23	41	ohne Probleme !!!!	8018-subjective2	Positive	Related
+subjective	8018	11	22	Super Sache	8018-subjective1	Positive	Related
+subjective	8018	0	7	Tip Top	8018-subjective0	Positive	Related
+subjective	8019	483	514	jedem Fußballfan empfehlen kann	8019-subjective4	Positive	Related
+aspect	8019	470	473	App	8019-aspect3	Neutral	Related
+subjective	8019	465	469	gute	8019-subjective3	Positive	Related
+aspect	8019	412	440	Aufstellungen mit anzuzeigen	8019-aspect5	Neutral	Related
+subjective	8019	322	353	Einziger Verbesserungsvorschlag	8019-subjective5	Negative	Related
+subjective	8019	240	256	sinnvolle Option	8019-subjective2	Positive	Related
+aspect	8019	202	229	Tormeldungen auszuschließen	8019-aspect4	Neutral	Foreign
+subjective	8019	142	154	sensationell	8019-subjective1	Positive	Related
+aspect	8019	134	137	App	8019-aspect1	Neutral	Related
+aspect	8019	116	129	Hauptfunktion	8019-aspect2	Neutral	Related
+aspect	8019	75	81	meldet	8019-aspect0	Neutral	Related
+subjective	8019	64	74	so schnell	8019-subjective0	Positive	Related
+subjective	8020	0	5	Super	8020-subjective0	Positive	Related
+subjective	8021	10	33	Ein wenig unkomfortabel	8021-subjective1	Negative	Related
+subjective	8021	0	8	Ganz gut	8021-subjective0	Positive	Related
+subjective	8022	0	5	Hamma	8022-subjective0	Positive	Related
+subjective	8023	7	12	Super	8023-subjective1	Positive	Related
+subjective	8023	0	3	Top	8023-subjective0	Positive	Related
+subjective	8024	0	4	Geil	8024-subjective1	Positive	Related
+subjective	8025	0	4	Cool	8025-subjective1	Positive	Related
+subjective	8026	0	23	Jedes mal stürzt das ab	8026-subjective1	Negative	Related
+subjective	8027	0	3	Top	8027-subjective2	Positive	Related
+aspect	8027	8	35	Automatische Aktualisierung	8027-aspect1	Neutral	Related
+subjective	8027	50	63	wäre noch gut	8027-subjective1	Positive	Related
+subjective	8028	0	3	Top	8028-subjective2	Positive	Related
+subjective	8028	15	28	genau richtig	8028-subjective1	Positive	Related
+subjective	8029	0	10	Ladefehler	8029-subjective3	Negative	Related
+subjective	8029	58	70	richtig gute	8029-subjective2	Positive	Related
+aspect	8029	71	74	App	8029-aspect2	Neutral	Related
+aspect	8029	103	109	update	8029-aspect1	Neutral	Related
+subjective	8029	114	127	nix geht mehr	8029-subjective1	Negative	Related
+subjective	8030	0	5	Super	8030-subjective2	Positive	Related
+aspect	8030	6	9	app	8030-aspect3	Neutral	Related
+subjective	8030	13	22	Sehr gute	8030-subjective1	Positive	Related
+aspect	8030	23	26	app	8030-aspect2	Unknown	Related
+aspect	8030	27	38	live ticker	8030-aspect1	Neutral	Related
+subjective	8031	6	44	Schlecht ist sie net aber gut auch net	8031-subjective1	Neutral	Related
+subjective	8032	0	5	Beste	8032-subjective1	Positive	Related
+aspect	8032	6	12	Ticker	8032-aspect1	Neutral	Related
+aspect	8033	0	6	Widget	8033-aspect2	Unknown	Related
+subjective	8033	7	12	fehlt	8033-subjective3	Negative	Related
+subjective	8033	16	28	Alles supper	8033-subjective2	Positive	Related
+subjective	8033	31	43	leider fehlt	8033-subjective1	Negative	Related
+aspect	8033	61	67	Widget	8033-aspect1	Neutral	Related
+subjective	8034	0	3	Top	8034-subjective1	Positive	Related
+subjective	8035	0	13	Unverzichtbar	8035-subjective1	Positive	Related
+subjective	8036	144	170	Kann die APP nur empfehlen	8036-subjective4	Positive	Related
+subjective	8036	121	142	Alles was man braucht	8036-subjective3	Positive	Related
+aspect	8036	79	88	Überblick	8036-aspect1	Neutral	Related
+subjective	8036	73	78	guten	8036-subjective2	Positive	Related
+subjective	8036	22	40	Macht was sie soll	8036-subjective0	Neutral	Related
+aspect	8036	7	18	Fußball-App	8036-aspect0	Neutral	Related
+subjective	8036	0	6	Klasse	8036-subjective1	Positive	Related
+subjective	8037	9	33	1 Stern ist noch zu viel	8037-subjective1	Negative	Related
+subjective	8037	0	5	Dreck	8037-subjective0	Negative	Related
+subjective	8038	0	3	Top	8038-subjective0	Positive	Related
+aspect	8039	131	134	App	8039-aspect4	Neutral	Related
+aspect	8039	87	98	performance	8039-aspect3	Neutral	Related
+aspect	8039	69	72	App	8039-aspect2	Neutral	Related
+subjective	8039	64	68	gute	8039-subjective2	Positive	Related
+subjective	8039	39	55	um Welten besser	8039-subjective1	Positive	Related
+aspect	8039	32	38	iPhone	8039-aspect1	Neutral	Related
+subjective	8039	8	22	extrem langsam	8039-subjective0	Negative	Related
+aspect	8039	4	7	dhd	8039-aspect0	Unknown	Related
+aspect	8041	39	49	Bluescreen	8041-aspect2	Neutral	Related
+aspect	8041	28	38	Liveticker	8041-aspect0	Unknown	Related
+subjective	8041	14	22	Sehr oft	8041-subjective0	Negative	Related
+aspect	8041	0	10	Bluescreen	8041-aspect1	Unknown	Related
+subjective	8042	12	23	Sehr schade	8042-subjective0	Negative	Related
+subjective	8043	100	122	viel unübersichtlicher	8043-subjective2	Negative	Related
+aspect	8043	83	88	laden	8043-aspect2	Neutral	Related
+subjective	8043	59	77	dauert viel länger	8043-subjective3	Negative	Related
+subjective	8043	47	55	schlecht	8043-subjective1	Negative	Related
+aspect	8043	33	39	update	8043-aspect1	Neutral	Related
+subjective	8043	15	20	dreck	8043-subjective0	Negative	Related
+aspect	8043	5	11	update	8043-aspect0	Unknown	Related
+subjective	8044	7	10	gut	8044-subjective1	Positive	Related
+subjective	8044	0	3	gut	8044-subjective0	Positive	Related
+aspect	8045	111	117	design	8045-aspect0	Neutral	Related
+subjective	8045	107	110	top	8045-subjective1	Positive	Related
+aspect	8045	95	101	Update	8045-aspect2	Neutral	Related
+aspect	8045	72	81	Überblick	8045-aspect1	Neutral	Related
+subjective	8045	66	71	guten	8045-subjective2	Positive	Related
+subjective	8045	0	3	Top	8045-subjective0	Positive	Related
+aspect	8046	122	132	Bildschirm	8046-aspect2	Neutral	Related
+aspect	8046	59	66	HTC DHD	8046-aspect3	Neutral	Related
+aspect	8046	30	36	Update	8046-aspect1	Neutral	Related
+aspect	8046	11	17	Update	8046-aspect0	Neutral	Related
+subjective	8046	0	10	Kein gutes	8046-subjective0	Negative	Related
+subjective	8047	15	21	Klasse	8047-subjective0	Positive	Related
+aspect	8047	0	11	Onefootball	8047-aspect0	Unknown	Related
+subjective	8048	12	24	totaler Müll	8048-subjective1	Negative	Related
+subjective	8048	0	8	schlecht	8048-subjective0	Negative	Related
+subjective	8049	0	3	;-)	8049-subjective0	Positive	Related
+subjective	8050	0	6	Klasse	8050-subjective0	Positive	Related
+aspect	8051	28	45	Berichterstattung	8051-aspect0	Unknown	Related
+subjective	8051	10	27	sehr erfrischende	8051-subjective0	Positive	Related
+subjective	8052	149	169	ich empfehle es euch	8052-subjective2	Positive	Related
+subjective	8052	98	100	:(	8052-subjective3	Negative	Related
+subjective	8052	91	98	langsam	8052-subjective1	Negative	Related
+aspect	8052	84	87	läd	8052-aspect0	Neutral	Related
+subjective	8052	7	10	gut	8052-subjective0	Positive	Related
+subjective	8053	0	8	Ganz gut	8053-subjective0	Positive	Related
+aspect	8054	71	95	Samsung Galaxy Note Edge	8054-aspect0	Unknown	Related
+aspect	8054	30	36	update	8054-aspect1	Neutral	Related
+subjective	8054	0	6	Schade	8054-subjective0	Negative	Related
+aspect	8055	345	352	Werbung	8055-aspect8	Neutral	Related
+subjective	8055	324	340	für kleines Geld	8055-subjective6	Positive	Related
+aspect	8055	298	309	pro Version	8055-aspect7	Neutral	Related
+subjective	8055	263	283	absolut zu empfehlen	8055-subjective4	Positive	Related
+aspect	8055	259	262	App	8055-aspect6	Neutral	Related
+aspect	8055	225	230	Spiel	8055-aspect5	Neutral	Related
+aspect	8055	216	220	Liga	8055-aspect4	Neutral	Related
+aspect	8055	193	199	Tippen	8055-aspect3	Neutral	Related
+subjective	8055	185	192	lästige	8055-subjective3	Negative	Related
+aspect	8055	132	141	Spotlight	8055-aspect2	Neutral	Related
+aspect	8055	110	121	Spielminute	8055-aspect1	Neutral	Related
+aspect	8055	91	101	Torschütze	8055-aspect0	Neutral	Related
+subjective	8055	61	68	schnell	8055-subjective2	Positive	Related
+subjective	8055	45	56	zuverlässig	8055-subjective1	Positive	Related
+subjective	8055	11	13	😃	8055-subjective5	Positive	Related
+subjective	8055	7	10	Top	8055-subjective0	Positive	Related
+subjective	8056	0	9	Weiter so	8056-subjective0	Positive	Related
+subjective	8057	14	25	geht wieder	8057-subjective1	Positive	Related
+aspect	8057	9	13	Push	8057-aspect0	Neutral	Related
+subjective	8057	0	5	Super	8057-subjective0	Positive	Related
+aspect	8058	82	84	D2	8058-aspect1	Neutral	Related
+subjective	8058	72	77	fehlt	8058-subjective0	Negative	Related
+aspect	8058	24	36	Mannschaften	8058-aspect0	Unknown	Related
+aspect	8059	93	96	app	8059-aspect1	Unknown	Related
+subjective	8059	89	92	top	8059-subjective2	Positive	Related
+subjective	8059	56	76	Bitte fehler beheben	8059-subjective1	Negative	Related
+subjective	8059	44	54	ständig ab	8059-subjective3	Negative	Related
+aspect	8059	21	27	Stürzt	8059-aspect2	Neutral	Related
+aspect	8059	10	17	absturz	8059-aspect0	Neutral	Related
+subjective	8059	0	9	Ständiger	8059-subjective0	Negative	Related
+subjective	8060	61	77	um Längen besser	8060-subjective2	Negative	Related
+aspect	8060	52	56	alte	8060-aspect0	Neutral	Related
+subjective	8060	41	45	Mist	8060-subjective1	Negative	Related
+subjective	8060	0	29	Schlechter geht es nicht mehr	8060-subjective0	Negative	Related
+aspect	8061	44	50	Widget	8061-aspect1	Neutral	Foreign
+subjective	8061	29	39	Fehlt noch	8061-subjective1	Negative	Related
+subjective	8061	16	27	richtig gut	8061-subjective0	Positive	Related
+aspect	8061	9	15	Update	8061-aspect0	Unknown	Related
+aspect	8062	25	33	strategi	8062-aspect0	Unknown	Related
+subjective	8062	21	24	gut	8062-subjective1	Positive	Related
+subjective	8062	7	10	gut	8062-subjective0	Positive	Related
+aspect	8063	39	42	app	8063-aspect0	Unknown	Related
+subjective	8063	35	38	top	8063-subjective0	Positive	Related
+aspect	8064	272	275	App	8064-aspect2	Neutral	Related
+subjective	8064	267	271	gute	8064-subjective2	Positive	Related
+subjective	8064	241	247	Fehler	8064-subjective3	Negative	Related
+subjective	8064	167	173	falsch	8064-subjective1	Negative	Related
+aspect	8064	129	143	Statistikwerte	8064-aspect1	Neutral	Related
+subjective	8064	79	108	hängt sich die ganze Zeit auf	8064-subjective0	Negative	Related
+aspect	8064	17	23	Update	8064-aspect0	Unknown	Related
+aspect	8065	31	34	app	8065-aspect1	Neutral	Related
+aspect	8065	10	13	app	8065-aspect0	Neutral	Related
+subjective	8065	4	9	beste	8065-subjective0	Positive	Related
+aspect	8066	0	9	Sport App	8066-aspect0	Unknown	Related
+subjective	8067	66	75	Hände weg	8067-subjective1	Negative	Related
+aspect	8067	57	64	Werbung	8067-aspect0	Neutral	Related
+subjective	8067	52	56	viel	8067-subjective0	Negative	Related
+aspect	8067	45	50	Links	8067-aspect1	Neutral	Related
+subjective	8067	41	44	nur	8067-subjective2	Negative	Related
+subjective	8067	24	39	unübersichtlich	8067-subjective3	Negative	Related
+aspect	8067	14	22	alte App	8067-aspect2	Neutral	Foreign
+subjective	8067	0	6	Schade	8067-subjective4	Negative	Related
+subjective	8068	80	91	alles super	8068-subjective2	Positive	Related
+aspect	8068	34	40	3 Liga	8068-aspect1	Neutral	Related
+subjective	8068	20	25	nicht	8068-subjective1	Negative	Related
+aspect	8068	16	19	app	8068-aspect0	Neutral	Related
+subjective	8068	0	8	4 Sterne	8068-subjective0	Positive	Related
+subjective	8069	39	46	so geil	8069-subjective0	Positive	Related
+subjective	8070	13	18	super	8070-subjective0	Positive	Related
+subjective	8071	7	10	Gut	8071-subjective1	Positive	Related
+subjective	8071	0	3	Gut	8071-subjective0	Positive	Related
+aspect	8072	208	214	Update	8072-aspect3	Neutral	Related
+subjective	8072	192	196	Müll	8072-subjective2	Negative	Related
+aspect	8072	183	188	Bild +	8072-aspect2	Neutral	Related
+subjective	8072	128	144	über eine Minute	8072-subjective1	Negative	Related
+aspect	8072	120	124	lädt	8072-aspect1	Neutral	Related
+subjective	8072	90	99	unmöglich	8072-subjective3	Negative	Related
+aspect	8072	83	89	update	8072-aspect0	Neutral	Related
+subjective	8072	60	66	leider	8072-subjective4	Negative	Related
+aspect	8072	29	53	aktuellen Berichte lesen	8072-aspect4	Neutral	Related
+subjective	8072	0	6	Schade	8072-subjective0	Negative	Related
+subjective	8073	278	295	klappt noch nicht	8073-subjective7	Negative	Related
+aspect	8073	247	277	deaktivieren vom stummschalten	8073-aspect4	Neutral	Related
+subjective	8073	230	237	aktuell	8073-subjective6	Positive	Related
+subjective	8073	214	225	super flott	8073-subjective5	Positive	Related
+aspect	8073	191	197	update	8073-aspect3	Neutral	Related
+subjective	8073	157	169	viel zu spät	8073-subjective4	Negative	Related
+aspect	8073	133	145	funktioniert	8073-aspect2	Neutral	Related
+subjective	8073	126	132	nichts	8073-subjective3	Negative	Related
+aspect	8073	82	92	Ladezeiten	8073-aspect1	Neutral	Related
+subjective	8073	76	81	ewige	8073-subjective2	Negative	Related
+subjective	8073	54	74	geht gar nichts mehr	8073-subjective1	Negative	Related
+aspect	8073	41	47	update	8073-aspect0	Neutral	Related
+subjective	8073	7	22	besser geworden	8073-subjective0	Positive	Related
+subjective	8074	38	50	nicht normal	8074-subjective1	Negative	Related
+aspect	8074	23	37	akku verbrauch	8074-aspect2	Neutral	Related
+aspect	8074	14	17	app	8074-aspect1	Neutral	Related
+subjective	8074	8	13	Geile	8074-subjective0	Positive	Related
+aspect	8074	0	4	Akku	8074-aspect0	Unknown	Related
+aspect	8075	22	32	informiert	8075-aspect0	Unknown	Related
+subjective	8075	7	15	Sehr gut	8075-subjective1	Positive	Related
+subjective	8075	0	3	Top	8075-subjective0	Positive	Related
+subjective	8076	0	3	Top	8076-subjective0	Positive	Related
+subjective	8077	145	150	Super	8077-subjective2	Positive	Related
+aspect	8077	119	130	Statistiken	8077-aspect2	Neutral	Related
+aspect	8077	39	46	Auswahl	8077-aspect1	Neutral	Related
+subjective	8077	33	38	große	8077-subjective1	Positive	Related
+aspect	8077	6	15	Überblick	8077-aspect0	Neutral	Related
+subjective	8077	0	5	Super	8077-subjective0	Positive	Related
+subjective	8078	0	8	Sehr Gut	8078-subjective0	Positive	Related
+subjective	8079	7	13	Schade	8079-subjective1	Negative	Related
+subjective	8079	0	3	Gut	8079-subjective0	Positive	Related
+subjective	8080	68	76	sehr gut	8080-subjective2	Positive	Related
+subjective	8080	42	60	startet nicht mehr	8080-subjective1	Negative	Related
+aspect	8080	38	41	App	8080-aspect0	Neutral	Related
+subjective	8080	19	36	Nur noch flackern	8080-subjective0	Negative	Related
+subjective	8081	35	46	unbrauchbar	8081-subjective1	Negative	Related
+aspect	8081	28	34	Update	8081-aspect1	Neutral	Related
+subjective	8081	12	19	Schrott	8081-subjective0	Negative	Related
+aspect	8081	5	11	Update	8081-aspect0	Unknown	Related
+subjective	8082	97	103	Genial	8082-subjective3	Positive	Related
+subjective	8082	91	96	Super	8082-subjective2	Positive	Related
+subjective	8082	48	66	sofort übermittelt	8082-subjective4	Positive	Related
+aspect	8082	26	40	aktuellen Tore	8082-aspect1	Neutral	Related
+aspect	8082	18	21	App	8082-aspect0	Neutral	Related
+subjective	8082	14	17	Top	8082-subjective1	Positive	Related
+subjective	8082	0	8	Sehr gut	8082-subjective0	Positive	Related
+subjective	8083	8	16	sehr gut	8083-subjective1	Positive	Related
+subjective	8083	0	3	gut	8083-subjective0	Positive	Related
+subjective	8084	0	9	Exzellent	8084-subjective5	Positive	Related
+subjective	8084	13	26	Einfach super	8084-subjective4	Positive	Related
+subjective	8084	28	38	Informativ	8084-subjective3	Positive	Related
+subjective	8084	44	49	beste	8084-subjective2	Positive	Related
+aspect	8084	50	56	Ticker	8084-aspect2	Neutral	Related
+subjective	8084	61	70	sehr gute	8084-subjective1	Positive	Related
+aspect	8084	71	79	Beiträge	8084-aspect1	Neutral	Related
+subjective	8085	0	3	Gut	8085-subjective1	Positive	Related
+subjective	8086	0	20	Schwer übersichtlich	8086-subjective2	Negative	Related
+subjective	8086	27	35	sehr gut	8086-subjective1	Positive	Related
+subjective	8087	10	20	informativ	8087-subjective2	Positive	Related
+subjective	8087	25	37	überschaubar	8087-subjective1	Positive	Related
+subjective	8088	36	47	Schwachsinn	8088-subjective2	Negative	Related
+subjective	8088	228	244	Minus 100 Sterne	8088-subjective1	Negative	Related
+aspect	8089	7	10	Bvb	8089-aspect1	Neutral	Related
+subjective	8089	16	34	immer aktualisiert	8089-subjective1	Positive	Related
+subjective	8090	0	15	Einfach nur top	8090-subjective6	Positive	Related
+aspect	8090	27	32	läuft	8090-aspect3	Neutral	Related
+subjective	8090	40	47	perfekt	8090-subjective5	Positive	Related
+subjective	8090	91	106	total zufrieden	8090-subjective4	Positive	Related
+aspect	8090	115	118	app	8090-aspect2	Neutral	Related
+subjective	8090	119	143	lohnt sich auf jedenfall	8090-subjective3	Positive	Related
+subjective	8090	152	163	empfehle es	8090-subjective2	Positive	Related
+subjective	8090	214	219	beste	8090-subjective1	Positive	Related
+aspect	8090	220	223	app	8090-aspect1	Unknown	Related
+subjective	8091	0	5	Prima	8091-subjective1	Positive	Related
+aspect	8091	6	9	App	8091-aspect1	Unknown	Related
+subjective	8092	0	4	geil	8092-subjective3	Positive	Related
+subjective	8092	8	11	Top	8092-subjective2	Positive	Related
+subjective	8092	16	33	beste was es gibt	8092-subjective1	Positive	Related
+subjective	8093	0	5	Beste	8093-subjective5	Positive	Related
+aspect	8093	6	17	Fussballapp	8093-aspect3	Neutral	Related
+subjective	8093	21	28	Starkes	8093-subjective4	Positive	Related
+aspect	8093	29	35	Design	8093-aspect2	Neutral	Related
+subjective	8093	37	45	schlicht	8093-subjective3	Positive	Related
+subjective	8093	50	63	übersichtlich	8093-subjective2	Positive	Related
+aspect	8093	64	73	gestaltet	8093-aspect1	Neutral	Related
+subjective	8093	74	85	Top Top Top	8093-subjective1	Positive	Related
+subjective	8094	0	13	Sehr schlecht	8094-subjective3	Negative	Related
+aspect	8094	23	31	alte APP	8094-aspect2	Neutral	Related
+subjective	8094	48	64	um Längen besser	8094-subjective2	Negative	Related
+subjective	8094	67	78	Unverschämt	8094-subjective1	Negative	Related
+aspect	8094	92	97	laden	8094-aspect1	Neutral	Related
+subjective	8095	0	11	Fantastisch	8095-subjective3	Positive	Related
+subjective	8095	15	21	Klasse	8095-subjective2	Positive	Related
+subjective	8095	22	33	macht laune	8095-subjective1	Positive	Related
+aspect	8096	189	195	Design	8096-aspect3	Neutral	Related
+subjective	8096	169	175	besser	8096-subjective5	Positive	Related
+aspect	8096	130	151	internationalen Ligen	8096-aspect2	Neutral	Related
+subjective	8096	81	93	viel weniger	8096-subjective4	Negative	Related
+aspect	8096	68	76	Abstürze	8096-aspect1	Neutral	Related
+subjective	8096	59	67	Fast nur	8096-subjective3	Negative	Related
+subjective	8096	40	55	1000 mal besser	8096-subjective2	Negative	Related
+aspect	8096	26	35	Mein Club	8096-aspect0	Neutral	Related
+subjective	8096	10	24	Absoluter Müll	8096-subjective1	Negative	Related
+subjective	8096	0	5	Dreck	8096-subjective0	Negative	Related
+subjective	8097	3	22	passt einfach alles	8097-subjective0	Positive	Related
+aspect	8098	6	9	App	8098-aspect0	Neutral	Related
+subjective	8098	0	5	Super	8098-subjective0	Positive	Related
+aspect	8099	238	258	Neuladen des Layouts	8099-aspect3	Neutral	Related
+subjective	8099	228	237	ständigem	8099-subjective3	Negative	Related
+subjective	8099	165	177	nicht nutzen	8099-subjective2	Negative	Related
+aspect	8099	161	164	App	8099-aspect2	Neutral	Related
+subjective	8099	115	133	immer frustrierter	8099-subjective1	Negative	Related
+aspect	8099	54	57	App	8099-aspect1	Neutral	Related
+subjective	8099	9	28	nimmt immer mehr ab	8099-subjective0	Negative	Related
+aspect	8099	0	8	Qualität	8099-aspect0	Unknown	Related
+subjective	8100	127	143	machet weiter so	8100-subjective0	Positive	Related
+aspect	8100	13	18	iLiga	8100-aspect1	Unknown	Related
+aspect	8100	0	11	Onefootball	8100-aspect0	Unknown	Related
+subjective	8101	314	320	lieber	8101-subjective5	Negative	Related
+aspect	8101	297	313	11-Freunde-Seite	8101-aspect4	Neutral	Foreign
+aspect	8101	238	246	Leistung	8101-aspect3	Neutral	Related
+subjective	8101	232	237	Miese	8101-subjective4	Negative	Related
+subjective	8101	223	231	schlecht	8101-subjective3	Negative	Related
+aspect	8101	201	220	öffnen von Artikeln	8101-aspect2	Neutral	Related
+subjective	8101	178	195	Stürzt ständig ab	8101-subjective2	Negative	Related
+subjective	8101	169	177	schlecht	8101-subjective1	Negative	Related
+aspect	8101	60	63	App	8101-aspect1	Neutral	Related
+aspect	8101	39	55	Benachrichtigung	8101-aspect0	Neutral	Related
+subjective	8101	0	17	Extrem fehlerhaft	8101-subjective0	Negative	Related
+subjective	8102	0	3	Top	8102-subjective0	Positive	Related
+subjective	8103	15	23	manchmal	8103-subjective1	Negative	Related
+aspect	8103	9	14	hängt	8103-aspect0	Neutral	Related
+subjective	8103	0	3	Gut	8103-subjective0	Positive	Related
+subjective	8104	10	13	lol	8104-subjective0	Positive	Related
+subjective	8105	99	110	echt spitze	8105-subjective3	Positive	Related
+subjective	8105	66	82	nie das aktuelle	8105-subjective2	Negative	Related
+aspect	8105	38	43	spiel	8105-aspect0	Neutral	Related
+subjective	8105	12	20	Ganz gut	8105-subjective1	Positive	Related
+subjective	8105	0	8	Ganz gut	8105-subjective0	Positive	Related
+subjective	8106	94	97	gut	8106-subjective1	Positive	Related
+aspect	8106	90	93	app	8106-aspect3	Neutral	Related
+aspect	8106	68	74	update	8106-aspect2	Neutral	Related
+subjective	8106	28	50	nicht mehr zuverlässig	8106-subjective0	Negative	Related
+aspect	8106	15	27	Funktioniert	8106-aspect1	Unknown	Related
+aspect	8106	5	11	update	8106-aspect0	Unknown	Related
+subjective	8107	15	20	Super	8107-subjective0	Positive	Related
+aspect	8107	0	11	Onefootball	8107-aspect0	Unknown	Related
+subjective	8108	16	25	Ganz nett	8108-subjective0	Positive	Related
+subjective	8109	81	94	Bitte beheben	8109-subjective3	Negative	Related
+aspect	8109	75	80	laden	8109-aspect2	Neutral	Related
+subjective	8109	55	69	schreib Fehler	8109-subjective2	Negative	Related
+aspect	8109	42	50	geblinke	8109-aspect1	Neutral	Related
+subjective	8109	33	41	nur noch	8109-subjective1	Negative	Related
+subjective	8109	4	32	lässt sich nicht mehr öffnen	8109-subjective0	Negative	Related
+aspect	8109	0	3	App	8109-aspect0	Unknown	Related
+aspect	8111	74	90	Champions League	8111-aspect1	Unknown	Related
+aspect	8111	31	38	Meldung	8111-aspect2	Neutral	Related
+subjective	8111	12	23	richtig gut	8111-subjective1	Positive	Related
+aspect	8111	5	8	app	8111-aspect0	Neutral	Related
+subjective	8111	0	4	Gute	8111-subjective0	Positive	Related
+subjective	8112	0	11	Super Sache	8112-subjective0	Positive	Related
+subjective	8113	0	6	Klasse	8113-subjective0	Positive	Related
+subjective	8114	0	3	Gut	8114-subjective0	Positive	Related
+subjective	8115	157	159	😨	8115-subjective4	Negative	Related
+subjective	8115	136	151	ein Rückschritt	8115-subjective3	Negative	Related
+aspect	8115	108	115	Optisch	8115-aspect2	Neutral	Related
+subjective	8115	105	107	😠	8115-subjective2	Negative	Related
+subjective	8115	55	76	nicht mehr gebrauchen	8115-subjective1	Negative	Related
+aspect	8115	42	45	app	8115-aspect1	Neutral	Related
+aspect	8115	22	28	Update	8115-aspect0	Neutral	Related
+subjective	8115	0	9	Update ???	8115-subjective0	Negative	Related
+subjective	8116	64	89	Hat alles was man braucht	8116-subjective2	Positive	Related
+aspect	8116	41	44	App	8116-aspect0	Neutral	Related
+subjective	8116	20	40	noch nie Nee bessere	8116-subjective1	Negative	Related
+subjective	8116	0	5	Super	8116-subjective0	Positive	Related
+subjective	8117	72	86	alles erfahren	8117-subjective1	Positive	Related
+aspect	8117	25	30	spiel	8117-aspect0	Neutral	Related
+subjective	8117	0	6	Supper	8117-subjective0	Positive	Related
+subjective	8119	429	439	Wäre schön	8119-subjective5	Negative	Related
+aspect	8119	405	411	Update	8119-aspect6	Neutral	Related
+aspect	8119	377	380	Bug	8119-aspect5	Neutral	Related
+aspect	8119	322	346	Aufbau spezieller Seiten	8119-aspect4	Neutral	Related
+subjective	8119	300	313	länger dauert	8119-subjective4	Negative	Related
+aspect	8119	261	276	Kicker live-App	8119-aspect3	Neutral	Related
+subjective	8119	103	109	sinnig	8119-subjective3	Positive	Related
+aspect	8119	99	102	App	8119-aspect2	Neutral	Related
+subjective	8119	69	85	nicht beschweren	8119-subjective2	Negative	Related
+aspect	8119	34	38	Akku	8119-aspect1	Neutral	Related
+subjective	8119	23	33	saugt viel	8119-subjective1	Negative	Related
+aspect	8119	11	21	Ladezeiten	8119-aspect0	Neutral	Related
+subjective	8119	0	10	Sehr lange	8119-subjective0	Negative	Related
+subjective	8120	44	66	gefällt mir nicht mehr	8120-subjective1	Negative	Related
+subjective	8120	30	42	sehr langsam	8120-subjective0	Negative	Related
+aspect	8120	26	29	App	8120-aspect1	Unknown	Related
+aspect	8120	16	21	ladet	8120-aspect2	Unknown	Related
+aspect	8120	9	15	Update	8120-aspect0	Unknown	Related
+subjective	8121	97	106	voll toll	8121-subjective2	Positive	Related
+aspect	8121	66	71	3liga	8121-aspect2	Neutral	Related
+aspect	8121	50	55	2liga	8121-aspect1	Neutral	Related
+aspect	8121	44	49	1liga	8121-aspect0	Neutral	Related
+subjective	8121	20	43	immer aufen neuen stand	8121-subjective1	Positive	Related
+subjective	8121	0	9	Voll toll	8121-subjective0	Positive	Related
+subjective	8123	48	77	nur nach Abschluss eines Abos	8123-subjective1	Negative	Related
+aspect	8123	40	47	Tabelle	8123-aspect0	Neutral	Related
+subjective	8123	0	17	Nur noch schlecht	8123-subjective0	Negative	Related
+subjective	8124	120	135	Langsam ist gut	8124-subjective2	Negative	Related
+aspect	8124	102	108	abdate	8124-aspect0	Neutral	Related
+subjective	8124	33	47	nix zu meckern	8124-subjective1	Positive	Related
+subjective	8124	17	28	Echt klasse	8124-subjective0	Positive	Related
+subjective	8125	65	67	:(	8125-subjective2	Negative	Related
+aspect	8125	52	64	Live Tickern	8125-aspect0	Neutral	Related
+subjective	8125	43	51	lustigen	8125-subjective1	Positive	Related
+subjective	8125	11	26	Geht voll nicht	8125-subjective0	Negative	Related
+aspect	8126	35	43	aussetzt	8126-aspect0	Unknown	Related
+subjective	8126	26	34	manchmal	8126-subjective1	Negative	Related
+subjective	8126	5	17	nur 3 Sterne	8126-subjective0	Negative	Related
+subjective	8127	0	13	Einfach super	8127-subjective0	Positive	Related
+aspect	8128	52	58	Layout	8128-aspect1	Neutral	Related
+subjective	8128	36	51	Viel zu kleines	8128-subjective1	Negative	Related
+aspect	8128	29	32	Tab	8128-aspect0	Neutral	Related
+subjective	8128	7	25	wirklicher Schrott	8128-subjective0	Negative	Related
+subjective	8129	152	170	beste Fussball app	8129-subjective4	Positive	Related
+aspect	8129	136	139	App	8129-aspect2	Neutral	Related
+subjective	8129	86	96	BEARBEITEN	8129-subjective2	Negative	Related
+aspect	8129	55	73	Benachrichtigungen	8129-aspect1	Neutral	Related
+subjective	8129	49	54	keine	8129-subjective2	Negative	Related
+subjective	8129	30	40	geht nicht	8129-subjective1	Negative	Related
+subjective	8129	0	14	Richtiger Müll	8129-subjective0	Negative	Related
+subjective	8130	0	3	TOP	8130-subjective0	Positive	Related
+subjective	8131	81	96	unübersichtlich	8131-subjective4	Negative	Related
+subjective	8131	60	76	etwas langweilig	8131-subjective3	Negative	Related
+aspect	8131	53	59	Design	8131-aspect0	Neutral	Related
+subjective	8131	28	36	Sehr gut	8131-subjective2	Positive	Related
+subjective	8131	9	24	unübersichtlich	8131-subjective1	Positive	Related
+subjective	8131	0	3	Gut	8131-subjective0	Positive	Related
+subjective	8132	332	369	3 sterne sind eigentlich auch zu viel	8132-subjective3	Negative	Related
+subjective	8132	312	327	einfach schwach	8132-subjective2	Negative	Related
+subjective	8132	86	104	stürzt sehr oft ab	8132-subjective1	Negative	Related
+aspect	8132	82	85	app	8132-aspect1	Neutral	Related
+subjective	8132	12	27	einfach schwach	8132-subjective0	Negative	Related
+aspect	8132	4	11	android	8132-aspect0	Unknown	Related
+subjective	8133	0	6	Hammer	8133-subjective0	Positive	Related
+aspect	8134	41	52	live ticker	8134-aspect2	Neutral	Related
+aspect	8134	22	31	Eishockey	8134-aspect1	Neutral	Related
+aspect	8134	14	21	Fußball	8134-aspect0	Unknown	Related
+subjective	8134	0	4	Cool	8134-subjective0	Positive	Related
+subjective	8135	26	32	klasse	8135-subjective1	Positive	Related
+aspect	8135	22	25	app	8135-aspect0	Neutral	Related
+subjective	8135	12	21	sehr gute	8135-subjective0	Positive	Related
+subjective	8136	137	148	echt nervig	8136-subjective2	Negative	Related
+subjective	8136	107	131	stürzt sie regelmäßig ab	8136-subjective1	Negative	Related
+aspect	8136	80	106	navigieren durch die Ligen	8136-aspect2	Neutral	Related
+subjective	8136	54	73	nicht zu gebrauchen	8136-subjective0	Negative	Related
+aspect	8136	50	53	App	8136-aspect1	Unknown	Related
+aspect	8136	15	21	Update	8136-aspect0	Unknown	Related
+subjective	8137	0	9	Cool cool	8137-subjective0	Positive	Related
+subjective	8138	0	8	Sehr gut	8138-subjective0	Positive	Related
+subjective	8139	30	35	super	8139-subjective2	Positive	Related
+aspect	8139	17	29	Zeitvertreib	8139-aspect0	Neutral	Related
+subjective	8139	9	16	schöner	8139-subjective1	Positive	Related
+subjective	8139	0	5	super	8139-subjective0	Positive	Related
+subjective	8140	0	17	Einfach 100% geil	8140-subjective0	Positive	Related
+aspect	8141	55	62	updates	8141-aspect1	Unknown	Related
+subjective	8141	31	49	Immer diese Fehler	8141-subjective1	Negative	Related
+subjective	8141	14	27	startet nicht	8141-subjective0	Negative	Related
+aspect	8141	0	13	Manager Spiel	8141-aspect0	Unknown	Related
+subjective	8142	160	178	Leider viel zu oft	8142-subjective1	Negative	Related
+aspect	8142	143	158	Server Probleme	8142-aspect0	Neutral	Related
+subjective	8142	114	126	nur schlecht	8142-subjective0	Negative	Related
+subjective	8143	0	8	Sehr gut	8143-subjective0	Positive	Related
+subjective	8144	141	157	Nur zu empfehlen	8144-subjective3	Positive	Related
+subjective	8144	128	139	gut zurecht	8144-subjective2	Positive	Related
+aspect	8144	116	122	findet	8144-aspect1	Neutral	Related
+aspect	8144	37	50	informationen	8144-aspect0	Neutral	Related
+subjective	8144	22	36	immer aktuelle	8144-subjective1	Positive	Related
+subjective	8144	0	6	Klasse	8144-subjective0	Positive	Related
+subjective	8145	0	4	Cool	8145-subjective0	Positive	Related
+subjective	8146	70	83	Bitte beheben	8146-subjective4	Negative	Related
+subjective	8146	66	69	:-(	8146-subjective3	Negative	Related
+subjective	8146	53	66	kein Toralarm	8146-subjective2	Negative	Related
+aspect	8146	41	47	Update	8146-aspect0	Neutral	Related
+subjective	8146	9	28	Besser geht's nicht	8146-subjective1	Positive	Related
+subjective	8146	0	5	Super	8146-subjective0	Positive	Related
+aspect	8147	342	362	Klingelton zu ändern	8147-aspect4	Neutral	Related
+subjective	8147	271	285	nicht gefunden	8147-subjective4	Negative	Related
+aspect	8147	177	183	Alerts	8147-aspect3	Neutral	Related
+subjective	8147	143	156	Mit am Besten	8147-subjective3	Positive	Related
+subjective	8147	127	141	sehr zufrieden	8147-subjective2	Positive	Related
+aspect	8147	96	106	Bundesliga	8147-aspect2	Neutral	Related
+subjective	8147	36	47	echt klasse	8147-subjective1	Positive	Related
+aspect	8147	28	31	App	8147-aspect1	Neutral	Related
+aspect	8147	10	20	Bundesliga	8147-aspect0	Neutral	Related
+subjective	8147	0	5	Super	8147-subjective0	Positive	Related
+subjective	8148	0	4	Cool	8148-subjective0	Positive	Related
+aspect	8149	30	42	Tormeldungen	8149-aspect1	Neutral	Related
+subjective	8149	21	29	Schnelle	8149-subjective1	Positive	Related
+aspect	8149	11	19	bedienen	8149-aspect0	Neutral	Related
+subjective	8149	0	7	Einfach	8149-subjective0	Positive	Related
+subjective	8150	86	97	unbrauchbar	8150-subjective3	Negative	Related
+subjective	8150	44	77	hängt sich aber hierzu zu oft auf	8150-subjective2	Negative	Related
+aspect	8150	40	43	App	8150-aspect2	Neutral	Related
+aspect	8150	34	38	News	8150-aspect1	Neutral	Related
+subjective	8150	29	33	gute	8150-subjective1	Positive	Related
+subjective	8150	7	17	dauernd ab	8150-subjective0	Negative	Related
+aspect	8150	0	6	stürzt	8150-aspect0	Unknown	Related
+aspect	8151	6	9	app	8151-aspect0	Unknown	Related
+subjective	8151	0	5	Super	8151-subjective0	Positive	Related
+subjective	8152	25	29	Rotz	8152-subjective1	Negative	Related
+subjective	8152	14	18	cool	8152-subjective0	Positive	Related
+subjective	8152	0	6	Schade	8152-subjective2	Negative	Related
+subjective	8153	8	23	sehr zu frieden	8153-subjective0	Positive	Related
+subjective	8154	78	93	nix auazusetzen	8154-subjective2	Positive	Related
+subjective	8154	6	29	macht genau was es soll	8154-subjective1	Positive	Related
+subjective	8154	0	2	1a	8154-subjective0	Positive	Related
+subjective	8155	14	19	immer	8155-subjective1	Positive	Related
+aspect	8155	6	9	App	8155-aspect0	Neutral	Related
+subjective	8155	0	5	Super	8155-subjective0	Positive	Related
+aspect	8156	45	52	Sport 1	8156-aspect1	Neutral	Foreign
+subjective	8156	27	40	nicht so lahm	8156-subjective2	Positive	Related
+aspect	8156	22	25	App	8156-aspect0	Neutral	Related
+subjective	8156	10	21	Sehr flotte	8156-subjective1	Positive	Related
+subjective	8156	0	6	Genial	8156-subjective0	Positive	Related
+aspect	8157	124	130	Design	8157-aspect2	Neutral	Related
+subjective	8157	113	123	modernerem	8157-subjective2	Positive	Related
+subjective	8157	64	67	gut	8157-subjective1	Positive	Related
+aspect	8157	37	40	App	8157-aspect1	Neutral	Related
+aspect	8157	12	26	Berechtigungen	8157-aspect0	Neutral	Related
+subjective	8157	0	11	Zusätzliche	8157-subjective0	Positive	Related
+subjective	8158	7	10	Gut	8158-subjective1	Positive	Related
+subjective	8158	0	3	Gut	8158-subjective0	Positive	Related
+aspect	8159	58	75	aktuellen Version	8159-aspect0	Neutral	Related
+subjective	8159	35	50	Nicht benutzbar	8159-subjective2	Negative	Related
+subjective	8159	13	28	unübersichtlich	8159-subjective1	Negative	Related
+subjective	8159	0	12	Unausgereift	8159-subjective0	Negative	Related
