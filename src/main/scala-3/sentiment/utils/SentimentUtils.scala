@@ -212,4 +212,14 @@ private[sentiment] object SentimentUtils {
   def isUpper(cs: String): Boolean = {
     cs.forall(c => Character.isUpperCase(c))
   }
+
+  /**
+   * Return polarity for given sentimentIntensity
+   *
+   */
+  def getPolarity(sentimentIntensity: Double): String = {
+      if (sentimentIntensity > 0) "positive"
+      else if (sentimentIntensity < 0) "negative"
+      else "neutral"
+  }
 }

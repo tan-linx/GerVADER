@@ -1,6 +1,6 @@
 package sentiment
 
-import sentiment.utils.{ResourceUtils, SentimentUtils}
+import sentiment.utils.{ResourceUtils, SentimentUtils, PreprocessingUtils}
 
 import scala.collection.mutable.ListBuffer
 import scala.collection.Seq
@@ -16,6 +16,17 @@ class SentimentIntensityAnalyzer {
   private val emojiLexikon: Map[String, String] = makeEmojiDict()
   private case class SiftSentiments(var posSum: Double = 0, var negSum: Double = 0, var neuCount: Int = 0)
 
+  /**
+   * Computes polarityScore on sentence level
+   * @param input text to analyze on sentence level
+   * @return polarity scores of `text`
+   */
+  def polarityScoresSentenceLevel(input: String): Double = {
+    val textSplitted = PreprocessingUtils.splitSentences(input)
+    val averagePolarityScores: Double =
+      textSplitted.map(sentence => polarityScores(sentence).compound).sum.toDouble/textSplitted.size
+    SentimentIntensityAnalyzer.roundWithDecimalPlaces(averagePolarityScores, 4)
+  }
 
   /**
    * Computes sentiment valence of `input`

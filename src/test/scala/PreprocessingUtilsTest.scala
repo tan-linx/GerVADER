@@ -53,4 +53,12 @@ class PreprocessingUtilsTest extends AnyFlatSpec with should.Matchers {
     val sentences3 = PreprocessingUtils.splitSentences("Waffen liefern, Sanktionen. Habt ihr auch was von Cyber Krieg gehört ?!! Kriege muss man nicht mehr mit Pferd und Schwert ausführen!!")
     sentences3(1) shouldEqual "Habt ihr auch was von Cyber Krieg gehört ?!!"
   }
+
+  "SentimentUtils" should "cleanLabels" in {
+    PreprocessingUtils.cleanLabel("pos") shouldEqual "positive"
+    PreprocessingUtils.cleanLabel("neg") shouldEqual "negative"
+    PreprocessingUtils.cleanLabel("neu") shouldEqual "neutral"
+    PreprocessingUtils.cleanLabel("unknown") shouldEqual "unknown"
+    PreprocessingUtils.cleanLabel("positive") shouldEqual "positive"
+  }
 }

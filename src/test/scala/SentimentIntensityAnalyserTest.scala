@@ -277,4 +277,10 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     emojiLexikon("🤣") shouldEqual "rolling on the floor laughing"
     emojiLexikon("😂") shouldEqual "face with tears of joy"
   }
+
+   "A SentimentIntensityAnalyzer" should "calculate polarityScores on sentence Level" in {
+    val analyzer = new SentimentIntensityAnalyzer()
+    analyzer.polarityScoresSentenceLevel("Fußball entfacht in mir ein Feuer der Leidenschaft. GerVADER hat viel Potential <3") shouldEqual  0.4404
+    analyzer.polarityScoresSentenceLevel("Die meisten Sentimentanalysen sind scheiße! Sentimentanalysen waren noch nie so gut!") shouldEqual  0.0752
+  }
 }

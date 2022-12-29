@@ -36,6 +36,12 @@ class SentimentUtilsTest extends AnyFlatSpec with should.Matchers {
     SentimentUtils.isUpper("Vader") shouldEqual false
   }
 
+  "SentimentUtils" should "getPolarity" in {
+    SentimentUtils.getPolarity(-0.34) shouldEqual "negative"
+    SentimentUtils.getPolarity(0.0) shouldEqual "neutral"
+    SentimentUtils.getPolarity(0.34) shouldEqual "positive"
+  }
+
   "SentimentUtils" should "negated" in {
     //SentimentUtils.negated(List("It", "isn't", "a", "horrible", "book"), true) shouldEqual true
     SentimentUtils.negated(List("Es", "ist", "kein", "schlechtes", "Buch"), true) shouldEqual true

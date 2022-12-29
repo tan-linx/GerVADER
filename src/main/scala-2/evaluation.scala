@@ -7,11 +7,14 @@ import org.apache.spark.mllib.evaluation.MulticlassMetrics
 import java.io.PrintWriter
 import java.time.LocalDateTime
 
+/**
+  * Main program for evaluations of  popular sentiment datasets.
+  */
 object EvaluationProgram {
   // Open a file for writing
   val currentDate: LocalDateTime = LocalDateTime.now()
-  val sentenceLevelEvaluation: Boolean = false
-  val evalType = if (sentenceLevelEvaluation) "sentence" else "text"
+  val predictOnSentenceLevel: Boolean = false
+  val evalType = if (predictOnSentenceLevel) "sentence" else "text"
   val file = new java.io.File(s"additional_resources/results/summary/results_${evalType}_timestamp_${currentDate}.txt")
   val pw = new PrintWriter(file)
 
