@@ -24,6 +24,7 @@ object EvaluationProgram {
     sc.setLogLevel("ERROR") // less logging in console
 
     pw.println(s"timestamp: ${currentDate}")
+    evaluate("Sanction dataset", "sanktionen_evaluationsdatensatz.predicted.tsv", sc)
     evaluate("Wikipedia", "deu-wikipedia-2016-labeled.predicted.tsv", sc)
     evaluate("Emotions", "emotions.predicted.tsv", sc)
     evaluate("Filmstarts", "filmstarts.predicted.tsv", sc)
@@ -37,6 +38,7 @@ object EvaluationProgram {
 
     // Close the file
     pw.close()
+    sc.stop()
   }
 
   private def convertLabel(label: String): Double = {
@@ -58,10 +60,10 @@ object EvaluationProgram {
     val rdd = sc.parallelize(predictionAndLabels)
     val metrics = new MulticlassMetrics(rdd)
     pw.println(metrics.confusionMatrix)
-    // Overall Statistics
-    // val accuracy = metrics.accuracy
-    // pw.println("Summary Statistics")
-    // pw.println(s"Accuracy = $accuracy")
+    // Overall Statistics Accuracy == Micro-Average F1-Score
+    val accuracy = metrics.accuracy
+    pw.println("Summary Statistics")
+    pw.println(s"Accuracy = $accuracy")
 
     pw.println("Summary Statistics")
     // Precision by label
@@ -81,14 +83,22 @@ object EvaluationProgram {
     // }
 
     // F-measure by label
-    labels.foreach { l =>
-      pw.println(s"F1-Score($l) = " + metrics.fMeasure(l))
+    val fMeasuresByLabel = labels.map { l => {
+        val fMeasure =  metrics.fMeasure(l)
+        pw.println(s"F1-Score($l) = " + fMeasure)
+        fMeasure
+      }
     }
+
+    val macroAveragedF1 = fMeasuresByLabel.sum.toDouble/fMeasuresByLabel.size
+
+    // macro-averaged F1-Score = arithmetic mean (aka unweighted mean) of all the per-class F1 scores
+    pw.println(s"Macro-averaged F1-Score = ${macroAveragedF1}")
+    pw.println(s"Weighted F1 score: ${metrics.weightedFMeasure}")
 
     // Weighted stats
     pw.println(s"Weighted precision: ${metrics.weightedPrecision}")
     pw.println(s"Weighted recall: ${metrics.weightedRecall}")
-    pw.println(s"Weighted F1 score: ${metrics.weightedFMeasure}")
     // pw.println(s"Weighted false positive rate: ${metrics.weightedFalsePositiveRate}")
   }
 

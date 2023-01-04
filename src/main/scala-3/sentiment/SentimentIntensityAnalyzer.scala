@@ -371,7 +371,7 @@ object SentimentIntensityAnalyzer {
       }
       case 1 => {
         if (wordsAndEmoticonsLower(i - 2) == "nie" &&
-            (wordsAndEmoticonsLower(i - 1) == "so" || wordsAndEmoticonsLower(i - 1) == "this"))
+            (wordsAndEmoticonsLower(i - 1) == "so" || wordsAndEmoticonsLower(i - 1) == "this")) // evtl. nicht so
           return valence * 1.25
         else if (SentimentUtils.negated(List(wordsAndEmoticonsLower(i - (startI + 1))))) // words preceding the lexicon word position
           return valence * SentimentUtils.NScalar

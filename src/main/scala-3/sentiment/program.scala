@@ -50,8 +50,8 @@ object Program {
   }
 
   private def predictPublicSentimentDatasets(): Unit = {
-    val tweets = ResourceUtils.readFileAsListUTF("additional_resources/inputs/labeled_tweets.tsv")
-    predict(tweets, textIndex=1, labelIndex=2, "labeled_tweets.predicted.tsv")
+    val tweets = ResourceUtils.readFileAsListUTF("additional_resources/inputs/sanktionen_evaluationsdatensatz.tsv")
+    predict(tweets, textIndex=1, labelIndex=2, "sanktionen_evaluationsdatensatz.predicted.tsv")
     val wiki = ResourceUtils.readFileAsListUTF("additional_resources/inputs/deu-wikipedia-2016-labeled.sampled.tsv")
     predict(wiki, 1, 0, "deu-wikipedia-2016-labeled.predicted.tsv")
     val emotions = ResourceUtils.readFileAsListUTF("additional_resources/inputs/emotions_german_sentibert.tsv")

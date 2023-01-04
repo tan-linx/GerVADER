@@ -18,7 +18,7 @@ private[sentiment] object SentimentUtils {
     "never", "niemals",
     "kein", "keine", "keinen", "keinem", "nope", "nichts", "weder", "nix", "nirgendwo",
     "uhuh","uh-uh",
-    "ohne", "selten", "kaum", "seltentst", "rar", "trotz", "trotzdem", "obwohl"
+    "ohne", "selten", "kaum", "seltenst", "rar", "trotz", "trotzdem", "obwohl"
   )
 
   val boosterDict = Map[String, Double](
