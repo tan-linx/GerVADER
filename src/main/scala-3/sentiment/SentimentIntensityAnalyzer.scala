@@ -113,17 +113,22 @@ class SentimentIntensityAnalyzer {
     //   ) then valence = valence * SentimentUtils.NScalar
     // }
 
-    // check if sentiment laden word is in ALL CAPS (while others aren't)
     def mergeBoosterNegationIdiomsCheck(): Double = {
-      (0 until 3).foldLeft(valence + SentimentUtils.allCapsBooster(item, valence, isCapDiff))(
+      def scalarIncDec(startI: Int, i: Int, valenceAcc: Double): Double = {
+        if (startI >= 0) {
+          val s: Double = SentimentUtils.scalarIncDec(wordsAndEmoticons(i - (startI + 1)), valenceAcc, isCapDiff) //
+          if (startI == 1 && s != 0) s * 0.95 // 2 words preceding item is booster
+          else if (startI == 2 && s != 0) s * 0.9 // 3 words preceding item is booster
+          else s
+        } else {
+          0.0
+        }
+      }
+
+      (-3 until 3).foldLeft(valence + SentimentUtils.allCapsBooster(item, valence, isCapDiff))(
           (valenceAcc, startI) => {
-          if (i > startI && (!lexicon.contains(wordsAndEmoticons(i - (startI + 1)).toLowerCase()))
-            ) {
-            val s: Double = SentimentUtils.scalarIncDec(wordsAndEmoticons(i - (startI + 1)), valenceAcc, isCapDiff) //
-            val scalar =
-              if (startI == 1 && s != 0) s * 0.95 // 2 words preceding item is booster
-              else if (startI == 2 && s != 0) s * 0.9 // 3 words preceding item is booster
-              else s
+          if (i > startI) { // necessary? --> (!lexicon.contains(wordsAndEmoticons(i - (startI + 1)).toLowerCase())
+            val scalar = scalarIncDec(startI, i, valenceAcc)
             val valenceNeg = SentimentIntensityAnalyzer.negationCheck(valenceAcc + scalar, wordsAndEmoticons, startI, i)
             if (startI == 2) { // ensures there are at least 2 preceding words
               SentimentIntensityAnalyzer.idiomsCheck(valenceNeg, wordsAndEmoticons, i)
@@ -137,7 +142,6 @@ class SentimentIntensityAnalyzer {
       )
     }
 
-    // dampen valence, negationCheck & idiomsCheck
     leastCheck(mergeBoosterNegationIdiomsCheck(), wordsAndEmoticons, i)
   }
 
@@ -364,7 +368,7 @@ object SentimentIntensityAnalyzer {
    * Checks for negations in sentence e.g. "nicht"
    * @param valence valence of token at index `i` in `wordsAndEmoticons` before negationCheck
    * @param wordsAndEmoticons tokens of text that is being analyzed
-   * @param startI determines how many preceding words are being looked at, e.g. 1, 2, 3
+   * @param startI determines which word preceding the lexicon word is being looked at, e.g. 1, 2, 3
    * @param i index of token in `wordsAndEmoticons` that is being analyzed
    * @return valence of token at index `i` in `wordsAndEmoticons` after negationCheck
   */
@@ -377,10 +381,12 @@ object SentimentIntensityAnalyzer {
     }
 
     startI match {
-      case 0 => {
-        val list = List(wordsAndEmoticonsLower(i - 1)) // 1 word preceding lexicon word (w/o stopwords)
-        negated(list)
+      case -3 | -2 | -1 => {
+        if (wordsAndEmoticonsLower.size>i-startI)
+          negated(List(wordsAndEmoticonsLower(i-startI))) // 1st, 2nd, 3rd word following lexicon word is negation word
+        else valence
       }
+      case 0 => negated(List(wordsAndEmoticonsLower(i - 1))) // 1 word preceding lexicon word
       case 1 => {
         if (wordsAndEmoticonsLower(i - 2) == "nie" &&
             (wordsAndEmoticonsLower(i - 1) == "so"))

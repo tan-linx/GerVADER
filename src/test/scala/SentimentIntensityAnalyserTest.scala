@@ -111,6 +111,10 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     analyzer.polarityScores(" Mit Vader, sind Sentimentanalysen der Shit!").compound shouldEqual 0.0
 
     analyzer.polarityScores("Die meisten Sentimentanalysen sind scheiße!").compound shouldEqual -0.5707
+
+    // test "nicht" at the end of sentence
+    analyzer.polarityScores("ich mag dich").compound shouldEqual 0.4019
+    analyzer.polarityScores("ich mag dich nicht").compound shouldEqual -0.3089 // normalize (1.7 x -0.74 = -1.258)
   }
 
   "A SentimentIntensityAnalyzer" should "negationCheck" in {
@@ -279,5 +283,19 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     val analyzer = new SentimentIntensityAnalyzer()
     analyzer.polarityScoresSentenceLevel("Fußball entfacht in mir ein Feuer der Leidenschaft. GerVADER hat viel Potential <3") shouldEqual  0.4404
     analyzer.polarityScoresSentenceLevel("Die meisten Sentimentanalysen sind scheiße! Sentimentanalysen waren noch nie so gut!") shouldEqual  0.0752
+  }
+
+  "A SentimentIntensityAnalyzer" should "negate sentence if 'nicht' is following the lexicon word" in {
+    val analyzer = new SentimentIntensityAnalyzer()
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mag", "das"),  -1, 2) shouldEqual 1.0
+    // test of negation word is 1 word following the lexicon word
+    SentimentIntensityAnalyzer.negationCheck(1.4, Seq("es ", "funktioniert", "nicht"),  -1, 1) shouldEqual -1.036
+    // examples given by Tymann et. al
+    // negation word is 2 words following the lexicon word
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mag", "das", "nicht"),  -2, 1) shouldEqual -0.74
+    // negation word is 3 words following the lexicon word
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mochte", "das", "noch", "nie"),  -3, 1) shouldEqual -0.74
+    // negation word is 4 words following the lexicon word
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mochte", "das", "wirkich", "noch", "nie"),  -4, 1) shouldEqual 1.0
   }
 }

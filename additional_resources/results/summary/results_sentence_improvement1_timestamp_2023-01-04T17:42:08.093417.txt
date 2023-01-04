@@ -1,0 +1,199 @@
+timestamp: 2023-01-04T17:42:08.093417
+--------------------------------------
+Sanction dataset
+380.0  69.0   252.0  
+81.0   104.0  93.0   
+118.0  36.0   114.0  
+Summary Statistics
+Accuracy = 0.47955092221331197
+Summary Statistics
+Precision(-1.0) = 0.6563039723661486
+Precision(0.0) = 0.49760765550239233
+Precision(1.0) = 0.24836601307189543
+Recall(-1.0) = 0.5420827389443652
+Recall(0.0) = 0.37410071942446044
+Recall(1.0) = 0.4253731343283582
+F1-Score(-1.0) = 0.59375
+F1-Score(0.0) = 0.4271047227926078
+F1-Score(1.0) = 0.31361760660247595
+Macro-averaged F1-Score = 0.44482410979836134
+Weighted F1 score: 0.49639405092687133
+Weighted precision: 0.533252689945151
+Weighted recall: 0.47955092221331197
+--------------------------------------
+Wikipedia
+2119.0  
+Summary Statistics
+Accuracy = 0.4237152569486103
+Summary Statistics
+Precision(0.0) = 1.0
+Recall(0.0) = 0.4237152569486103
+F1-Score(0.0) = 0.5952247191011236
+Macro-averaged F1-Score = 0.5952247191011236
+Weighted F1 score: 0.5952247191011236
+Weighted precision: 1.0
+Weighted recall: 0.4237152569486103
+--------------------------------------
+Emotions
+368.0  675.0  47.0   
+0.0    28.0   0.0    
+0.0    50.0   138.0  
+Summary Statistics
+Accuracy = 0.40888208269525267
+Summary Statistics
+Precision(-1.0) = 1.0
+Precision(0.0) = 0.03718459495351926
+Precision(1.0) = 0.745945945945946
+Recall(-1.0) = 0.3376146788990826
+Recall(0.0) = 1.0
+Recall(1.0) = 0.7340425531914894
+F1-Score(-1.0) = 0.5048010973936901
+F1-Score(0.0) = 0.07170294494238157
+F1-Score(1.0) = 0.7399463806970509
+Macro-averaged F1-Score = 0.4388168076777075
+Weighted F1 score: 0.5293650828396281
+Weighted precision: 0.9427863755716205
+Weighted recall: 0.4088820826952527
+--------------------------------------
+Filmstarts
+399.0  20.0  665.0   
+0.0    0.0   2.0     
+235.0  45.0  2523.0  
+Summary Statistics
+Accuracy = 0.7513499614296735
+Summary Statistics
+Precision(-1.0) = 0.6293375394321766
+Precision(0.0) = 0.0
+Precision(1.0) = 0.7909090909090909
+Recall(-1.0) = 0.36808118081180813
+Recall(0.0) = 0.0
+Recall(1.0) = 0.9001070281840885
+F1-Score(-1.0) = 0.4644935972060535
+F1-Score(0.0) = 0.0
+F1-Score(1.0) = 0.8419823126981478
+Macro-averaged F1-Score = 0.4354919699680671
+Weighted F1 score: 0.7363300287642762
+Weighted precision: 0.7454667201241094
+Weighted recall: 0.7513499614296734
+--------------------------------------
+germeval2017
+169.0  118.0  210.0  
+254.0  318.0  665.0  
+10.0   15.0   83.0   
+Summary Statistics
+Accuracy = 0.30944625407166126
+Summary Statistics
+Precision(-1.0) = 0.3903002309468822
+Precision(0.0) = 0.70509977827051
+Precision(1.0) = 0.08663883089770355
+Recall(-1.0) = 0.34004024144869216
+Recall(0.0) = 0.2570735650767987
+Recall(1.0) = 0.7685185185185185
+F1-Score(-1.0) = 0.36344086021505373
+F1-Score(0.0) = 0.3767772511848341
+F1-Score(1.0) = 0.15572232645403378
+Macro-averaged F1-Score = 0.2986468126179738
+Weighted F1 score: 0.3602180122147433
+Weighted precision: 0.583900452898031
+Weighted recall: 0.3094462540716612
+--------------------------------------
+Holidaycheck
+55.0   10.0   74.0    
+0.0    1.0    0.0     
+232.0  256.0  4071.0  
+Summary Statistics
+Accuracy = 0.8782719727601618
+Summary Statistics
+Precision(-1.0) = 0.1916376306620209
+Precision(0.0) = 0.003745318352059925
+Precision(1.0) = 0.9821471652593486
+Recall(-1.0) = 0.39568345323741005
+Recall(0.0) = 1.0
+Recall(1.0) = 0.8929589822329458
+F1-Score(-1.0) = 0.25821596244131456
+F1-Score(0.0) = 0.007462686567164179
+F1-Score(1.0) = 0.9354319852941176
+Macro-averaged F1-Score = 0.40037021143419876
+Weighted F1 score: 0.9152019370976361
+Weighted precision: 0.9585550760582557
+Weighted recall: 0.8782719727601617
+--------------------------------------
+PotTS
+681.0  369.0   519.0   
+272.0  1438.0  777.0   
+318.0  414.0   2716.0  
+Summary Statistics
+Accuracy = 0.6443230277185501
+Summary Statistics
+Precision(-1.0) = 0.5357985837922895
+Precision(0.0) = 0.6474561008554706
+Precision(1.0) = 0.6769690927218345
+Recall(-1.0) = 0.4340344168260038
+Recall(0.0) = 0.5782066747084841
+Recall(1.0) = 0.7877030162412993
+F1-Score(-1.0) = 0.47957746478873237
+F1-Score(0.0) = 0.610875106202209
+F1-Score(1.0) = 0.7281501340482573
+Macro-averaged F1-Score = 0.606200901679733
+Weighted F1 score: 0.6373087811269731
+Weighted precision: 0.6376706733079082
+Weighted recall: 0.6443230277185501
+--------------------------------------
+Sb10k
+518.0   251.0   361.0   
+1012.0  1268.0  2349.0  
+169.0   303.0   1245.0  
+Summary Statistics
+Accuracy = 0.4054307116104869
+Summary Statistics
+Precision(-1.0) = 0.3048852266038846
+Precision(0.0) = 0.6959385290889133
+Precision(1.0) = 0.3147914032869785
+Recall(-1.0) = 0.4584070796460177
+Recall(0.0) = 0.2739252538345215
+Recall(1.0) = 0.7251019219569016
+F1-Score(-1.0) = 0.36620714033227286
+F1-Score(0.0) = 0.3931173461478841
+F1-Score(1.0) = 0.43899858956276455
+Macro-averaged F1-Score = 0.39944102534764053
+Weighted F1 score: 0.39958732506330796
+Weighted precision: 0.5492932847323049
+Weighted recall: 0.40543071161048694
+--------------------------------------
+Scare News Apps
+5562.0  4372.0   
+1278.0  18684.0  
+Summary Statistics
+Accuracy = 0.6829666769950142
+Summary Statistics
+Precision(-1.0) = 0.8131578947368421
+Precision(1.0) = 0.8103747397640527
+Recall(-1.0) = 0.450546780072904
+Recall(1.0) = 0.8068751079633788
+F1-Score(-1.0) = 0.5798279906176701
+F1-Score(1.0) = 0.8086211373669177
+Macro-averaged F1-Score = 0.6942245639922939
+Weighted F1 score: 0.7290613673148216
+Weighted precision: 0.8113425448438838
+Weighted recall: 0.6829666769950142
+--------------------------------------
+Scare Sport News
+3667.0  1400.0  3214.0   
+18.0    30.0    116.0    
+1374.0  3493.0  21845.0  
+Summary Statistics
+Accuracy = 0.7265125010666439
+Summary Statistics
+Precision(-1.0) = 0.7248468076694999
+Precision(0.0) = 0.006093845216331505
+Precision(1.0) = 0.8677259185700099
+Recall(-1.0) = 0.44282091534838786
+Recall(0.0) = 0.18292682926829268
+Recall(1.0) = 0.8177972446840371
+F1-Score(-1.0) = 0.5497751124437781
+F1-Score(0.0) = 0.011794770984863378
+F1-Score(1.0) = 0.8420220864571086
+Macro-averaged F1-Score = 0.46786398996191664
+Weighted F1 score: 0.7693123992954669
+Weighted precision: 0.8300523520712437
+Weighted recall: 0.7265125010666439

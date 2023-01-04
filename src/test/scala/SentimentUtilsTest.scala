@@ -28,6 +28,7 @@ class SentimentUtilsTest extends AnyFlatSpec with should.Matchers {
     SentimentUtils.normalize(1, 30) shouldEqual 0.1796053020267749
     SentimentUtils.normalize(0) shouldEqual 0.0
     SentimentUtils.normalize(-1) shouldEqual -0.25
+    SentimentUtils.normalize(-1.258) shouldEqual -0.3089262410530291
   }
 
   "SentimentUtils" should "isUpper" in {
