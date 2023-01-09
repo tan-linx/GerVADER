@@ -1,0 +1,22 @@
+timestamp: 2023-01-04T23:37:04.519548
+--------------------------------------
+Negation dataset
+35.0  50.0  23.0  
+0.0   1.0   2.0   
+3.0   5.0   12.0  
+Summary Statistics
+Accuracy = 0.366412213740458
+Summary Statistics
+Precision(-1.0) = 0.9210526315789473
+Precision(0.0) = 0.017857142857142856
+Precision(1.0) = 0.32432432432432434
+Recall(-1.0) = 0.32407407407407407
+Recall(0.0) = 0.3333333333333333
+Recall(1.0) = 0.6
+F1-Score(-1.0) = 0.4794520547945206
+F1-Score(0.0) = 0.03389830508474576
+F1-Score(1.0) = 0.4210526315789474
+Macro-averaged F1-Score = 0.31146766381940455
+Weighted F1 score: 0.4603325913331406
+Weighted precision: 0.8092652070655285
+Weighted recall: 0.366412213740458

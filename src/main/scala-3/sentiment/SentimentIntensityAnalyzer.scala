@@ -125,9 +125,9 @@ class SentimentIntensityAnalyzer {
         }
       }
 
-      (-3 until 3).foldLeft(valence + SentimentUtils.allCapsBooster(item, valence, isCapDiff))(
+      (-3 until 6).foldLeft(valence + SentimentUtils.allCapsBooster(item, valence, isCapDiff))(
           (valenceAcc, startI) => {
-          if (i > startI) { // necessary? --> (!lexicon.contains(wordsAndEmoticons(i - (startI + 1)).toLowerCase())
+          if (i > startI) { // && !lexicon.contains(wordsAndEmoticons(i - (startI + 1)).toLowerCase())){
             val scalar = scalarIncDec(startI, i, valenceAcc)
             val valenceNeg = SentimentIntensityAnalyzer.negationCheck(valenceAcc + scalar, wordsAndEmoticons, startI, i)
             if (startI == 2) { // ensures there are at least 2 preceding words
@@ -372,7 +372,7 @@ object SentimentIntensityAnalyzer {
    * @param i index of token in `wordsAndEmoticons` that is being analyzed
    * @return valence of token at index `i` in `wordsAndEmoticons` after negationCheck
   */
-  def negationCheck(valence: Double, wordsAndEmoticons: Seq[String], startI: Int, i: Int): Double = {
+  def negationCheck(valence: Double, wordsAndEmoticons: Seq[String], startI: Int, i: Int, sentenceLevel: Boolean = true): Double = {
     val wordsAndEmoticonsLower = wordsAndEmoticons.map(_.toLowerCase())
 
     def negated(potentialNegation: List[String]): Double = {
@@ -388,18 +388,23 @@ object SentimentIntensityAnalyzer {
       }
       case 0 => negated(List(wordsAndEmoticonsLower(i - 1))) // 1 word preceding lexicon word
       case 1 => {
-        if (wordsAndEmoticonsLower(i - 2) == "nie" &&
-            (wordsAndEmoticonsLower(i - 1) == "so"))
+        if ((wordsAndEmoticonsLower(i - 2) == "nie" || wordsAndEmoticonsLower(i - 2) == "selten") &&
+            wordsAndEmoticonsLower(i - 1) == "so")
           valence * 1.25
         else
           negated(List(wordsAndEmoticonsLower(i - (startI + 1)))) // 2 words preceding the lexicon word position
       }
       case 2 => {
-        if (wordsAndEmoticonsLower(i - 3) == "nie" &&
+        if ((wordsAndEmoticonsLower(i - 3) == "nie" || wordsAndEmoticonsLower(i - 3) == "selten") &&
             (wordsAndEmoticonsLower(i - 2) == "so" ) || (wordsAndEmoticonsLower(i - 1) == "so"))
           valence * 1.25
         else
           negated(List(wordsAndEmoticonsLower(i - (startI + 1)))) // 3 words preceding the lexicon word position
+      }
+      case 3 | 4 | 5 | 6 => {
+        if (i - (startI + 1) >= 0 && sentenceLevel == true) // index should NOT be smaller than 0 & it negation & word should be in the same sentence
+          negated(List(wordsAndEmoticonsLower(i - (startI + 1)))) //4th, 5th, 6th word following lexicon word is negation word
+        else valence
       }
       case _ => valence
     }

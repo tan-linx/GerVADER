@@ -10,7 +10,6 @@ import sentiment.utils.SentimentUtils
 class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
   "A SentimentIntensityAnalyzer" should "calculate polarity scores (German)" in {
     val analyzer = new SentimentIntensityAnalyzer
-
     val testGood = analyzer.polarityScores("GerVADER hat viel Potential <3")
     testGood.negative shouldEqual 0.0
     testGood.neutral shouldEqual 0.58
@@ -76,9 +75,9 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
 
     analyzer.polarityScores("Roger Dodger ist zumindest eine verlockende Variation des Themes.").compound shouldEqual 0.3182
 
-    // original GerVADER: 0.3182
+    // original GerVADER: 0.3182, with leastCheck: -0.2411, with dampener "mitunter": -0.1889
     analyzer.polarityScores("Roger Dodger ist mitunter eine der wenigsten verlockenden Themen.").compound shouldEqual
-    -0.2411
+    -0.1889
 
     val testnocaps = analyzer.polarityScores("Heute war ein schöner Tag")
     testnocaps.compound shouldEqual 0.5106
@@ -115,6 +114,10 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     // test "nicht" at the end of sentence
     analyzer.polarityScores("ich mag dich").compound shouldEqual 0.4019
     analyzer.polarityScores("ich mag dich nicht").compound shouldEqual -0.3089 // normalize (1.7 x -0.74 = -1.258)
+
+    // evaluation should be more accurate on sentence level
+    analyzer.polarityScores("ich mag dich nicht. sie mag mich auch nicht.").compound shouldEqual -0.0842
+    analyzer.polarityScoresSentenceLevel("ich mag dich nicht. sie mag mich auch nicht.") shouldEqual -0.3089
   }
 
   "A SentimentIntensityAnalyzer" should "negationCheck" in {
@@ -135,6 +138,9 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
 
     // negation 4 words preceding the item at i has no influence
     SentimentIntensityAnalyzer.negationCheck(1.0, Seq("ich", "mochte", "Mathe", "nicht", "damals", "doch", "jetzt", "mag", "ich", "es"), 4, 7) shouldEqual 1.0
+
+    SentimentIntensityAnalyzer.negationCheck(2.4, Seq("Ich", "hab", "selten", "so", "gelacht"), 2, 4) shouldEqual 3.0
+    // 2.4*1.25
   }
 
   "A SentimentIntensityAnalyzer" should "butCheck" in {
@@ -161,10 +167,9 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
   }
 
   "A SentimentIntensityAnalyzer" should "idiomsCheck" in {
-    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADEr", "is", "the", "shit"), 3) shouldEqual 3
-    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "is", "the", "bomb"), 3) shouldEqual 3
-   //SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "is", "the", "bomb"), 0) shouldEqual 3
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADEr", "is", "der", "scheiß"), 3) shouldEqual 3
 
+   //SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "is", "the", "bomb"), 0) shouldEqual 3
     // booster/dampener check
     //SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "book", "was", "kind", "of", "good"), 5) shouldEqual -0.293
     //SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 5) shouldEqual -0.293
@@ -176,12 +181,14 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
 
     // zeroOneTwo
     SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "VADER", "algorithm", "will", "cut", "the", "mustard"), 4)shouldEqual 2
+    // SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("was", "ein", "schuss", "ins", "knie"), 4) shouldEqual -2.3
 
     // index out of bounds
     SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "will", "cut", "the", "mustard"), 2) shouldEqual 0.0
     SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "will", "cut", "the", "mustard"), 5) shouldEqual 0.0
 
     // check for dampener in front of idiom
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADEr", "is", "schon", "ein", "bisschen", "der", "scheiß"), 5) shouldEqual 2.707
   }
 
   "A SentimentIntensityAnalyzer" should "scoreValence" in {
@@ -283,6 +290,9 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     val analyzer = new SentimentIntensityAnalyzer()
     analyzer.polarityScoresSentenceLevel("Fußball entfacht in mir ein Feuer der Leidenschaft. GerVADER hat viel Potential <3") shouldEqual  0.4404
     analyzer.polarityScoresSentenceLevel("Die meisten Sentimentanalysen sind scheiße! Sentimentanalysen waren noch nie so gut!") shouldEqual  0.0752
+    // look at example of Tymann et. al
+    analyzer.polarityScoresSentenceLevel("Ich finde, dass diese Menschen wirklich freundlich sind.") shouldEqual  0.4588
+    analyzer.polarityScoresSentenceLevel("Ich finde nicht, dass diese Menschen wirklich freundlich sind.") shouldEqual  -0.357
   }
 
   "A SentimentIntensityAnalyzer" should "negate sentence if 'nicht' is following the lexicon word" in {
@@ -297,5 +307,11 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mochte", "das", "noch", "nie"),  -3, 1) shouldEqual -0.74
     // negation word is 4 words following the lexicon word
     SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mochte", "das", "wirkich", "noch", "nie"),  -4, 1) shouldEqual 1.0
+  }
+
+  "A SentimentIntensityAnalyzer" should "handle problems with  negation of longer sentences" in {
+    // Tymann et. al 1. Ich finde nicht, dass diese Menschen wirklich freundlich sind. (rated posi- tive, should be negative)
+    val analyzer = new SentimentIntensityAnalyzer()
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "finde", "nicht", "dass", "diese", "Menschen", "wirklich", "freundlich", "sind"),  4, 7) shouldEqual -0.74
   }
 }
