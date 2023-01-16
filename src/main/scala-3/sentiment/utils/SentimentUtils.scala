@@ -1,4 +1,5 @@
 package sentiment.utils
+import scala.annotation.tailrec
 
 private[sentiment] object SentimentUtils {
 
@@ -114,29 +115,34 @@ private[sentiment] object SentimentUtils {
     val inputWordsLC = inputWords.map(_.toLowerCase())
 
     // Helper to determine if input contains negation words
-    def containsNegation(inputWords: List[String], negations: List[String]): Boolean = {
-      if (inputWords.contains(negations.head)) true
-      else if (negations.tail == List.empty) false
-      else containsNegation(inputWords, negations.tail)
+    def containsNegation(negations: List[String]): Boolean = {
+      negations match
+        case negation :: xs =>
+          if (inputWordsLC.contains(negation))
+            true
+          else containsNegation(xs)
+        case Nil => false
     }
-    if (containsNegation(inputWordsLC, negate)) return true
-
 
     // Helper to determine if input contains nt
+    @tailrec
     def containsnT(inputWords: List[String]): Boolean = {
-      if (inputWords.head.contains("n't")) true
-      else if (inputWords.tail == List.empty) false
-      else containsnT(inputWords.tail)
+      inputWords match {
+        case x :: xs => {
+          if (x.contains("n't")) true
+          else containsnT(xs)
+        }
+        case Nil => false
+      }
     }
-    if (includenT && containsnT(inputWordsLC)) return true
-
+    if (containsNegation(negate) || includenT && containsnT(inputWordsLC)) true
+    else false
     /* if (inputWords.contains("least")) {
       val i = inputWords.indexOf("least")
       if (i > 0 && inputWords(i - 1) != "at") {
         return true
       }
     } */
-    false
   }
 
 
@@ -192,14 +198,7 @@ private[sentiment] object SentimentUtils {
       if (valence < 0) {
         scalar *= -1
       }
-      if (isUpper(word) && isCapDiff) {
-        if (valence > 0) {
-          scalar += CIncr
-        } else {
-          scalar += -CIncr
-        }
-      }
-      scalar
+      scalar + allCapsBooster(word, valence, isCapDiff)
     }
   }
 
@@ -211,6 +210,26 @@ private[sentiment] object SentimentUtils {
    */
   def isUpper(cs: String): Boolean = {
     cs.forall(c => Character.isUpperCase(c))
+  }
+
+  /**
+    * Return incr/decr for cap, if item is in ALL CAPS (while other words aren't)
+    *
+    * @param item
+    * @param valence
+    * @param isCapDiff
+    * @return
+    */
+  def allCapsBooster(item: String, valence: Double, isCapDiff: Boolean): Double = {
+    if (isCapDiff && isUpper(item)) {
+      if (valence > 0) {
+        CIncr
+      } else {
+        -CIncr
+      }
+    } else {
+      0
+    }
   }
 
   /**

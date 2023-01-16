@@ -28,7 +28,7 @@ object Program {
     } else {
       val input = readLine("Predict type a) an entire file or b) a sentence: ")
       if (input == "a") {
-        var fileName = readLine("Type name of file to predict (e.g. tweets.tsv format (text label)): ")
+        val fileName = readLine("Type name of file to predict (e.g. tweets.tsv format (text label)): ")
         // if fileN
         // val file = ResourceUtils.readFileAsListUTF("additional_resources/inputs/labeled_tweets.tsv")
         try {
@@ -42,11 +42,12 @@ object Program {
           case e: Exception => println(e)
         }
       } else {
-        var sentence = readLine("Type sentence to predict: ")
+        val sentence = readLine("Type sentence to predict: ")
         val polarityScore = getSentimentIntensity(sentence)
         println(polarityScore)
       }
     }
+    evaluatePerformance()
   }
 
   private def predictPublicSentimentDatasets(): Unit = {
@@ -98,7 +99,7 @@ object Program {
         (text, label, sentimentIntensity, polarity)
       }
     ).filter(line => line._2 != "unknown").toList
-    var folder = if (predictOnSentenceLevel) "sentence" else "text"
+    val folder = if (predictOnSentenceLevel) "sentence" else "text"
     ResourceUtils.writeMapToTSV(predictions, s"additional_resources/results/${folder}/${outputFile}")
   }
 
@@ -109,5 +110,26 @@ object Program {
     } else {
       analyzer.polarityScores(text).compound
     }
+  }
+
+
+  def evaluatePerformance(): Unit =  {
+      // evaluating computational performance based on sb10k
+      val analyzer = new SentimentIntensityAnalyzer
+      val data = ResourceUtils.readFileAsListUTF("additional_resources/inputs/sb10k_corpus_v1.0.cgsa.tsv")
+      val texts = data.map(
+        line =>
+          val lineArray = line.trim().split('\t')
+          lineArray(0)
+      )
+      val t1 = System.nanoTime
+      val predictions = texts.map(x => analyzer.polarityScores(x))
+      val durationSb10k = (System.nanoTime - t1) / 1e9d
+      println(s"Code runtime on SBK10k: ${durationSb10k}")
+
+      val t2 = System.nanoTime
+      analyzer.polarityScores("Positiv sind die schnellen Ladezeiten, das geringe Downloadvolumen was m.M. nach wichtig für mobile Verbindungen ist. Negativ fällt mir teilweise der Journalismus auf. Hier wird des öfteren die Meinung des Journalisten propagiert, was eigentlich dem Leser vorbehalten sein sollte.")
+      val durationText = (System.nanoTime - t2) / 1e9d
+      println(s"Code runtime on single Sentence: ${durationText}")
   }
 }

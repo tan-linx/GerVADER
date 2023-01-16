@@ -1,6 +1,7 @@
 package sentiment
 
 import sentiment.utils.SentimentUtils
+import scala.annotation.tailrec
 
 /**
  * Identify sentiment-relevant string-level properties of input `text`.
@@ -17,7 +18,7 @@ private[sentiment] class SentiText(val text: String) {
    * @return tokens of `text`
    */
   private def getWordsAndEmoticons(): List[String] = {
-    var wes: List[String] = text.split(" ").toList
+    val wes: List[String] = text.split(" ").toList
     wes.map(x => SentiText.stripPuncIfWord(x, SentimentUtils.puncList)).filter(x => x.length > 0).toList
   }
 }
@@ -34,11 +35,16 @@ private[sentiment] object SentiText {
    * @param puncList list of punctuations to remove
    * @return `token` without puncutations
    */
-  private def stripPuncIfWord(token: String, puncList: List[String]): String= {
-    val punc = puncList.head
-    val stripped = token.stripPrefix(punc).stripSuffix(punc)
-    if (stripped.size <= 2) token
-    else if (puncList.tail == List.empty) stripped
-    else SentiText.stripPuncIfWord(stripped, puncList.tail)
+  @tailrec
+  private def stripPuncIfWord(token: String, puncList: List[String]): String = {
+    puncList match {
+      case punctuation :: next => {
+        val stripped = token.stripPrefix(punctuation).stripSuffix(punctuation)
+        if (stripped.size <= 2) token
+        else if (next.isEmpty) stripped
+        else SentiText.stripPuncIfWord(stripped, next)
+      }
+      case Nil => token
+    }
   }
 }

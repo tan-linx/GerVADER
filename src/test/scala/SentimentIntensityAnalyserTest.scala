@@ -125,8 +125,7 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     // 3 word preceding lexicon word (w/o stopwords)
     SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich", "bin", "selten", "für", "sie", "da"), 2, 5) shouldEqual -0.74
     // 3 word preceding the lexikon, word preceding the lexikon is "this", "so"
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("I", "cant", "do", "this",":-)"), 2, 4) shouldEqual 1.25
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("she", "wont", "do", "so",":-)"), 2, 4) shouldEqual 1.25
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("nie", "wieder", "so",":-)"), 2, 3) shouldEqual 1.25
     // 2 words preceding the lexikon is "never this/so" -> "nie so"
     SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich", "war", "nie", "so", "dankbar", "ein", "freundliches", "gesicht", "zu", "sehen"), 1, 4) shouldEqual 1.25
     // 3 words preceding the lexikon is "never this/so" -> "nie so"
@@ -240,6 +239,8 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     // more than 4 exclamation points
     val fourExclValence = analyzer.scoreValence(Seq(-1.9), "Sanctions suck!!!!")
     analyzer.scoreValence(Seq(-1.9), "Sanctions suck!!!!!!") shouldEqual fourExclValence
+
+    analyzer.scoreValence(Seq(), "") shouldEqual SentimentAnalysisResults()
   }
 
   "A SentimentIntensityAnalyzer" should "sentimentValence" in {
