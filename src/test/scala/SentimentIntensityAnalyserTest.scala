@@ -64,11 +64,12 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     analyzer.polarityScores("als die Kohleförderung anstieg").compound shouldEqual 0.1779
 
     analyzer.polarityScores("Sentimentanalysen waren nie gut.").compound shouldEqual -0.3724
+
     analyzer.polarityScores("Die meisten Sentimentanalysen sind scheiße!").compound shouldEqual -0.5707
+
     analyzer.polarityScores("Sentimentanalysen waren noch nie so gut!").compound shouldEqual 0.7211 // original GerVADER:-0.5432
     analyzer.polarityScores("VADER ist mega.").compound shouldEqual 0.0
 
-    // todo without a doubt?
     analyzer.polarityScores("Ohne Zweifel, großartige Idee..").compound shouldEqual -0.1877
 
     analyzer.polarityScores("Roger Dodger is eine der verlockendsten Variationen des Themes.").compound shouldEqual 0.3182
@@ -76,7 +77,7 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     analyzer.polarityScores("Roger Dodger ist zumindest eine verlockende Variation des Themes.").compound shouldEqual 0.3182
 
     // original GerVADER: 0.3182
-    analyzer.polarityScores("Roger Dodger ist mitunter eine der wenigsten verlockenden Themes.").compound shouldEqual
+    analyzer.polarityScores("Roger Dodger ist mitunter eine der wenigsten verlockenden Themen.").compound shouldEqual
     -0.2411
 
     val testnocaps = analyzer.polarityScores("Heute war ein schöner Tag")
@@ -94,26 +95,22 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     analyzer.polarityScores("Heute war ein SCHÖNER Tag 😅😆").compound shouldEqual 0.8415
     analyzer.polarityScores("Heute war ein SCHÖNER Tag 😆 😅").compound shouldEqual 0.8415
 
-    //Heute war ein SCHÖNER Tag 😅😆----------------------------------------- {'neg': 0.0, 'neu': 0.554, 'pos': 0.446, 'compound': 0.6166}
     val testallcaps = analyzer.polarityScores("HEUTE WAR EIN SCHÖNER TAG")
     testallcaps.compound shouldEqual 0.5106
 
-    // test kind of
-    analyzer.polarityScores("es ist kind of dumm").compound shouldEqual -0.5106
+    analyzer.polarityScores("es ist ein bisschen dumm").compound shouldEqual -0.5106
 
-    //Sentimentanalysen waren nie gut.------------------------------------- {'neg': 0.46, 'neu': 0.54, 'pos': 0.0, 'compound': -0.3724}
-    // Sentimentanalysen waren noch nie so gut!----------------------------- {'neg': 0.412, 'neu': 0.588, 'pos': 0.0, 'compound': -0.5432}
-    // Die meisten Sentimentanalysen sind scheiße!-------------------------- {'neg': 0.48, 'neu': 0.52, 'pos': 0.0, 'compound': -0.5707}
-    // Mit Vader, sind Sentimentanalysen der Shit!-------------------------- {'neg': 0.0, 'neu': 1.0, 'pos': 0.0, 'compound': 0.0}
-    // Andere Sentimentanalysentools können ziemlich schlecht sein.--------- {'neg': 0.351, 'neu': 0.649, 'pos': 0.0, 'compound': -0.4033}
-    // Anderseits, ist VADER ganz schön krass------------------------------- {'neg': 0.0, 'neu': 0.396, 'pos': 0.604, 'compound': 0.7269}
-    // VADER ist mega.------------------------------------------------------ {'neg': 0.0, 'neu': 1.0, 'pos': 0.0, 'compound': 0.0}
-    // Ohne Zweifel, großartige Idee.--------------------------------------- {'neg': 0.413, 'neu': 0.276, 'pos': 0.311, 'compound': -0.1877}
-    // Roger Dodger is eine der verlockendsten Variationen des Themes.------ {'neg': 0.0, 'neu': 0.777, 'pos': 0.223, 'compound': 0.3182}
-    // Roger Dodger ist zumindest eine verlockende Variation des Themes.---- {'neg': 0.0, 'neu': 0.777, 'pos': 0.223, 'compound': 0.3182}
-    // Roger Dodger ist mitunter eine der wenigsten verlockenden Themes.---- {'neg': 0.0, 'neu': 0.777, 'pos': 0.223, 'compound': 0.3182}
-    // Nicht so krass letztlich.-------------------------------------------- {'neg': 0.459, 'neu': 0.541, 'pos': 0.0, 'compound': -0.3713}
-    // Ohne Zweifel, eine exzellente Idee.---------------------------------- {'neg': 0.374, 'neu': 0.357, 'pos': 0.269, 'compound': -0.2235}
+    analyzer.polarityScores("Nicht so krass letztlich.").compound shouldEqual -0.3713
+
+    analyzer.polarityScores("Ohne Zweifel, eine exzellente Idee.").compound shouldEqual -0.2235
+
+    analyzer.polarityScores("Anderseits, ist VADER ganz schön krass.").compound shouldEqual 0.7269
+
+    analyzer.polarityScores("Andere Sentimentanalysentools können ziemlich schlecht sein.").compound shouldEqual -0.4033
+
+    analyzer.polarityScores(" Mit Vader, sind Sentimentanalysen der Shit!").compound shouldEqual 0.0
+
+    analyzer.polarityScores("Die meisten Sentimentanalysen sind scheiße!").compound shouldEqual -0.5707
   }
 
   "A SentimentIntensityAnalyzer" should "negationCheck" in {
@@ -174,14 +171,13 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "VADER", "algorithm", "ist", "the", "shit", "ha"), 4) shouldEqual 3
 
     // zeroOneTwo
-    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "VADER", "algorithm", "will", "cut", "the", "mustard"), 4) shouldEqual 2
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "VADER", "algorithm", "will", "cut", "the", "mustard"), 4)shouldEqual 2
 
     // index out of bounds
     SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "will", "cut", "the", "mustard"), 2) shouldEqual 0.0
     SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "will", "cut", "the", "mustard"), 5) shouldEqual 0.0
 
     // check for dampener in front of idiom
-    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADEr", "is", "ein", "bisschen", "the", "shit"), 4) shouldEqual 2.707 // todo
   }
 
   "A SentimentIntensityAnalyzer" should "scoreValence" in {

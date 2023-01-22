@@ -43,7 +43,7 @@ class SentiTextTest extends AnyFlatSpec with should.Matchers {
     val complexSentiText = new SentiText("The plot was good, but the characters are uncompelling and the dialog is not great.")
     complexSentiText.wordsAndEmoticons shouldEqual Seq("The", "plot", "was", "good", "but", "the", "characters", "are", "uncompelling", "and", "the", "dialog", "is", "not", "great")
 
-    // text with "a", only relevant for english analysis
+    // should tokenze "a", only relevant for english analysis
     val sentiTextWithA = new SentiText("it isn't a horrible book.")
     sentiTextWithA.wordsAndEmoticons shouldEqual Seq("it", "isn't", "a", "horrible", "book")
   }

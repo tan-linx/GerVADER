@@ -33,7 +33,7 @@ object EvaluationProgram {
     evaluate("Holidaycheck", "holidaycheck.china.predicted.tsv", sc)
     evaluate("PotTS", "PotTS.predicted.tsv", sc)
     evaluate("Sb10k", "sb10k.predicted.tsv", sc)
-    evaluate("Sb10k", "sb10k.predicted.tsv", sc, true)
+    evaluate("Sb10k", "sb10k.predicted.tsv", sc)
     evaluate("Scare News Apps", "scare_news_apps.predicted.tsv", sc)
     evaluate("Scare Sport News", "scare_sport_news.predicted.tsv", sc)
 
@@ -47,7 +47,7 @@ object EvaluationProgram {
       case "pos" | "positive" | "positiv" => 1
       case "neg" | "negative" | "negativ" => -1
       case "neu" | "neutral" => 0
-      case _ => { // fix: there shouldnt be another label
+      case _ => {
         0
       }
     }

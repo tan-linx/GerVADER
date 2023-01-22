@@ -194,10 +194,10 @@ private[sentiment] object SentimentUtils {
     if (!boosterDict.contains(wordLower)) {
       0.0
     } else {
-      var scalar: Double = boosterDict(wordLower)
-      if (valence < 0) {
-        scalar *= -1
+      def negateScalar(): Double = {
+        if (valence < 0) -1 else 1
       }
+      val scalar: Double = boosterDict(wordLower) * negateScalar()
       scalar + allCapsBooster(word, valence, isCapDiff)
     }
   }
