@@ -125,16 +125,20 @@ class SentimentIntensityAnalyzer {
         }
       }
 
-      (-3 until 6).foldLeft(valence + SentimentUtils.allCapsBooster(item, valence, isCapDiff))(
+      (-4 until 5).foldLeft(valence + SentimentUtils.allCapsBooster(item, valence, isCapDiff))(
           (valenceAcc, startI) => {
-          if (i > startI) { // && !lexicon.contains(wordsAndEmoticons(i - (startI + 1)).toLowerCase())){
-            val scalar = scalarIncDec(startI, i, valenceAcc)
-            val valenceNeg = SentimentIntensityAnalyzer.negationCheck(valenceAcc + scalar, wordsAndEmoticons, startI, i)
-            if (startI == 2) { // ensures there are at least 2 preceding words
-              SentimentIntensityAnalyzer.idiomsCheck(valenceNeg, wordsAndEmoticons, i)
-            } else {
-              valenceNeg
-            }
+            val indexOfWordToCheck = i - (startI + 1)
+            if (i > startI && (indexOfWordToCheck >= 0 && indexOfWordToCheck <= wordsAndEmoticons.size-1)
+                && !lexicon.contains(wordsAndEmoticons(indexOfWordToCheck))) {
+              val scalar = scalarIncDec(startI, i, valenceAcc)
+              val valenceAfterNegationCheck = SentimentIntensityAnalyzer.negationCheck(valenceAcc + scalar, wordsAndEmoticons, startI, i)
+              if (startI == 2) // ensures there are at least 2 preceding words
+                SentimentIntensityAnalyzer.idiomsCheck(
+                  valenceAfterNegationCheck,
+                  wordsAndEmoticons.map(_.toLowerCase()),
+                  i
+                )
+              else valenceAfterNegationCheck
           } else {
             valenceAcc
           }
@@ -306,8 +310,6 @@ object SentimentIntensityAnalyzer {
    * @return `valence` of word at index `i` after idiomsCheck
    */
   def idiomsCheck(valenc: Double, wordsAndEmoticons: Seq[String], i: Int): Double = {
-    if (i < 3 || i > wordsAndEmoticons.size - 1) return valenc
-
     val oneZero = wordsAndEmoticons(i - 1).concat(" ").concat(wordsAndEmoticons(i))
     val twoOneZero = wordsAndEmoticons(i - 2)
       .concat(" ").concat(wordsAndEmoticons(i - 1)).concat(" ").concat(wordsAndEmoticons(i))
@@ -381,10 +383,8 @@ object SentimentIntensityAnalyzer {
     }
 
     startI match {
-      case -3 | -2 | -1 => {
-        if (wordsAndEmoticonsLower.size>i-startI)
-          negated(List(wordsAndEmoticonsLower(i-startI))) // 1st, 2nd, 3rd word following lexicon word is negation word
-        else valence
+      case -4 | -3 | -2 => {
+        negated(List(wordsAndEmoticonsLower(i - (startI + 1)))) // 1st, 2nd, 3rd word following lexicon word is negation word
       }
       case 0 => negated(List(wordsAndEmoticonsLower(i - 1))) // 1 word preceding lexicon word
       case 1 => {
@@ -401,9 +401,9 @@ object SentimentIntensityAnalyzer {
         else
           negated(List(wordsAndEmoticonsLower(i - (startI + 1)))) // 3 words preceding the lexicon word position
       }
-      case 3 | 4 | 5 | 6 => {
-        if (i - (startI + 1) >= 0 && sentenceLevel == true) // index should NOT be smaller than 0 & it negation & word should be in the same sentence
-          negated(List(wordsAndEmoticonsLower(i - (startI + 1)))) //4th, 5th, 6th word following lexicon word is negation word
+      case 3 | 4 | 5 => {
+        if (sentenceLevel == true) // negation & word should be in the same sentence
+          negated(List(wordsAndEmoticonsLower(i - (startI + 1)))) // 4th, 5th, 6th word preceding lexicon word is negation word
         else valence
       }
       case _ => valence
