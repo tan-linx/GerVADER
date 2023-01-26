@@ -115,24 +115,22 @@ class SentimentIntensityAnalyzer {
 
     def mergeBoosterNegationIdiomsCheck(): Double = {
       def scalarIncDec(startI: Int, i: Int, valenceAcc: Double): Double = {
-        if (startI >= 0) {
-          val s: Double = SentimentUtils.scalarIncDec(wordsAndEmoticons(i - (startI + 1)), valenceAcc, isCapDiff) //
-          if (startI == 1 && s != 0) s * 0.95 // 2 words preceding item is booster
-          else if (startI == 2 && s != 0) s * 0.9 // 3 words preceding item is booster
+        if (startI >= 1 && startI <= 3) { // booster should only influence max 3 words preceding
+          val s: Double = SentimentUtils.scalarIncDec(wordsAndEmoticons(i - startI), valenceAcc, isCapDiff)
+          if (startI == 2 && s != 0) s * 0.95 // 2 words preceding item is booster
+          else if (startI == 3 && s != 0) s * 0.9 // 3 words preceding item is booster
           else s
-        } else {
-          0.0
-        }
+        } else 0.0
       }
 
-      (-4 until 5).foldLeft(valence + SentimentUtils.allCapsBooster(item, valence, isCapDiff))(
+      (-3 until 6).foldLeft(valence + SentimentUtils.allCapsBooster(item, valence, isCapDiff))(
           (valenceAcc, startI) => {
-            val indexOfWordToCheck = i - (startI + 1)
-            if (i > startI && (indexOfWordToCheck >= 0 && indexOfWordToCheck <= wordsAndEmoticons.size-1)
+            val indexOfWordToCheck = i - startI
+            if ((indexOfWordToCheck >= 0 && indexOfWordToCheck <= wordsAndEmoticons.size-1)
                 && !lexicon.contains(wordsAndEmoticons(indexOfWordToCheck))) {
               val scalar = scalarIncDec(startI, i, valenceAcc)
               val valenceAfterNegationCheck = SentimentIntensityAnalyzer.negationCheck(valenceAcc + scalar, wordsAndEmoticons, startI, i)
-              if (startI == 2) // ensures there are at least 2 preceding words
+              if (startI == 3) // ensures there are at least 2 preceding words
                 SentimentIntensityAnalyzer.idiomsCheck(
                   valenceAfterNegationCheck,
                   wordsAndEmoticons.map(_.toLowerCase()),
@@ -383,27 +381,27 @@ object SentimentIntensityAnalyzer {
     }
 
     startI match {
-      case -4 | -3 | -2 => {
-        negated(List(wordsAndEmoticonsLower(i - (startI + 1)))) // 1st, 2nd, 3rd word following lexicon word is negation word
+      case -3 | -2 | -1 => {
+        negated(List(wordsAndEmoticonsLower(i - startI))) // 1st, 2nd, 3rd word following lexicon word is negation word
       }
-      case 0 => negated(List(wordsAndEmoticonsLower(i - 1))) // 1 word preceding lexicon word
-      case 1 => {
+      case 1 => negated(List(wordsAndEmoticonsLower(i - 1))) // 1 word preceding lexicon word
+      case 2 => {
         if ((wordsAndEmoticonsLower(i - 2) == "nie" || wordsAndEmoticonsLower(i - 2) == "selten") &&
             wordsAndEmoticonsLower(i - 1) == "so")
           valence * 1.25
         else
-          negated(List(wordsAndEmoticonsLower(i - (startI + 1)))) // 2 words preceding the lexicon word position
+          negated(List(wordsAndEmoticonsLower(i - startI))) // 2 words preceding the lexicon word position
       }
-      case 2 => {
+      case 3 => {
         if ((wordsAndEmoticonsLower(i - 3) == "nie" || wordsAndEmoticonsLower(i - 3) == "selten") &&
             (wordsAndEmoticonsLower(i - 2) == "so" ) || (wordsAndEmoticonsLower(i - 1) == "so"))
           valence * 1.25
         else
-          negated(List(wordsAndEmoticonsLower(i - (startI + 1)))) // 3 words preceding the lexicon word position
+          negated(List(wordsAndEmoticonsLower(i - startI))) // 3 words preceding the lexicon word position
       }
-      case 3 | 4 | 5 => {
+      case 4 | 5 | 6 => {
         if (sentenceLevel == true) // negation & word should be in the same sentence
-          negated(List(wordsAndEmoticonsLower(i - (startI + 1)))) // 4th, 5th, 6th word preceding lexicon word is negation word
+          negated(List(wordsAndEmoticonsLower(i - startI))) // 4th, 5th, 6th word preceding lexicon word is negation word
         else valence
       }
       case _ => valence

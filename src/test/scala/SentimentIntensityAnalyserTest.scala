@@ -77,7 +77,7 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
 
     // original GerVADER: 0.3182, with leastCheck: -0.2411, with dampener "mitunter": -0.1889
     analyzer.polarityScores("Roger Dodger ist mitunter eine der wenigsten verlockenden Themen.").compound shouldEqual
-    -0.1889
+     -0.2411
 
     val testnocaps = analyzer.polarityScores("Heute war ein schöner Tag")
     testnocaps.compound shouldEqual 0.5106
@@ -123,28 +123,28 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
   "A SentimentIntensityAnalyzer" should "negationCheck" in {
     val analyzer = new SentimentIntensityAnalyzer
     // 1word preceding lexicon word "schlechtes" (w/o stopwords)
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Es", "ist", "kein", "schlechtes", "Buch", ":)"), 0, 3) shouldEqual -0.74
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Es", "ist", "kein", "schlechtes", "Buch", ":)"), 1, 3) shouldEqual -0.74
     // 2 word preceding lexicon word "angst" (w/o stopwords)
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("sie", "hat", "nicht", "wirklich","angst"), 1, 4) shouldEqual -0.74
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("sie", "hat", "nicht", "wirklich","angst"), 2, 4) shouldEqual -0.74
     // 3 word preceding lexicon word (w/o stopwords)
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich", "bin", "selten", "für", "sie", "da"), 2, 5) shouldEqual -0.74
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich", "bin", "selten", "für", "sie", "da"), 3, 5) shouldEqual -0.74
     // 3 word preceding the lexikon, word preceding the lexikon is "this", "so"
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("nie", "wieder", "so",":-)"), 2, 3) shouldEqual 1.25
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("nie", "wieder", "so",":-)"), 3, 3) shouldEqual 1.25
     // 2 words preceding the lexikon is "never this/so" -> "nie so"
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich", "war", "nie", "so", "dankbar", "ein", "freundliches", "gesicht", "zu", "sehen"), 1, 4) shouldEqual 1.25
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich", "war", "nie", "so", "dankbar", "ein", "freundliches", "gesicht", "zu", "sehen"), 2, 4) shouldEqual 1.25
     // 3 words preceding the lexikon is "never this/so" -> "nie so"
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich", "war", "noch", "nie", "so", "krass", "hungrig"), 2, 6) shouldEqual 1.25
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich", "war", "noch", "nie", "so", "krass", "hungrig"), 3, 6) shouldEqual 1.25
     SentimentIntensityAnalyzer.negationCheck(1.0, Seq("ich", "mag", "dich"), 0, 1) shouldEqual 1.0
 
     // negation 4 words preceding the item at i has no influence
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("ich", "mochte", "Mathe", "nicht", "damals", "doch", "jetzt", "mag", "ich", "es"), 4, 7) shouldEqual 1.0
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("ich", "mochte", "Mathe", "nicht", "damals", "doch", "jetzt", "mag", "ich", "es"), 5, 7) shouldEqual 1.0
 
     SentimentIntensityAnalyzer.negationCheck(2.4, Seq("Ich", "hab", "selten", "so", "gelacht"), 2, 4) shouldEqual 3.0
     // 2.4*1.25
 
     // negation should not influence words of following sentence
-    SentimentIntensityAnalyzer.negationCheck(2.4, Seq("Sie", "mag", "den", "Film", "nicht", "sie", "hat", "trotzdem", "gelacht"), 3, 8, sentenceLevel = false) shouldEqual 2.4
-    SentimentIntensityAnalyzer.negationCheck(2.4, Seq("Sie", "mag", "den", "Film", "nicht", "sie", "hat", "trotzdem", "gelacht"), 3, 8, sentenceLevel = true) shouldEqual -1.776
+    SentimentIntensityAnalyzer.negationCheck(2.4, Seq("Sie", "mag", "den", "Film", "nicht", "sie", "hat", "trotzdem", "gelacht"), 4, 8, sentenceLevel = false) shouldEqual 2.4
+    SentimentIntensityAnalyzer.negationCheck(2.4, Seq("Sie", "mag", "den", "Film", "nicht", "sie", "hat", "trotzdem", "gelacht"), 4, 8, sentenceLevel = true) shouldEqual -1.776
   }
 
   "A SentimentIntensityAnalyzer" should "butCheck" in {
@@ -301,21 +301,21 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
 
   "A SentimentIntensityAnalyzer" should "negate sentence if 'nicht' is following the lexicon word" in {
     val analyzer = new SentimentIntensityAnalyzer()
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mag", "das"),  -1, 2) shouldEqual 1.0
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mag", "das"),  0, 2) shouldEqual 1.0
     // test of negation word is 1 word following the lexicon word
-    SentimentIntensityAnalyzer.negationCheck(1.4, Seq("es ", "funktioniert", "nicht"),  -2, 1) shouldEqual -1.036
+    SentimentIntensityAnalyzer.negationCheck(1.4, Seq("es ", "funktioniert", "nicht"),  -1, 1) shouldEqual -1.036
     // examples given by Tymann et. al
     // negation word is 2 words following the lexicon word
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mag", "das", "nicht"),  -3, 1) shouldEqual -0.74
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mag", "das", "nicht"),  -2, 1) shouldEqual -0.74
     // negation word is 3 words following the lexicon word
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mochte", "das", "noch", "nie"),  -4, 1) shouldEqual -0.74
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mochte", "das", "noch", "nie"),  -3, 1) shouldEqual -0.74
     // negation word is 4 words following the lexicon word
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mochte", "das", "wirkich", "noch", "nie"),  -5, 1) shouldEqual 1.0
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "mochte", "das", "wirkich", "noch", "nie"),  -4, 1) shouldEqual 1.0
   }
 
   "A SentimentIntensityAnalyzer" should "handle problems with  negation of longer sentences" in {
     // Tymann et. al 1. Ich finde nicht, dass diese Menschen wirklich freundlich sind. (rated posi- tive, should be negative)
     val analyzer = new SentimentIntensityAnalyzer()
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "finde", "nicht", "dass", "diese", "Menschen", "wirklich", "freundlich", "sind"),  4, 7) shouldEqual -0.74
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "finde", "nicht", "dass", "diese", "Menschen", "wirklich", "freundlich", "sind"), 5, 7) shouldEqual -0.74
   }
 }

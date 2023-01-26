@@ -215,7 +215,7 @@ private[sentiment] object SentimentUtils {
 
   /**
    * Increases/decreases scalar if `word` is a booster
-   *
+   * Check if the preceding words increase, decrease, or negate/nullify the valence
    * @param word potential booster word
    * @param valence valence of word following booster word
    * @param isCapDiff `True` if there is a cap differential in the sentence
