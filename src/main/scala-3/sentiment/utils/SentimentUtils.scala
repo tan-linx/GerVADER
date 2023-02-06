@@ -125,15 +125,25 @@ private[sentiment] object SentimentUtils {
     //"sort-of" -> BDecr
   )
 
+  // check for sentiment laden idioms that contain lexicon words (future work, not yet implemented)
   val specialCaseIdioms = Map[String, Double](
     "der scheiß" -> 3,
-    "the shit" -> 3,
-    "the bomb" -> 3,
+  )
+
+  // sentiment laden idioms that do not contain lexicon words (future work, not yet implemented)
+  val sentimentLadenIdioms = Map[String, Double](
     "bad ass" -> 1.5,
-    "yeah right" -> -2,
-    "cut the mustard" -> 2,
-    "kiss of death" -> -1.5,
-    "hand to mouth" -> -2
+    "schuss ins knie" -> -2.3,
+    "läuft bei" -> 1.8,
+    "bull shit" -> -2.8,
+    "halt dein maul" -> -1.3,
+    "halt dein maul" -> -1.3,
+    "gehört sich nicht" -> -1.1,
+    "für die tonne" -> -2,
+    "nach hinten losgehen" -> -1.4,
+    "nach hinten los" ->  -1.4,
+    "nach hinten losgegangen" -> -1.4,
+    "das Wasser reichen" -> 0.4 // e.g. based on synonym konkurrenzfähig
   )
 
   /**

@@ -107,7 +107,8 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
 
     analyzer.polarityScores("Andere Sentimentanalysentools können ziemlich schlecht sein.").compound shouldEqual -0.4033
 
-    analyzer.polarityScores(" Mit Vader, sind Sentimentanalysen der Shit!").compound shouldEqual 0.0
+    // Original-VADER: 0.6476}
+    analyzer.polarityScores("Mit Vader, sind Sentimentanalysen der scheiß!").compound shouldEqual 0.6476
 
     analyzer.polarityScores("Die meisten Sentimentanalysen sind scheiße!").compound shouldEqual -0.5707
 
@@ -118,6 +119,13 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
     // evaluation should be more accurate on sentence level
     analyzer.polarityScores("ich mag dich nicht. sie mag mich auch nicht.").compound shouldEqual -0.0842
     analyzer.polarityScoresSentenceLevel("ich mag dich nicht. sie mag mich auch nicht.") shouldEqual -0.3089
+
+    // should be negative
+    analyzer.polarityScoresSentenceLevel("Eher nicht, es war nicht gut!") shouldEqual 0.3489
+    analyzer.polarityScoresSentenceLevel("...das hat nichts und wieder nichts mit Freiheit zu tun!") shouldEqual 0.4469
+    analyzer.polarityScoresSentenceLevel("Ich finde nicht, dass Sanktionen wirklich vorteilhaft sind") shouldEqual -0.2924
+    analyzer.polarityScoresSentenceLevel("Ich finde nicht, dass diese Sanktionen vorteilhaft sind") shouldEqual -0.2924
+    analyzer.polarityScoresSentenceLevel("Ich finde nicht, dass diese Sanktionen wirklich sehr vorteilhaft sind") shouldEqual -0.3401
   }
 
   "A SentimentIntensityAnalyzer" should "negationCheck" in {
@@ -171,26 +179,10 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
   }
 
   "A SentimentIntensityAnalyzer" should "idiomsCheck" in {
-    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADEr", "is", "der", "scheiß"), 3) shouldEqual 3
-
-   //SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "is", "the", "bomb"), 0) shouldEqual 3
-    // booster/dampener check
-    //SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "book", "was", "kind", "of", "good"), 5) shouldEqual -0.293
-    //SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 5) shouldEqual -0.293
-    // word at index 4 of
-    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "book", "was", "sort", "of", "good"), 4) shouldEqual 0
-
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADEr", "ist", "der", "scheiß"), 3) shouldEqual 3
     // zeroOne idioms
-    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "VADER", "algorithm", "ist", "the", "shit", "ha"), 4) shouldEqual 3
-
-    // zeroOneTwo
-    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("The", "VADER", "algorithm", "will", "cut", "the", "mustard"), 4)shouldEqual 2
+    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("Der", "VADER", "algorithmus", "ist", "der", "scheiß", "ha"), 4) shouldEqual 3
     // SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("was", "ein", "schuss", "ins", "knie"), 4) shouldEqual -2.3
-
-    // index out of bounds
-    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "will", "cut", "the", "mustard"), 2) shouldEqual 0.0
-    SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADER", "will", "cut", "the", "mustard"), 5) shouldEqual 0.0
-
     // check for dampener in front of idiom
     SentimentIntensityAnalyzer.idiomsCheck(0.0, Seq("VADEr", "is", "schon", "ein", "bisschen", "der", "scheiß"), 5) shouldEqual 2.707
   }

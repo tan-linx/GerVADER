@@ -123,7 +123,7 @@ class SentimentIntensityAnalyzer {
         } else 0.0
       }
 
-      (-3 until 6).foldLeft(valence + SentimentUtils.allCapsBooster(item, valence, isCapDiff))(
+      (-3 to 6).foldLeft(valence + SentimentUtils.allCapsBooster(item, valence, isCapDiff))(
           (valenceAcc, startI) => {
             val indexOfWordToCheck = i - startI
             if ((indexOfWordToCheck >= 0 && indexOfWordToCheck <= wordsAndEmoticons.size-1)
