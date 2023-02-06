@@ -14,8 +14,8 @@ class SentiTextTest extends AnyFlatSpec with should.Matchers {
     val sentiTextWithKindOf = new SentiText("The book was kind of good")
     sentiTextWithKindOf.wordsAndEmoticons shouldEqual Seq("The", "book", "was", "kind", "of", "good")
 
-    val puncAndEmojiText = new SentiText(".Removes :leading: and ,trailing !puncutation!!! :)")
-    puncAndEmojiText.wordsAndEmoticons shouldEqual Seq("Removes", "leading", "and", "trailing", "puncutation", ":)")
+    val puncAndEmojiText = new SentiText(".Removes :leading: and ,trailing !puncutation!!! :) :-)")
+    puncAndEmojiText.wordsAndEmoticons shouldEqual Seq("Removes", "leading", "and", "trailing", "puncutation", ":)", ":-)")
 
     val emojiAndPuncText = new SentiText("Removes leading and trailing puncutation :)!")
     emojiAndPuncText.wordsAndEmoticons shouldEqual Seq("Removes", "leading", "and", "trailing", "puncutation", ":)!")

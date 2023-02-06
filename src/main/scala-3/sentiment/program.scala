@@ -17,6 +17,7 @@ import scala.io.StdIn.readLine
 object Program {
   // to predict on sentence level
   private var predictOnSentenceLevel: Boolean = false
+  private var inputPath = s"additional_resources/inputs/balanced" //additional_resources/inputs/balanced
 
   def main(args: Array[String]): Unit = {
     val sentenceLevel = readLine("Press [Enter] for sentence level evaluation of input (recommended): ")
@@ -24,17 +25,23 @@ object Program {
 
     val input = readLine("Press [Enter] if you want to predict wiki, emotions, germeval2019, holidaycheck, potTS and sb10k: ")
     if (input.isEmpty) {
+      val datasetTypeCheck = readLine("Press [Enter] to evaluate unbalanced datasets: ")
+      if(datasetTypeCheck.isEmpty) inputPath = "additional_resources/inputs"
       predictPublicSentimentDatasets()
     } else {
       val input = readLine("Predict type a) an entire file or b) a sentence: ")
       if (input == "a") {
-        val fileName = readLine("Type name of file to predict (e.g. tweets.tsv format (text label)): ")
-        // if fileN
-        // val file = ResourceUtils.readFileAsListUTF("additional_resources/inputs/labeled_tweets.tsv")
+        val fileName = readLine("Type name of file to predict (should be in root of this project): ")
+
         try {
           if (fileName.isEmpty) return
           val file = ResourceUtils.readFileAsListUTF(fileName)
-          predict(file, textIndex=0, labelIndex=1, "predictions.tsv")
+          print("Type the index of the text:")
+          val textIndexInput = scala.io.StdIn.readInt()
+          print("Type the index of the label:")
+          val labelIndexInput = scala.io.StdIn.readInt()
+
+          predict(file, textIndex=textIndexInput, labelIndex=labelIndexInput, "predictions.tsv")
         } catch {
           case e: java.io.FileNotFoundException => println("Couldn't find that file.")
           case e: java.io.IOException => println("Had an IOException trying to read that file")
@@ -91,12 +98,19 @@ object Program {
     val predictions = data.map(
       line => {
         val lineArray = line.trim().split('\t')
-        val label = PreprocessingUtils.cleanLabel(lineArray(labelIndex))
-        val text = lineArray(textIndex)
-        val sentimentIntensity: Double = getSentimentIntensity(text)
-          //analyzer.polarityScores(text).compound  // better: average polarity scores of each sentence
-        val polarity = SentimentUtils.getPolarity(sentimentIntensity)
-        (text, label, sentimentIntensity, polarity)
+        try {
+          val label = PreprocessingUtils.cleanLabel(lineArray(labelIndex))
+          val text = lineArray(textIndex)
+          val sentimentIntensity: Double = getSentimentIntensity(text)
+          val polarity = SentimentUtils.getPolarity(sentimentIntensity)
+          (text, label, sentimentIntensity, polarity)
+        } catch {
+          case e: java.lang.ArrayIndexOutOfBoundsException =>
+            {
+              (e.toString(), "", 0.0, "")
+            }
+          case e: Exception => (e.toString(), "", 0.0, "")
+        }
       }
     ).filter(line => line._2 != "unknown").toList
     val folder = if (predictOnSentenceLevel) "sentence" else "text"
@@ -116,7 +130,7 @@ object Program {
   def evaluatePerformance(): Unit =  {
       // evaluating computational performance based on sb10k
       val analyzer = new SentimentIntensityAnalyzer
-      val data = ResourceUtils.readFileAsListUTF("additional_resources/inputs/sb10k_corpus_v1.0.cgsa.tsv")
+      val data = ResourceUtils.readFileAsListUTF(s"${inputPath}/sb10k_corpus_v1.0.cgsa.tsv")
       val texts = data.map(
         line =>
           val lineArray = line.trim().split('\t')

@@ -9,15 +9,11 @@ private[sentiment] object SentimentUtils {
   val CIncr: Double = 0.733
   val NScalar: Double = -0.74
 
-  val puncList = List(
-    ".", "!", "?", ",", ";", ":", "-", "'", "\"", "!!", "!!!",
-    "??", "???", "?!?", "!?!", "?!?!", "!?!?"
-  )
-
-  val negate = List(
-    "nicht", "nie",
-    "never", "niemals",
-    "kein", "keine", "keinen", "keinem", "nope", "nichts", "weder", "nix", "nirgendwo",
+  val negations = List(
+    "nicht", "nie", "nich", "net",
+    "never", "niemals", "keiner", "kein","keine", "keinen", "keinem", "keinster",
+    "nope", "nichts", "weder", "nix", "nimmer",
+    "nirgends", "nirgendwo", "keinerlei", "keineswegs",
     "uhuh","uh-uh",
     "ohne", "selten", "kaum", "seltenst", "rar", "trotz", "trotzdem", "obwohl"
   )
@@ -33,8 +29,19 @@ private[sentiment] object SentimentUtils {
     "verdammt" -> BIncr, //"effing" -> BIncr,
     "überaus" -> BIncr, //"enormously" -> BIncr,
     //"entirely" -> BIncr,
-    "besonders" -> BIncr, // "especially" -> BIncr,
-    "außerordentlich" -> BIncr, "außergewöhnlich" -> BIncr, "ungemein" -> BIncr,  //"exceptionally" -> BIncr,
+    "volle"-> BIncr,
+    "voll"-> BIncr,
+    "vollen"-> BIncr,
+    "vollem"-> BIncr,
+    "voller"-> BIncr,
+    "besonders" -> BIncr,
+    "insbesonders" -> BIncr,
+    "insbesondere" -> BIncr,
+    // "especially" -> BIncr,
+    "außerordentlich" -> BIncr,
+    "außergewöhnlich" -> BIncr,
+    "ungemein" -> BIncr,  //"exceptionally" -> BIncr,
+    "ungewöhnlich" -> BIncr,
     "äußerst" -> BIncr, "extrem" -> BIncr, //"extremely" -> BIncr,
     "sagenhaft" -> BIncr, //"fabulously" -> BIncr,
     //"flipping" -> BIncr,
@@ -44,7 +51,9 @@ private[sentiment] object SentimentUtils {
     //"frigging" -> BIncr,
     //"friggin" -> BIncr,
     //"fully" -> BIncr,
-    "verfickt" -> BIncr, //"fucking" -> BIncr,
+    "verfickt" -> BIncr,
+    "fucking" -> BIncr,
+    "fuckin" -> BIncr,
     "sehr" -> BIncr, "massiv" -> BIncr, "mega" -> BIncr,   //"greatly" -> BIncr,
     //"hella" -> BIncr,
     "höchst" -> BIncr, //"highly" -> BIncr,
@@ -53,37 +62,60 @@ private[sentiment] object SentimentUtils {
     //"intensely" -> BIncr,
     //"majorly" -> BIncr,
     //"more" -> BIncr,
+    "mehr" -> BIncr,
     //"most" -> BIncr,
     //"particularly" -> BIncr,
     //"purely" -> BIncr,
+    "pures" -> BIncr,
     //"quite" -> BIncr,
     //"really" -> BIncr,
+    "richtig" -> BIncr,
     //"remarkably" -> BIncr,
+    "auffallend" -> BIncr,
     "so" -> BIncr,
-    "wesentlich" -> BIncr,  //"substantially" -> BIncr,
+    "derartig" -> BIncr,
+    "derartige" -> BIncr,
+    "derartiges" -> BIncr,
+    "derartigen" -> BIncr,
+    "derartigem" -> BIncr,
+    "wesentlich" -> BIncr,
+    "substanziell" -> BIncr,
+    "substanzielle" -> BIncr,
+    "substanzieller" -> BIncr,
+    "substanziellen" -> BIncr,
     //"thoroughly" -> BIncr,
+    "tiefgründig" -> BIncr,
     //"totally" -> BIncr,
     //"tremendously" -> BIncr,
     "über" -> BIncr, //"uber" -> BIncr,
     //"unbelievably" -> BIncr,
+    "unglaublich" -> BIncr,
     //"unusually" -> BIncr,
     //"utterly" -> BIncr,
     //"very" -> BIncr,
-    //////////
     "fast" -> BDecr, "nahezu" -> BDecr, "beinahe" -> BDecr, "beinah" -> BDecr, //"almost" -> BDecr,
     //"barely" -> BDecr,
+    "wenig" -> BDecr,
     "kaum" -> BDecr, //"hardly" -> BDecr,
     "geradeso" -> BDecr, //"just enough" -> BDecr,
     "irgendwie" -> BDecr, "ziemlich" -> BDecr, "quasi" -> BDecr, "ein bisschen" -> BDecr,
-  //"kind of" -> BDecr,
-    //"kinda" -> BDecr,
+    //"kind of" -> BDecr,
+    "kinda" -> BDecr,
     //"kindof" -> BDecr,
     //"kind-of" -> BDecr,
     //"less" -> BDecr,
+    "weniger" -> BDecr,
+    "wenige" -> BDecr,
+    "wenigen" -> BDecr,
     //"little" -> BDecr,
+    "kinda" -> BDecr,
+    "recht" -> BDecr,
+    "relativ" -> BDecr,
+    "vergleichsweise" -> BDecr,
     "geringfügig" -> BDecr, "unwesentlich" -> BDecr, "marginal" -> BDecr, //"marginally" -> BDecr,
     "zeitweise" -> BDecr, "gelegentlich" -> BDecr, "mitunter" -> BDecr, //"occasionally" -> BDecr,
     "halbwegs" -> BDecr, "teils" -> BDecr, "teilweise" -> BDecr, //"partly" -> BDecr,
+    "sozusagen" -> BDecr,
     //"scarcely" -> BDecr,
     "etwas" -> BDecr, "bisschen" -> BDecr, //"slightly" -> BDecr,
     "einigermaßen" -> BDecr, //"somewhat" -> BDecr,
@@ -135,7 +167,7 @@ private[sentiment] object SentimentUtils {
         case Nil => false
       }
     }
-    if (containsNegation(negate) || includenT && containsnT(inputWordsLC)) true
+    if (containsNegation(negations) || includenT && containsnT(inputWordsLC)) true
     else false
     /* if (inputWords.contains("least")) {
       val i = inputWords.indexOf("least")

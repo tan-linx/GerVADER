@@ -72,8 +72,8 @@ class SentimentIntensityAnalyzer {
    * @return valence of `item`
   */
   def sentimentValence(valenc: Double, sentiText: SentiText, item: String, i: Int): Double = {
-    val isCapDiff: Boolean = sentiText.isCapDifferential
     val wordsAndEmoticons = sentiText.wordsAndEmoticons
+    val isCapDiff: Boolean = SentimentUtils.allCapDifferential(wordsAndEmoticons)
     val itemLowerCase: String = item.toLowerCase()
     val itemFirstLetterCapitalized = item.toLowerCase().capitalize
 

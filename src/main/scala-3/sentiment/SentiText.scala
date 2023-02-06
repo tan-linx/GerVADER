@@ -1,6 +1,5 @@
 package sentiment
 
-import sentiment.utils.SentimentUtils
 import scala.annotation.tailrec
 
 /**
@@ -9,7 +8,6 @@ import scala.annotation.tailrec
  */
 private[sentiment] class SentiText(val text: String) {
   val wordsAndEmoticons: Seq[String] = getWordsAndEmoticons()
-  val isCapDifferential: Boolean = SentimentUtils.allCapDifferential(wordsAndEmoticons)
 
   /**
    * Tokenizes `text`.
@@ -19,11 +17,16 @@ private[sentiment] class SentiText(val text: String) {
    */
   private def getWordsAndEmoticons(): List[String] = {
     val wes: List[String] = text.split(" ").toList
-    wes.map(x => SentiText.stripPuncIfWord(x, SentimentUtils.puncList)).filter(x => x.length > 0).toList
+    wes.map(x => SentiText.stripPuncIfWord(x, SentiText.puncList)).filter(x => x.length > 0).toList
   }
 }
 
 private[sentiment] object SentiText {
+  private val puncList = List(
+    ",,",".", "!", "?", ",", ";", ":", "-", "'", "\"", "!!", "!!!",
+    "??", "???", "?!?", "!?!", "?!?!", "!?!?", "“","„", "““", "\"", "\"\"",
+    "..", "...", "....", "#", "*", "«", "««", "»", "»»", "\"!", "!\"", ".\""
+  )
 
   /**
    * Removes all trailing and leading punctuation.
