@@ -25,7 +25,7 @@ class SentimentIntensityAnalyzer {
   def polarityScoresSentenceLevel(input: String): Double = {
     val textSplitted = PreprocessingUtils.splitSentences(input)
     val averagePolarityScores: Double =
-      textSplitted.map(sentence => polarityScores(sentence).compound).sum.toDouble/textSplitted.size
+      textSplitted.map(sentence => polarityScores(sentence, sentenceLevel=true).compound).sum.toDouble/textSplitted.size
     SentimentIntensityAnalyzer.roundWithDecimalPlaces(averagePolarityScores, 4)
   }
 
@@ -35,7 +35,7 @@ class SentimentIntensityAnalyzer {
    * @param input text that polarity scores are being calculated for
    * @return polarity scores of `input`
    */
-  def polarityScores(input: String): SentimentAnalysisResults = {
+  def polarityScores(input: String, sentenceLevel: Boolean = false): SentimentAnalysisResults = {
     // convert emojis to their textual descriptions
     val emojisInInput = "[^\u0000-\uFFFF]".r.findAllIn(input).toList
     val textNoEmoji = replaceEmojisWithDescription(emojisInInput, input)
@@ -53,7 +53,7 @@ class SentimentIntensityAnalyzer {
             || SentimentUtils.boosterDict.contains(item.toLowerCase())) {
           valence
         } else {
-          sentimentValence(valence, sentiText, item, i)
+          sentimentValence(valence, sentiText, item, i, sentenceLevel = sentenceLevel)
         }
       }
     ).toList.to(ListBuffer)
@@ -71,7 +71,7 @@ class SentimentIntensityAnalyzer {
    * @param i `index` of `item` in sentiText
    * @return valence of `item`
   */
-  def sentimentValence(valenc: Double, sentiText: SentiText, item: String, i: Int): Double = {
+  def sentimentValence(valenc: Double, sentiText: SentiText, item: String, i: Int, sentenceLevel: Boolean = false): Double = {
     val wordsAndEmoticons = sentiText.wordsAndEmoticons
     val isCapDiff: Boolean = SentimentUtils.allCapDifferential(wordsAndEmoticons)
     val itemLowerCase: String = item.toLowerCase()
@@ -129,7 +129,7 @@ class SentimentIntensityAnalyzer {
             if ((indexOfWordToCheck >= 0 && indexOfWordToCheck <= wordsAndEmoticons.size-1)
                 && !lexicon.contains(wordsAndEmoticons(indexOfWordToCheck))) {
               val scalar = scalarIncDec(startI, i, valenceAcc)
-              val valenceAfterNegationCheck = SentimentIntensityAnalyzer.negationCheck(valenceAcc + scalar, wordsAndEmoticons, startI, i)
+              val valenceAfterNegationCheck = SentimentIntensityAnalyzer.negationCheck(valenceAcc + scalar, wordsAndEmoticons, startI, i, sentenceLevel = sentenceLevel)
               if (startI == 3) // ensures there are at least 2 preceding words
                 SentimentIntensityAnalyzer.idiomsCheck(
                   valenceAfterNegationCheck,
@@ -372,7 +372,7 @@ object SentimentIntensityAnalyzer {
    * @param i index of token in `wordsAndEmoticons` that is being analyzed
    * @return valence of token at index `i` in `wordsAndEmoticons` after negationCheck
   */
-  def negationCheck(valence: Double, wordsAndEmoticons: Seq[String], startI: Int, i: Int, sentenceLevel: Boolean = true): Double = {
+  def negationCheck(valence: Double, wordsAndEmoticons: Seq[String], startI: Int, i: Int, sentenceLevel: Boolean = false): Double = {
     val wordsAndEmoticonsLower = wordsAndEmoticons.map(_.toLowerCase())
 
     def negated(potentialNegation: List[String]): Double = {

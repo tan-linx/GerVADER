@@ -308,6 +308,6 @@ class SentimentIntensityAnalyserTest extends AnyFlatSpec with should.Matchers {
   "A SentimentIntensityAnalyzer" should "handle problems with  negation of longer sentences" in {
     // Tymann et. al 1. Ich finde nicht, dass diese Menschen wirklich freundlich sind. (rated posi- tive, should be negative)
     val analyzer = new SentimentIntensityAnalyzer()
-    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "finde", "nicht", "dass", "diese", "Menschen", "wirklich", "freundlich", "sind"), 5, 7) shouldEqual -0.74
+    SentimentIntensityAnalyzer.negationCheck(1.0, Seq("Ich ", "finde", "nicht", "dass", "diese", "Menschen", "wirklich", "freundlich", "sind"), 5, 7, true) shouldEqual -0.74
   }
 }
