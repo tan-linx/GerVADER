@@ -1,0 +1,40 @@
+timestamp: 2023-01-30T22:07:47.774434
+--------------------------------------
+Sanction dataset
+446.0  73.0  183.0  
+107.0  98.0  73.0   
+131.0  38.0  100.0  
+Summary Statistics
+Accuracy = 0.5156124899919936
+Summary Statistics
+Precision(-1.0) = 0.652046783625731
+Precision(0.0) = 0.4688995215311005
+Precision(1.0) = 0.2808988764044944
+Recall(-1.0) = 0.6353276353276354
+Recall(0.0) = 0.35251798561151076
+Recall(1.0) = 0.37174721189591076
+F1-Score(-1.0) = 0.6435786435786436
+F1-Score(0.0) = 0.40246406570841886
+F1-Score(1.0) = 0.32
+Macro-averaged F1-Score = 0.45534756976235413
+Weighted F1 score: 0.5202219520089257
+Weighted precision: 0.5313472432695902
+Weighted recall: 0.5156124899919936
+--------------------------------------
+Sanction dataset
+----------------NO NEUTRALS----------------
+446.0  183.0  
+131.0  100.0  
+Summary Statistics
+Accuracy = 0.5623069001029866
+Summary Statistics
+Precision(-1.0) = 0.7729636048526863
+Precision(1.0) = 0.35335689045936397
+Recall(-1.0) = 0.6353276353276354
+Recall(1.0) = 0.37174721189591076
+F1-Score(-1.0) = 0.6974198592650509
+F1-Score(1.0) = 0.36231884057971014
+Macro-averaged F1-Score = 0.5298693499223806
+Weighted F1 score: 0.6045854884861048
+Weighted precision: 0.656718284387389
+Weighted recall: 0.5623069001029866

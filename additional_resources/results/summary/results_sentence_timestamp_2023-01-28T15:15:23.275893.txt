@@ -1,0 +1,22 @@
+timestamp: 2023-01-28T15:15:23.275893
+--------------------------------------
+Tweets ground truth
+750.0  343.0  205.0   
+0.0    3.0    1.0     
+226.0  734.0  1936.0  
+Summary Statistics
+Accuracy = 0.640543115769414
+Summary Statistics
+Precision(-1.0) = 0.7684426229508197
+Precision(0.0) = 0.002777777777777778
+Precision(1.0) = 0.903828197945845
+Recall(-1.0) = 0.5778120184899846
+Recall(0.0) = 0.75
+Recall(1.0) = 0.6685082872928176
+F1-Score(-1.0) = 0.6596306068601583
+F1-Score(0.0) = 0.005535055350553505
+F1-Score(1.0) = 0.7685589519650656
+Macro-averaged F1-Score = 0.4779082047252592
+Weighted F1 score: 0.734151832495645
+Weighted precision: 0.8611091226661368
+Weighted recall: 0.6405431157694139

@@ -1,0 +1,22 @@
+timestamp: 2023-01-30T22:45:40.280995
+--------------------------------------
+Sanction dataset
+380.0  69.0   253.0  
+80.0   105.0  93.0   
+117.0  36.0   116.0  
+Summary Statistics
+Accuracy = 0.4811849479583667
+Summary Statistics
+Precision(-1.0) = 0.658578856152513
+Precision(0.0) = 0.5
+Precision(1.0) = 0.2510822510822511
+Recall(-1.0) = 0.5413105413105413
+Recall(0.0) = 0.3776978417266187
+Recall(1.0) = 0.4312267657992565
+F1-Score(-1.0) = 0.5942142298670837
+F1-Score(0.0) = 0.430327868852459
+F1-Score(1.0) = 0.3173734610123119
+Macro-averaged F1-Score = 0.4473051865772848
+Weighted F1 score: 0.4981128886469081
+Weighted precision: 0.5355192014092791
+Weighted recall: 0.48118494795836664
