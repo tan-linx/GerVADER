@@ -29,19 +29,16 @@ object Program {
       if(datasetTypeCheck.isEmpty) inputPath = "additional_resources/inputs"
       predictPublicSentimentDatasets()
     } else {
-      val input = readLine("Predict type a) an entire file or b) a sentence: ")
+      val input = readLine("Type a) to predict an entire file or b) a sentence: ")
       if (input == "a") {
-        val fileName = readLine("Type name of file to predict (should be in root of this project): ")
+        val fileName = readLine("Type the name of the file to predict (should be in root of this project): ")
 
         try {
           if (fileName.isEmpty) return
-          val file = ResourceUtils.readFileAsListUTF(fileName)
+          val file = ResourceUtils.readFileAsListUTF(fileName.replaceAll("\\s", ""))
           print("Type the index of the text:")
           val textIndexInput = scala.io.StdIn.readInt()
-          print("Type the index of the label:")
-          val labelIndexInput = scala.io.StdIn.readInt()
-
-          predict(file, textIndex=textIndexInput, labelIndex=labelIndexInput, "predictions.tsv")
+          predict(file, textIndex=textIndexInput, -1, "predictions.tsv")
         } catch {
           case e: java.io.FileNotFoundException => println("Couldn't find that file.")
           case e: java.io.IOException => println("Had an IOException trying to read that file")
@@ -54,7 +51,7 @@ object Program {
         println(polarityScore)
       }
     }
-    evaluatePerformance()
+    // evaluatePerformance()
   }
 
   private def predictPublicSentimentDatasets(): Unit = {
@@ -91,26 +88,52 @@ object Program {
     * @param outputFile name of output file
     */
   private def predict(data: Seq[String], textIndex: Int, labelIndex: Int, outputFile: String): Unit = {
-    val predictions = data.map(
-      line => {
-        val lineArray = line.trim().split('\t')
-        try {
-          val label = PreprocessingUtils.cleanLabel(lineArray(labelIndex))
-          val text = lineArray(textIndex)
-          val sentimentIntensity: Double = getSentimentIntensity(text)
-          val polarity = SentimentUtils.getPolarity(sentimentIntensity)
-          (text, label, sentimentIntensity, polarity)
-        } catch {
-          case e: java.lang.ArrayIndexOutOfBoundsException =>
-            {
-              (e.toString(), "", 0.0, "")
-            }
-          case e: Exception => (e.toString(), "", 0.0, "")
+    var predictions =
+    if (labelIndex == -1) {
+      val predictions = data.map(
+        line => {
+          val lineArray = line.trim().split('\t')
+          try {
+            val text = lineArray(textIndex)
+            val sentimentIntensity: Double = getSentimentIntensity(text)
+            val polarity = SentimentUtils.getPolarity(sentimentIntensity)
+            (text, sentimentIntensity, polarity)
+          } catch {
+            case e: java.lang.ArrayIndexOutOfBoundsException =>
+              {
+                (e.toString(), 0.0, "")
+              }
+            case e: Exception => (e.toString(), 0.0, "")
+          }
         }
-      }
-    ).filter(line => line._2 != "unknown").toList
-    val folder = if (predictOnSentenceLevel) "sentence" else "text"
-    ResourceUtils.writeMapToTSV(predictions, s"additional_resources/results/${folder}/${outputFile}")
+      ).toList
+
+      val output = s"./${outputFile}"
+      writeMapToTSVWithoutLabel(predictions, output)
+    } else {
+      val predictions = data.map(
+        line => {
+          val lineArray = line.trim().split('\t')
+          try {
+            val label = if (labelIndex == -1) "no label" else PreprocessingUtils.cleanLabel(lineArray(labelIndex))
+            val text = lineArray(textIndex)
+            val sentimentIntensity: Double = getSentimentIntensity(text)
+            val polarity = SentimentUtils.getPolarity(sentimentIntensity)
+            (text, label, sentimentIntensity, polarity)
+          } catch {
+            case e: java.lang.ArrayIndexOutOfBoundsException =>
+              {
+                (e.toString(), "", 0.0, "")
+              }
+            case e: Exception => (e.toString(), "", 0.0, "")
+          }
+        }
+      ).filter(line => line._2 != "unknown").toList
+
+      val folder = if (predictOnSentenceLevel) "sentence" else "text"
+      val output = s"additional_resources/results/${folder}/${outputFile}"
+      writeMapToTSV(predictions, s"additional_resources/results/${folder}/${outputFile}")
+    }
   }
 
   private def getSentimentIntensity(text: String): Double = {
@@ -141,5 +164,23 @@ object Program {
       analyzer.polarityScores("Positiv sind die schnellen Ladezeiten, das geringe Downloadvolumen was m.M. nach wichtig für mobile Verbindungen ist. Negativ fällt mir teilweise der Journalismus auf. Hier wird des öfteren die Meinung des Journalisten propagiert, was eigentlich dem Leser vorbehalten sein sollte.")
       val durationText = (System.nanoTime - t2) / 1e9d
       println(s"Code runtime on single Sentence: ${durationText}")
+  }
+
+  // for evaluation purposes tweet_id -> (text, label, sentiment intensity, predicted_polarity)
+  def writeMapToTSV(data: List[(String, String, Double, String)], filename: String): Unit = {
+    val pw = new PrintWriter(filename)
+    data.foreach {
+      x => pw.write(s"${x._1}\t${x._2}\t${x._3}\t${x._4}\n")
+    }
+    pw.close()
+  }
+
+  // for program tweet_id -> (text, sentiment intensity, predicted_polarity)
+  def writeMapToTSVWithoutLabel(data: List[(String, Double, String)], filename: String): Unit = {
+    val pw = new PrintWriter(filename)
+    data.foreach {
+      x => pw.write(s"${x._1}\t${x._2}\t${x._3}\n")
+    }
+    pw.close()
   }
 }

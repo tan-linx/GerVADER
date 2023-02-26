@@ -100,18 +100,6 @@ class SentimentIntensityAnalyzer {
       }
     }
     val valence = getValence(words)
-    //   # check for "no" as negation for an adjacent lexicon item vs "no" as its own stand-alone lexicon item
-    // if (itemLowerCase == "no" &&
-    //     i != wordsAndEmoticons.size-1 &&
-    //     lexicon.contains(wordsAndEmoticons(i+1).toLowerCase)) {
-    //   // don't use valence of "no" as a lexicon item. Instead set it's valence to 0.0 and negate the next item
-    //   valence = 0.0
-    //   if ((i > 0 && wordsAndEmoticons(i - 1).toLowerCase == "no") ||
-    //       (i > 1 && wordsAndEmoticons(i - 2).toLowerCase == "no") ||
-    //       (i > 2 && wordsAndEmoticons(i - 3).toLowerCase == "no"
-    //       && List("or", "nor").contains(wordsAndEmoticons(i - 1).toLowerCase))
-    //   ) then valence = valence * SentimentUtils.NScalar
-    // }
 
     def mergeBoosterNegationIdiomsCheck(): Double = {
       def scalarIncDec(startI: Int, i: Int, valenceAcc: Double): Double = {
